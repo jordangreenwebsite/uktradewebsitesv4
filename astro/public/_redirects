@@ -3,3 +3,15 @@
 /contactus/ /contact-us/ 301
 /author/uktradewebsites/ /about-us/ 301
 /qs/ / 301
+
+# Friendly shortcuts for trade pages; retain /websites-for-.../ as the canonical URLs.
+/plumbers/ /websites-for-plumbers/ 301
+/electricians/ /websites-for-electricians/ 301
+/window-cleaners/ /websites-for-window-cleaners/ 301
+/painters/ /websites-for-painters/ 301
+/floor-cleaners/ /websites-for-floor-cleaners/ 301
+/roofers/ /websites-for-roofers/ 301
+/builders/ /websites-for-builders/ 301
+/landscapers/ /websites-for-landscapers/ 301
+/plasterers/ /websites-for-plasterers/ 301
+/driveway-cleaners/ /websites-for-driveway-cleaners/ 301
