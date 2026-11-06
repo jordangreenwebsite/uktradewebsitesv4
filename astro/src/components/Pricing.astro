@@ -1,34 +1,65 @@
 ---
-import {packages, monthlyOnly} from '../data/site';
+import {packages, monthlyOnly, seoHosting} from '../data/site';
+interface Props {fullPage?:boolean;}
+const {fullPage=false}=Astro.props;
 ---
-<section class="section pricing-section" id="pricing" aria-label="Trade website pricing packages">
+<section class="section pricing-section" id="pricing" aria-labelledby="pricing-title">
  <svg class="pricing-wave" aria-hidden="true" viewBox="0 0 1440 560" preserveAspectRatio="none"><path fill="#FF8C42" d="M0,145 C250,210 500,235 725,212 C995,180 1190,70 1440,0 V540 C1110,432 880,395 610,405 C375,414 205,435 0,476 Z"/></svg>
  <div class="container">
-  <div class="pricing-grid">
-    {packages.map((plan)=>
+   <div class="section-heading pricing-heading">
+     <p class="eyebrow">Straightforward website prices</p>
+     <h2 id="pricing-title">Our trade website packages</h2>
+     <p>Two website sizes. £39/month for standard hosting and technical upkeep, whichever build you choose.</p>
+   </div>
+   <div class="pricing-grid pricing-grid-two">
+    {packages.map(plan=>
       <article class:list={['price-card',{'featured':plan.featured}]}>
-        {plan.featured&&<span class="best-choice">Best Choice</span>}
+        {plan.featured&&<span class="best-choice">Popular choice</span>}
         <h3>{plan.name}</h3>
-        <p class="upfront"><strong>£{plan.upfront}</strong> Upfront</p>
-        <p class="monthly">£<strong>{plan.monthly}</strong><span> pm</span></p>
-        <p class="contract">12-Month Contract</p>
+        <p class="price-page-range">{plan.pageRange}</p>
+        <p class="upfront"><strong>£{plan.upfront}</strong> one-off build cost</p>
+        <p class="monthly">£<strong>{plan.monthly}</strong><span> /month</span></p>
+        <p class="monthly-label">Standard hosting &amp; technical upkeep</p>
+        <p class="contract">12-month minimum term</p>
         <p class="price-description">{plan.description}</p>
-        <ul class="tick-list">{plan.items.map(item=><li class:list={[{'no-bloat':item.toLowerCase()==='no bloat'}]}>{item}</li>)}</ul>
-        <a class="btn btn-primary" href={'/contact-us/#package='+encodeURIComponent(plan.name)}>Enquire</a>
-      </article>)}
-  </div>
-  <p class="pricing-note">One Extra Job A Month Easily Pays For The Website</p>
-  <div class="no-upfront">
-    <div><p class="eyebrow">Prefer no upfront cost?</p><h3>That's fine, spread the cost over the year!</h3></div>
-    <article class="price-card compact">
-      <span class="best-choice">No Upfront Cost</span>
-      <h3>{monthlyOnly.name}</h3>
-      <p class="monthly">£<strong>{monthlyOnly.monthly}</strong><span> pm</span></p>
-      <p class="contract">12-Month Contract · limited time offer</p>
-      <p class="price-description">{monthlyOnly.description}</p>
-      <ul class="tick-list">{monthlyOnly.items.map(item=><li class:list={[{'no-bloat':item.toLowerCase()==='no bloat'}]}>{item}</li>)}</ul>
-      <a class="btn btn-primary" href="/contact-us/#package=Trade%20Growth%20Website%20-%20No%20Upfront">Enquire</a>
-    </article>
-  </div>
+        <ul class="tick-list">{plan.items.map(item=><li>{item}</li>)}</ul>
+        <a class="btn btn-primary" href={'/contact-us/#package='+encodeURIComponent(plan.name)}>Enquire about {plan.name}</a>
+      </article>
+    )}
+   </div>
+   <div class="no-upfront no-upfront-clarified">
+     <div>
+       <p class="eyebrow">Prefer to spread the cost?</p>
+       <h3>5–9 pages with nothing to pay upfront.</h3>
+       <p>Our no-upfront option uses a proven trade website layout and content you provide. You pay a little more over the first year in exchange for avoiding the build fee.</p>
+       <p><strong>After 12 months your payment reduces to £39/month</strong> for standard hosting and technical upkeep.</p>
+     </div>
+     <article class="price-card compact">
+       <span class="best-choice">£0 upfront</span>
+       <h3>{monthlyOnly.name}</h3>
+       <p class="price-page-range">{monthlyOnly.pageRange}</p>
+       <p class="upfront"><strong>£0</strong> upfront build cost</p>
+       <p class="monthly">£<strong>{monthlyOnly.monthly}</strong><span> /month</span></p>
+       <p class="contract">First 12 months · then £{monthlyOnly.hostingAfterYear}/month</p>
+       <p class="price-description">{monthlyOnly.description}</p>
+       <ul class="tick-list">{monthlyOnly.items.map(item=><li>{item}</li>)}</ul>
+       <a class="btn btn-primary" href={'/contact-us/#package='+encodeURIComponent(monthlyOnly.name)}>Enquire about no-upfront</a>
+     </article>
+   </div>
+   <aside class="seo-hosting-band" aria-labelledby="seo-hosting-title">
+     <div>
+       <p class="eyebrow">Want to improve your Google visibility?</p>
+       <h3 id="seo-hosting-title">{seoHosting.heading}</h3>
+       <p>{seoHosting.detail}</p>
+       <p class="seo-hosting-small">{seoHosting.financedNote}</p>
+     </div>
+     <a class="btn btn-accent" href="/contact-us/#package=Ongoing%20SEO%20with%20hosting">Ask about SEO</a>
+   </aside>
+   <div class="pricing-custom">
+     <div><h3>Need 10+ pages or something bespoke?</h3><p>Bigger website builds and more advanced projects are handled through our wider agency, Prunus Media.</p></div>
+     <a href="https://prunusmedia.com/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Visit Prunus Media</a>
+   </div>
+   <p class="pricing-smallprint">A four-page website can be quoted within the Growth package. All packages cover the agreed scope; monthly payments cover hosting, SSL and basic technical upkeep, not unlimited amendments, ongoing SEO, domain renewals or paid third-party tools. Contact us for a written quote before starting.</p>
+   {!fullPage&&<p class="text-center pricing-page-cta"><a class="btn btn-outline" href="/pricing/">Compare pricing, terms and FAQs</a></p>}
  </div>
 </section>
