@@ -15,6 +15,17 @@ npm run build
 
 The prebuild script copies the **specific image assets currently used** from the parent repository's `wp-content/uploads` into `astro/public/wp-content/uploads`. It does not need a running WordPress installation, and it does not modify the source assets.
 
+## Cloudflare Pages production deployment
+
+The Astro source is merged into `main`. For the existing Cloudflare Pages project, use:
+- Production branch: `main`
+- Root directory: `astro`
+- Build command: `npm run build`
+- Build output directory: `dist`
+- Node.js: 22
+
+After changing Cloudflare's production branch, push a **new commit to `main`** to trigger a new production deployment; an earlier Preview deployment stays a Preview. Confirm the new deployment is labelled Production before treating the custom domain as migrated.
+
 ## Cloudflare Pages preview settings
 
 - Repository: `jordangreenwebsite/uktradewebsitesv4`
