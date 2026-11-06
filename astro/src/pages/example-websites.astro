@@ -1,0 +1,15 @@
+---
+import Layout from '../layouts/BaseLayout.astro';
+import PortfolioCard from '../components/PortfolioCard.astro';
+import ContactForm from '../components/ContactForm.astro';
+import {site,portfolio} from '../data/site';
+const clients=portfolio.filter(p=>p.type==='client');
+const concepts=portfolio.filter(p=>p.type==='concept');
+---
+<Layout title="Trade Website Examples | Websites for UK Trades" description="View example websites built for UK trades and service businesses. Real projects and clearly labelled concepts, built to generate more enquiries." path="/example-websites/">
+<section class="page-hero"><div class="container"><h1>Example Websites Built by Our Team</h1><p class="lead">A selection of real websites and concept examples showing the style, structure and quality we can create for trade and service businesses.</p><p class="portfolio-intro">UK Trade Websites is powered by Prunus Media. Some live examples may show Prunus Media branding or attribution, as they were built through our wider agency. The same team, process and standards sit behind both brands.</p><div class="hero-cta-row"><a class="btn btn-accent" href={site.whatsapp} target="_blank" rel="noopener noreferrer">Get My Trade Website</a><a class="btn btn-outline" href="/#pricing">View Pricing</a></div></div></section>
+<section class="section"><div class="container"><div class="section-heading"><h2>Live client websites</h2><p>Real websites built for businesses that needed a professional online presence, clearer services and an easier way for customers to enquire.</p></div><div class="portfolio-grid">{clients.map(item=><PortfolioCard {...item}/>)}</div></div></section>
+<section class="section section-light"><div class="container"><div class="section-heading"><h2>Trade Website Concepts</h2><p>These example websites were created to show how different trade websites could look. They are not client projects.</p><p>Like one of these styles? We can adapt the layout with your own business name, services, colours, photos, reviews and local areas.</p></div><div class="portfolio-grid">{concepts.map(item=><PortfolioCard {...item}/>)}</div></div></section>
+<section class="section"><div class="container split-grid"><div><h2>Built to turn visitors into enquiries</h2><p>A good website should do more than look nice. It should make your business look trustworthy, explain your services clearly and make it easy for customers to take action.</p></div><div class="feature-panel"><h2>What every website includes</h2><ul class="check-list"><li>Mobile-friendly design</li><li>Fast-loading pages</li><li>Clear call buttons</li><li>Quote request form</li><li>Services and areas covered</li><li>Reviews and previous work</li><li>Google-friendly page structure</li><li>Hosting and maintenance options</li><li>No unnecessary bloat</li></ul></div></div></section>
+<section class="bottom-contact"><div class="container"><p class="eyebrow text-center">Ready to get your website online?</p><ContactForm id="examples"/></div></section>
+</Layout>

@@ -1,0 +1,9 @@
+---
+import Layout from '../layouts/BaseLayout.astro';
+import ContactForm from '../components/ContactForm.astro';
+import {site} from '../data/site';
+---
+<Layout title="Contact Us - Get a Trade Website Quote" description="Tell us about your business and get a quote for a simple, professional website built to help your trade business get more work online." path="/contact-us/">
+<section class="page-hero"><div class="container"><h1>Ready to get started?</h1><h2>More Calls.<br/>More Quotes.<br/>More Jobs.</h2><a class="btn btn-accent" href={site.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp Us</a></div></section>
+<section class="bottom-contact"><div class="container"><ContactForm id="contact"/><h3 class="text-center" style="margin:30px auto 0;max-width:750px">Tell us about your business, services and location. We’ll help you choose the right website package and explain the quickest way to get your new site online.</h3></div></section>
+</Layout>

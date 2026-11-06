@@ -1,0 +1,67 @@
+---
+import Layout from '../layouts/BaseLayout.astro';
+import Pricing from '../components/Pricing.astro';
+import ContactForm from '../components/ContactForm.astro';
+import PortfolioCard from '../components/PortfolioCard.astro';
+import {site,portfolio} from '../data/site';
+import {trades} from '../data/trades';
+---
+<Layout title="Websites for Trades - Trade Website Design UK" path="/">
+  <section class="hero">
+    <div class="container hero-inner">
+      <div>
+        <h1>Websites For UK Trades</h1>
+        <h2>More Calls.<br/>More Quotes.<br/>More Jobs.</h2>
+        <h3>Professional websites built specifically for UK tradespeople.</h3>
+        <a class="btn btn-accent" href="/contact-us/">Get Started</a>
+      </div>
+      <ContactForm id="hero" />
+    </div>
+  </section>
+  <section class="section" aria-labelledby="trades-title">
+    <div class="container">
+      <p class="eyebrow text-center">If You're In The Trade, We Build The Websites.</p>
+      <div class="split-grid">
+        <div>
+          <h2 id="trades-title">Trades we work with:</h2>
+          <ul class="trade-links">{trades.map(t=><li><a href={'/'+t.slug+'/'}>{t.name.charAt(0).toUpperCase()+t.name.slice(1)}</a></li>)}</ul>
+        </div>
+        <div class="feature-panel">
+          <h2>What you get:</h2>
+          <ul class="check-list"><li>Fast Website</li><li>Google Optimised</li><li>Mobile Friendly</li><li>Lead Forms</li><li>Google Reviews</li><li>Local SEO Setup</li></ul>
+          <a href={site.whatsapp} target="_blank" rel="noopener noreferrer" class="btn btn-accent">WhatsApp Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <Pricing />
+  <section class="section section-light">
+    <div class="container split-grid">
+      <div>
+        <p class="eyebrow">The same team. A service built for trades.</p>
+        <h2>Website design focused on your business</h2>
+        <p>UK Trade Websites is a specialist service created by the team behind Prunus Media.</p>
+        <p>Prunus Media works with a wider range of UK businesses, while UK Trade Websites focuses specifically on trades — plumbers, electricians, roofers, builders, landscapers, decorators and other service-based businesses.</p>
+        <p>You get the experience of an established web design agency, with a simpler, faster and more affordable service built around what trade businesses actually need: trust, calls, quote requests and local visibility.</p>
+      </div>
+      <div class="card-grid" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+        <article class="info-card"><img src={site.logo} width="100" height="100" alt="UK Trade Websites" loading="lazy"/><h3>UK Trade Websites</h3><p>For trades who want a fast, professional website that helps generate calls and quote requests.</p><a href="/about-us/">Learn More</a></article>
+        <article class="info-card"><img src="/wp-content/uploads/2026/05/Prunus-Media-Left-orientation-300x300.png" width="100" height="100" alt="Prunus Media" loading="lazy"/><h3>Prunus Media</h3><p>For wider businesses needing broader digital services, branding, SEO, content or more custom websites.</p><a href="https://prunusmedia.com/" rel="noopener noreferrer">Learn More</a></article>
+      </div>
+    </div>
+  </section>
+  <section class="section" aria-labelledby="examples-heading">
+    <div class="container">
+      <div class="section-heading"><h2 id="examples-heading">Example Websites</h2><p>See how a professional site can look for different businesses and services.</p></div>
+      <div class="portfolio-grid">{portfolio.slice(0,3).map(item=><PortfolioCard {...item}/>)}</div>
+      <div class="text-center" style="margin-top:35px"><a href="/example-websites/" class="btn btn-primary">View Example Websites</a></div>
+    </div>
+  </section>
+  <section class="section section-light">
+    <div class="container split-grid">
+      <div><h2>Why trades need a proper website</h2><p>Most trades rely on word of mouth, but today, customers are searching online before they pick up the phone. If your website looks outdated or doesn't clearly show what you do, you're losing jobs to competitors who look more professional.</p><p>A well-built website helps you stand out, builds trust instantly, and makes it easy for customers to contact you. Whether you're a plumber, builder or landscaper, your website should be working for you 24/7, bringing in calls, quotes, and new work without you chasing it.</p></div>
+      <div><h2>What makes our websites different?</h2><p>We don't build complicated websites with features you don't need. We build simple, fast, professional websites designed specifically for trades.</p><p>Every website is built to:</p><ul class="check-list"><li>Load fast</li><li>Look professional on mobile</li><li>Clearly show your services</li><li>Make it easy for customers to contact you</li></ul><p>The goals are simple: more enquiries, more quotes, more jobs.</p><a class="btn btn-outline" href="/our-process/">See How It Works</a></div>
+    </div>
+  </section>
+  <section class="cta-band"><div class="container"><div><h2>Ready to get your trade business online?</h2><p>Tell us what you do and where you work. We'll help you get started.</p></div><a href="/contact-us/" class="btn btn-accent">Get Started</a></div></section>
+</Layout>

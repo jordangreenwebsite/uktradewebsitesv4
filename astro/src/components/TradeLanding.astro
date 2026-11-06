@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/BaseLayout.astro';
+import ContactForm from './ContactForm.astro';
+import {site,packages} from '../data/site';
+import {trades,type Trade} from '../data/trades';
+interface Props {trade: Trade;}
+const {trade}=Astro.props;
+const title=trade.search+' | Trade Website Design UK';
+const url=site.url+'/'+trade.slug+'/';
+const schema={
+ '@type':'Service',
+ '@id':url+'#service',
+ name:trade.search,
+ description:trade.intro,
+ serviceType:'Website design for '+trade.name,
+ areaServed:{'@type':'Country',name:'United Kingdom'},
+ provider:{'@id':site.url+'/#organization'},
+ url,
+};
+---
+<Layout title={title} description={trade.intro} path={'/'+trade.slug+'/'} schema={schema}>
+  <section class="page-hero"><div class="container">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / {trade.search}</nav>
+    <p class="eyebrow">Websites designed for UK trades</p>
+    <h1>{trade.search}</h1>
+    <p class="lead">{trade.hero}. {trade.intro}</p>
+    <div class="hero-cta-row"><a class="btn btn-accent" href="/contact-us/">Get a Website Quote</a><a class="btn btn-outline" href="/#pricing">View Packages</a></div>
+  </div></section>
+  <section class="section section-light"><div class="container split-grid">
+    <div><h2>Make it easier for customers to choose your {trade.plural.toLowerCase()} business</h2><p>{trade.advantage}</p><p>{trade.detail}</p><a href={site.whatsapp} class="btn btn-primary" target="_blank" rel="noopener noreferrer">Talk about your website</a></div>
+    <div class="feature-panel"><h2>Built for what matters</h2><ul class="check-list"><li>Professional, mobile-friendly design</li><li>Clear services and locations covered</li><li>Easy ways to call and request a quote</li><li>Search-friendly structure and metadata</li><li>Fast-loading static website</li><li>Hosting and maintenance options</li></ul></div>
+  </div></section>
+  <section class="section"><div class="container">
+    <div class="section-heading"><h2>What could go on your {trade.plural.toLowerCase()} website?</h2><p>We build the layout around your actual services, not generic text copied onto every trade website.</p></div>
+    <ul class="service-list">{trade.services.map(s=><li>{s}</li>)}</ul>
+    <p class="muted" style="margin-top:25px">Your finished website will use the services you actually provide, real photos and reviews where available, and genuine areas you cover.</p>
+  </div></section>
+  <section class="section section-light"><div class="container split-grid">
+    <div><h2>Simple, clear pricing</h2><p>Choose a package that fits your business. Our current trade website packages start from <strong>£{packages[0].upfront} upfront plus £{packages[0].monthly} per month</strong>, on a 12-month contract.</p><p>For more pages, local SEO or lead tracking, see our full website packages.</p><a class="btn btn-primary" href="/#pricing">See all website packages</a></div>
+    <div class="feature-panel"><h2>{trade.example?'See an example website':'See what we can build'}</h2><p>{trade.example?'Browse a demonstration design created for this type of trade. The demo is a concept, not a client website.':'We can tailor a design to your trade, brand colours, services, work photos and the areas you cover.'}</p><a class="btn btn-outline" href={trade.example||'/example-websites/'} target={trade.example?'_blank':undefined} rel={trade.example?'noopener noreferrer':undefined}>{trade.example?'View demo website':'View example websites'}</a></div>
+  </div></section>
+  <section class="bottom-contact"><div class="container"><p class="eyebrow text-center">Ready when you are</p><ContactForm heading={'Get a '+trade.plural.toLowerCase()+' website quote'} id={'form-'+trade.slug}/></div></section>
+  <section class="section-tight"><div class="container"><h2>Websites for more trades</h2><ul class="trade-links">{trades.filter(t=>t.slug!==trade.slug).slice(0,6).map(t=><li><a href={'/'+t.slug+'/'}>{t.search}</a></li>)}</ul></div></section>
+</Layout>
