@@ -8,6 +8,6 @@ const {name,description,image,url,business,type}=Astro.props;
     {type==='concept'&&<span class="concept-label">Concept website</span>}
     <h3>{name}</h3>
     <p>{description}</p>
-    {url?<a href={url} target="_blank" rel="noopener noreferrer" class="btn btn-outline">See Website <span aria-hidden="true">↗</span></a>:<a href="/contact-us/" class="btn btn-outline">Enquire</a>}
+    {url?<a href={url} target="_blank" rel="noopener noreferrer" class="btn btn-outline">See Website <span class="text-arrow" aria-hidden="true">→</span></a>:<a href="/contact-us/" class="btn btn-outline">Enquire</a>}
   </div>
 </article>
