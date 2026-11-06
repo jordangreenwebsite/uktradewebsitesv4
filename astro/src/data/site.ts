@@ -33,9 +33,10 @@ export const monthlyOnly = {
   items:['5–9 pages using an established trade layout','You supply your wording, logo and images','Mobile-friendly pages and an enquiry form','Initial SEO page titles and descriptions','Hosting and technical upkeep included']
 } as const;
 export const seoHosting = {
-  heading:'Ongoing SEO includes standard website hosting',
-  detail:'If you sign up for our ongoing SEO service, standard hosting is included while that SEO service remains active. We will not charge the separate £39 monthly hosting fee on top of SEO.',
-  financedNote:'If you choose the no-upfront website, the £26/month first-year build-cost portion still applies during the agreed 12-month period, even when hosting is included with SEO.'
+  monthlySeo:195,
+  standardHosting:39,
+  heading:'Sign up for ongoing SEO for £195 a month and get hosting for free.',
+  financedNote:'Standard hosting is included while SEO is active. No-upfront builds still have a £26/month build payment for the first 12 months.'
 } as const;
 const media = '/wp-content/uploads/2026/';
 export const portfolio = [
