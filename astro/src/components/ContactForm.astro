@@ -16,6 +16,7 @@ const {heading='Grow Your Business',id='enquiry'}=Astro.props;
       </select></label>
       <label class="wide">Tell us about your project<textarea name="message" rows="4"></textarea></label>
     </div>
+    <input type="hidden" name="package" value="" data-package-choice/>
     <input type="hidden" name="_subject" value="New Website Enquiry - UK Trade Websites"/>
     <input type="hidden" name="_redirect" value="https://uktradewebsites.co.uk/thank-you/"/>
     <div class="honeypot" aria-hidden="true"><label>Leave this empty<input type="text" name="_gotcha" autocomplete="off" tabindex="-1"/></label></div>
@@ -23,3 +24,13 @@ const {heading='Grow Your Business',id='enquiry'}=Astro.props;
     <p class="form-privacy">We use your information to respond to your enquiry. <a href="/privacy-policy/">Privacy Policy</a>.</p>
   </form>
 </section>
+
+<script>
+  // Preserve the package the visitor selected without introducing a backend.
+  const selectedPackage = new URLSearchParams(window.location.search).get('package');
+  if (selectedPackage) {
+    document.querySelectorAll<HTMLInputElement>('[data-package-choice]').forEach(input => {
+      input.value = selectedPackage.slice(0, 160);
+    });
+  }
+</script>
