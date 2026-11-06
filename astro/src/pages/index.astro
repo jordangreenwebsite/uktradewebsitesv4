@@ -26,7 +26,7 @@ import {trades} from '../data/trades';
       <div class="split-grid">
         <div>
           <h2 id="trades-title">Trades we work with:</h2>
-          <ul class="trade-links">{trades.map(t=><li><a href={'/'+t.slug+'/'}>{t.name.charAt(0).toUpperCase()+t.name.slice(1)}</a></li>)}</ul>
+          <ul class="trade-links">{trades.map(t=><li><a href={'/'+t.slug+'/'}>{t.search}</a></li>)}</ul>
         </div>
         <div class="feature-panel">
           <h2>What you get:</h2>
