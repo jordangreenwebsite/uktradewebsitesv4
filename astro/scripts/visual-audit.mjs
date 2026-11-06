@@ -42,7 +42,7 @@ try {
   }
  }
  // Audit the non-homepage layouts as well, on desktop.
- for (const route of ['about-us','our-process','contact-us','example-websites']) {
+ for (const route of ['about-us','our-process','contact-us','example-websites','privacy-policy','thank-you']) {
   for (const viewport of targets) {
    for (const site of origins) {
     const page=await browser.newPage({viewport:{width:viewport.width,height:viewport.height},deviceScaleFactor:1});
