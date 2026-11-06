@@ -39,14 +39,32 @@ const {fullPage=false}=Astro.props;
      <a class="btn btn-primary" href={'/contact-us/#package='+encodeURIComponent(monthlyOnly.name)}>Enquire about no-upfront</a>
    </article>
    </div>
-   <aside class="prunus-referral" aria-label="Larger website projects by Prunus Media">
-     <svg class="prunus-floral" viewBox="0 0 330 270" aria-hidden="true"><g fill="none" stroke="#bd9a9f" stroke-width="1.5" stroke-linecap="round"><path d="M310 260C236 195 251 105 170 42M260 208c-48-17-82-7-113-45M244 169c38-30 35-65 35-97M203 102c-46-12-58-42-62-78"/><path d="M170 42c-26-18-43-9-41 9 19 10 32 7 41-9Zm0 0c-4-27 10-39 25-31 2 19-6 28-25 31ZM147 163c-24-24-47-20-48-1 16 16 33 18 48 1Zm132-91c-2-26 12-40 29-33 3 19-7 30-29 33Z"/></g><g fill="#f4dce0" stroke="#bd9a9f" stroke-width="1.4"><circle cx="170" cy="42" r="7"/><circle cx="147" cy="163" r="6"/><circle cx="279" cy="72" r="7"/><circle cx="204" cy="102" r="5"/></g></svg>
+   <aside class="prunus-referral" aria-labelledby="prunus-referral-title">
+     <svg class="prunus-floral" viewBox="0 0 430 320" aria-hidden="true" focusable="false">
+       <g fill="none" stroke="#af8097" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round">
+         <path d="M438 321C345 265 345 175 286 115S220 53 176 23M363 243c-43-27-78-17-121-48M331 179c46-19 57-55 62-85M286 115c-27-16-53-12-73-42M242 195c-45-2-67 22-90 46"/>
+         <path d="M309 140c-34-30-36-54-16-74 22 13 30 41 16 74ZM350 218c-15-35-3-59 19-62 11 20 7 42-19 62Z"/>
+       </g>
+       <g fill="#f8e6ec" stroke="#c39aab" stroke-width="1.25">
+         <path d="M180 26c-25-23-41-16-36 2-23-5-32 9-18 21-16 15-7 28 15 23 6 21 23 23 33 4 22 8 33-5 23-24 12-18 0-32-17-26Z"/>
+         <path d="M281 111c-18-26-35-23-34-6-23-10-31 6-15 19-17 12-9 28 10 27 3 23 20 27 32 10 21 9 34-2 24-20 16-15 7-30-17-30Z"/>
+         <path d="M157 243c-19-25-36-23-35-5-21-9-31 5-17 19-15 14-8 29 11 28 4 22 22 25 32 8 20 10 33-2 23-19 13-15 7-28-14-31Z"/>
+         <path d="M390 94c-17-23-33-21-33-4-20-8-30 6-15 18-13 11-7 26 11 26 4 20 20 25 31 8 19 9 32-3 22-18 13-16 4-29-16-30Z"/>
+       </g>
+       <g fill="#ba899c"><circle cx="159" cy="50" r="5"/><circle cx="265" cy="131" r="5"/><circle cx="143" cy="265" r="5"/><circle cx="377" cy="113" r="5"/></g>
+     </svg>
      <div class="prunus-referral-content">
-       <div class="prunus-brand"><span class="prunus-monogram" aria-hidden="true">P</span><span>Prunus <em>Media</em></span></div>
-       <p class="eyebrow">For bigger ideas</p>
-       <h3>Need a bigger website?</h3>
-       <p>For 10+ pages, bespoke features or a more tailored design, explore our wider web design services at Prunus Media.</p>
-       <a href="https://prunusmedia.com/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Explore Prunus Media</a>
+       <div class="prunus-brand">
+         <img class="prunus-logo" src="/wp-content/uploads/2026/05/Prunus-Media-Left-orientation-300x300.png" width="98" height="98" alt="Prunus Media logo" loading="lazy" decoding="async" />
+         <span class="prunus-brand-label">A little more than a trade website?</span>
+       </div>
+       <div class="prunus-referral-body">
+         <div>
+           <h3 id="prunus-referral-title">Need a bigger website?</h3>
+           <p>For bespoke websites, 10+ pages or advanced features, our wider agency Prunus Media can help you grow beyond a standard trade website.</p>
+         </div>
+         <a href="https://prunusmedia.com/" rel="noopener noreferrer" class="btn btn-primary">Visit Prunus Media <span aria-hidden="true">↗</span></a>
+       </div>
      </div>
    </aside>
    <aside class="seo-hosting-band" aria-labelledby="seo-hosting-title">
@@ -58,7 +76,7 @@ const {fullPage=false}=Astro.props;
      </div>
      <a class="btn btn-accent" href="/contact-us/#package=Ongoing%20SEO%20with%20hosting">Ask about SEO</a>
    </aside>
-   <p class="pricing-smallprint">A four-page website can be quoted within the Growth package. All packages cover the agreed scope; monthly payments cover hosting, SSL and basic technical upkeep, not unlimited amendments, ongoing SEO, domain renewals or paid third-party tools. Contact us for a written quote before starting.</p>
+   <p class="pricing-smallprint">Five-page enquiries can be quoted in Starter or Growth depending on the design and scope. All packages cover the agreed scope; monthly payments cover hosting, SSL and basic technical upkeep, not unlimited amendments, ongoing SEO, domain renewals or paid third-party tools. Contact us for a written quote before starting.</p>
    {!fullPage&&<p class="text-center pricing-page-cta"><a class="btn btn-outline" href="/pricing/">Compare pricing, terms and FAQs</a></p>}
  </div>
 </section>
