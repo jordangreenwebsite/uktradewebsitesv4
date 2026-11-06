@@ -8,7 +8,7 @@ const { title, description=site.description, path=Astro.url.pathname, noindex=fa
 const canonical=new URL(path,site.url).href;
 const imageUrl=new URL(image,site.url).href;
 const graphs: Record<string,unknown>[]=[
- {'@type':'Organization','@id':site.url+'/#organization',name:site.name,url:site.url,logo:{'@type':'ImageObject',url:new URL(site.logo,site.url).href},email:site.email},
+ {'@type':'Organization','@id':site.url+'/#organization',name:site.name,url:site.url,description:site.description,logo:{'@type':'ImageObject',url:new URL(site.logo,site.url).href},email:site.email,areaServed:{'@type':'Country',name:'United Kingdom'},contactPoint:[{'@type':'ContactPoint',contactType:'sales enquiries',email:site.email,url:site.whatsapp,areaServed:{'@type':'Country',name:'United Kingdom'},availableLanguage:'en-GB'}]},
  {'@type':'WebSite','@id':site.url+'/#website',name:site.name,url:site.url,inLanguage:'en-GB',publisher:{'@id':site.url+'/#organization'}},
  {'@type':'WebPage','@id':canonical+'#webpage',url:canonical,name:title,description,isPartOf:{'@id':site.url+'/#website'},inLanguage:'en-GB'},
 ];
