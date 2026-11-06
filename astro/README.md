@@ -45,3 +45,19 @@ See repository `DESIGN.md` for exact migration constraints and design tokens. Th
 - Confirm rendering and accessibility at desktop and mobile breakpoints.
 - Validate sitemap, schema, canonical URLs, 404s and SEO indexing.
 - Once accepted, change Cloudflare deployment settings and keep a rollback path.
+
+## Legacy URL handling
+
+`public/_redirects` holds Cloudflare Pages redirects for old WordPress author and test
+archives, and for previously broken calls to action. The existing main URLs are
+retained. `public/_headers` applies basic security headers and immutable cache
+policy for Astro's hashed assets.
+
+## Release safety
+
+The original exported HTML/CSS remains in the repo root. Merging this Astro
+subdirectory **does not itself change the live site** while Cloudflare is still
+configured for the existing export. The final migration is a separate Cloudflare
+Pages settings change to root directory `astro`, build `npm run build`, output
+directory `dist`. Confirm the preview, the phone/WhatsApp links, live form delivery
+and the production domain before that cutover. Keep a rollback to the previous build.
