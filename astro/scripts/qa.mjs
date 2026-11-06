@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 const root=path.resolve(process.cwd(),'dist');
-const pages=['','about-us','contact-us','example-websites','our-process','privacy-policy','thank-you',
+const pages=['','about-us','contact-us','example-websites','our-process','pricing','privacy-policy','thank-you',
  'websites-for-plumbers','websites-for-electricians','websites-for-window-cleaners','websites-for-painters',
  'websites-for-floor-cleaners','websites-for-roofers','websites-for-builders','websites-for-landscapers',
  'websites-for-plasterers','websites-for-driveway-cleaners'];
@@ -69,6 +69,14 @@ if(!redirects.includes('/plumbers/ /websites-for-plumbers/ 301'))errors.push('Sh
 const indexHtml=fs.readFileSync(path.join(root,'index.html'),'utf8');
 if(/href="\/contact-us\/\?package=/.test(indexHtml))errors.push('Pricing creates query-parameter duplicate pages');
 if(!indexHtml.includes('/contact-us/#package='))errors.push('Clean pricing links missing');
+const pricingHtml=fs.readFileSync(path.join(root,'pricing','index.html'),'utf8');
+for(const expected of ['Starter Website','Trade Growth Website','No Upfront Website','£65','£39','£149','£249','1–3 pages','5–9 pages']){
+ if(!pricingHtml.includes(expected))errors.push('Pricing page missing: '+expected);
+}
+if(pricingHtml.includes('Lead Generation Website'))errors.push('Retired lead-generation package still offered');
+if(!pricingHtml.includes('hosting is included'))errors.push('Pricing page omits SEO-inclusive hosting');
+if(!indexHtml.includes('href="/pricing/"'))errors.push('Homepage missing pricing link');
+
 if(/href="http:\/\//i.test(indexHtml))errors.push('Insecure HTTP external link on homepage');
 for(const file of ['sitemap-index.xml','robots.txt','404.html']){
  // 404 is output as /404.html for Astro static; check only sitemap and robots
