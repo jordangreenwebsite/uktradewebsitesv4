@@ -7,6 +7,15 @@ export const site = {
   email: 'uktradewebsites@gmail.com',
   whatsapp: 'https://wa.me/447789545807?text=' + encodeURIComponent("Hi, I'd like a free quote for a trade website."),
   formAction: 'https://formspree.io/f/xpqjvloy',
+  // Customer enquiry/contact hours, UK local time including daylight-saving changes.
+  contactHours: {
+    label: 'Monday–Friday, 9:00am–5:30pm (UK time)',
+    days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    opens: '09:00',
+    closes: '17:30',
+  },
+  // Add only social profiles verified to belong to UK Trade Websites (not Prunus Media).
+  officialProfiles: [] as string[],
 } as const;
 export const nav = [
   { label: 'Home', href: '/' },
