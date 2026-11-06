@@ -65,7 +65,7 @@ try{
   if(width===390){
    await page.goto('http://127.0.0.1:4321/',{waitUntil:'domcontentloaded'});
    const menu=page.locator('details.mobile-menu');
-   await menu.locator('summary').click();
+   await menu.locator(':scope > summary').click();
    if(!(await menu.evaluate(el=>el.open)))errors.push('Mobile navigation did not open');
    const links=await menu.locator('nav a').count();
    if(links<15)errors.push('Mobile navigation links missing');
