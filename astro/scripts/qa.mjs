@@ -43,6 +43,14 @@ for(const page of pages){
    for(const type of ['Organization','WebSite','WebPage'])if(!hasType(type))errors.push('Missing '+type+' schema: '+page);
    const organization=nodes.find(node=>node['@type']==='Organization');
    if(!organization?.areaServed||!organization?.contactPoint?.length)errors.push('Organization missing truthful service area/contact: '+page);
+   const contact=organization?.contactPoint?.[0];
+   const hours=contact?.hoursAvailable;
+   if(!hours||hours['@type']!=='OpeningHoursSpecification'||hours.opens!=='09:00'||hours.closes!=='17:30'||hours.dayOfWeek?.length!==5)
+     errors.push('Approved UK contact hours missing from schema: '+page);
+   if(organization?.sameAs&&!Array.isArray(organization.sameAs))errors.push('sameAs must be a verified profile list: '+page);
+   const generalService=nodes.find(node=>node['@id']==='https://uktradewebsites.co.uk/#trade-website-design');
+   if(!generalService||generalService['@type']!=='Service')errors.push('Trade website service schema missing: '+page);
+   if(!html.includes('Enquiry hours: Monday'))errors.push('Published UK enquiry hours missing in footer: '+page);
    if(tradePages.includes(page)){
     for(const type of ['Service','BreadcrumbList'])if(!hasType(type))errors.push('Missing '+type+' schema: '+page);
    }
@@ -65,6 +73,8 @@ if(fs.existsSync(robotsPath)){
  if(/^Disallow:\s*\/\s*$/im.test(robots))errors.push('robots.txt blocks all crawling');
  if(!robots.includes('https://uktradewebsites.co.uk/sitemap-index.xml'))errors.push('robots.txt missing sitemap');
 }
+const headers=fs.readFileSync(path.join(root,'_headers'),'utf8');
+if(!/\/robots\.txt\s*\n\s*Content-Type:\s*text\/plain/i.test(headers))errors.push('Cloudflare robots.txt response header should use text/plain');
 const redirects=fs.readFileSync(path.join(root,'_redirects'),'utf8');
 if(!redirects.includes('/plumbers/ /websites-for-plumbers/ 301'))errors.push('Short trade URL redirect missing');
 const indexHtml=fs.readFileSync(path.join(root,'index.html'),'utf8');
