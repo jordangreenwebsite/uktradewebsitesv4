@@ -63,18 +63,21 @@ const {fullPage=false}=Astro.props;
            <h3 id="prunus-referral-title">Need a bigger website?</h3>
            <p>For bespoke websites, 10+ pages or advanced features, our wider agency Prunus Media can help you grow beyond a standard trade website.</p>
          </div>
-         <a href="https://prunusmedia.com/" rel="noopener noreferrer" class="btn btn-primary">Visit Prunus Media <span aria-hidden="true">↗</span></a>
+         <a href="https://prunusmedia.com/" rel="noopener noreferrer" class="btn btn-primary">Visit Prunus Media <span class="text-arrow" aria-hidden="true">→</span></a>
        </div>
      </div>
    </aside>
    <aside class="seo-hosting-band" aria-labelledby="seo-hosting-title">
-     <div>
-       <p class="eyebrow">Want to improve your Google visibility?</p>
+     <div class="seo-offer-copy">
+       <p class="eyebrow">More Google visibility, no separate hosting bill</p>
+       <div class="seo-hosting-savings" aria-label="Standard hosting, normally £39 a month, included at no extra cost">
+         <span class="seo-hosting-was"><del>£{seoHosting.standardHosting}/month</del> hosting</span>
+         <span class="seo-hosting-now">Free hosting</span>
+       </div>
        <h3 id="seo-hosting-title">{seoHosting.heading}</h3>
-       <p>{seoHosting.detail}</p>
        <p class="seo-hosting-small">{seoHosting.financedNote}</p>
      </div>
-     <a class="btn btn-accent" href="/contact-us/#package=Ongoing%20SEO%20with%20hosting">Ask about SEO</a>
+     <a class="btn btn-accent" href="/contact-us/#package=Ongoing%20SEO%20with%20hosting">Ask about SEO <span class="text-arrow" aria-hidden="true">→</span></a>
    </aside>
    <p class="pricing-smallprint">Five-page enquiries can be quoted in Starter or Growth depending on the design and scope. All packages cover the agreed scope; monthly payments cover hosting, SSL and basic technical upkeep, not unlimited amendments, ongoing SEO, domain renewals or paid third-party tools. Contact us for a written quote before starting.</p>
    {!fullPage&&<p class="text-center pricing-page-cta"><a class="btn btn-outline" href="/pricing/">Compare pricing, terms and FAQs</a></p>}
