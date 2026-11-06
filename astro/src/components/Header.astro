@@ -10,6 +10,7 @@ const {path='/'}=Astro.props;
       {nav.map(({href,label})=><a href={href} aria-current={path===href?'page':undefined}>{label}</a>)}
     </nav>
     <a class="btn btn-accent header-cta" href={site.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
+    <a class="btn home-mobile-wa" href={site.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
     <details class="mobile-menu">
       <summary aria-label="Open navigation"><span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span><span>Menu</span></summary>
       <nav aria-label="Mobile navigation">
