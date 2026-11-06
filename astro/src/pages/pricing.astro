@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/BaseLayout.astro';
+import Pricing from '../components/Pricing.astro';
+---
+<Layout title="Trade Website Pricing UK | Starter & Growth Packages" description="Compare UK trade website prices: 1–3 pages from £149 or 5–9 pages from £249, with £39/month hosting. Or choose no-upfront at £65/month for the first year." path="/pricing/">
+  <section class="legacy-hero pricing-page-hero">
+    <svg class="legacy-wave" viewBox="0 0 1440 570" preserveAspectRatio="none" aria-hidden="true"><path fill="#FF8C42" d="M0,0 H1440 V355 C1210,410 985,150 790,180 C575,190 345,410 0,485 Z"/></svg>
+    <div class="container">
+      <p class="eyebrow">Simple pricing for UK trades</p>
+      <h1>Trade website pricing, made simple.</h1>
+      <p class="lead">Choose the pages your business needs, understand exactly what you're paying for, and get a website that's easy for customers to use.</p>
+      <a class="btn btn-primary" href="#pricing">Compare the packages</a>
+    </div>
+  </section>
+  <Pricing fullPage={true}/>
+  <section class="section section-light" aria-labelledby="pricing-faq-heading">
+    <div class="container">
+      <div class="section-heading"><h2 id="pricing-faq-heading">Website pricing questions</h2><p>No jargon, no confusing extras.</p></div>
+      <div class="faq-list">
+        <details><summary>What counts as a page?</summary><p>A page is its own URL, such as Home, About, Contact or a specific roofing service page. Multiple sections within one page still count as one page.</p></details>
+        <details><summary>What if I only need four pages?</summary><p>We can quote a four-page website through the Trade Growth package. You don't have to add pages just to reach five.</p></details>
+        <details><summary>What does £39/month actually cover?</summary><p>Standard website hosting, SSL and basic technical upkeep. It doesn't include ongoing SEO work, unlimited content edits, paid third-party tools or domain renewal fees unless agreed in writing.</p></details>
+        <details><summary>Why is the no-upfront website £65/month?</summary><p>For the first 12 months, £39 pays for standard hosting and upkeep and £26 spreads the build cost. That is £780 in year one, compared with £717 for Growth with £249 upfront. From month 13, the monthly charge reduces to £39 if you continue with standard hosting.</p></details>
+        <details><summary>Is hosting included if I sign up for SEO?</summary><p>Yes. When you purchase an ongoing SEO service, standard hosting is included while that service is active, so we don't charge an extra £39/month for the same hosting. If you took the no-upfront website, the £26/month first-year build portion still remains payable during its 12-month term.</p></details>
+        <details><summary>Do these prices include ongoing Google rankings work?</summary><p>No. We include an initial search-friendly page structure, relevant titles and descriptions. Ongoing keyword research, monthly SEO, reporting and promotion can be discussed as a separate service.</p></details>
+        <details><summary>What about a website with ten or more pages?</summary><p>Larger sites and custom projects are better suited to <a href="https://prunusmedia.com/" target="_blank" rel="noopener noreferrer">Prunus Media</a>, our wider web design agency.</p></details>
+      </div>
+      <div class="text-center pricing-faq-cta"><a class="btn btn-accent" href="/contact-us/">Ask for a website quote</a></div>
+    </div>
+  </section>
+</Layout>
