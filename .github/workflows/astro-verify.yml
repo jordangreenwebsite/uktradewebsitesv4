@@ -1,5 +1,10 @@
-name: Astro preview quality checks
+name: Astro build and SEO checks
 on:
+  push:
+    branches: [main]
+    paths:
+      - "astro/**"
+      - ".github/workflows/astro-verify.yml"
   pull_request:
     paths:
       - "astro/**"
@@ -18,6 +23,9 @@ jobs:
           node-version: "22"
       - run: npm install --no-audit --no-fund
       - run: npm run build
+      - run: npm install --no-save playwright
+      - run: npx playwright install --with-deps chromium
+      - run: node scripts/browser-qa.mjs
       - uses: actions/upload-artifact@v4
         with:
           name: uk-trade-websites-astro-static-build
