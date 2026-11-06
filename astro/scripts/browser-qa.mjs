@@ -25,15 +25,20 @@ try{
     const facts=await page.evaluate(()=>{
      const h1s=document.querySelectorAll('main h1');
      let jsonLdValid=true;
+     const schemaTypes=[];
      for(const script of document.querySelectorAll('script[type="application/ld+json"]')){
-      try{const obj=JSON.parse(script.textContent||'');if(!obj['@graph'])jsonLdValid=false}catch{jsonLdValid=false}
+      try{const obj=JSON.parse(script.textContent||'');if(!obj['@graph'])jsonLdValid=false;
+      else schemaTypes.push(...obj['@graph'].map(node=>node['@type']));
+      }catch{jsonLdValid=false}
      }
      return {
       h1:h1s.length,title:document.title,
       meta:document.querySelector('meta[name="description"]')?.getAttribute('content')||'',
       canonical:document.querySelector('link[rel="canonical"]')?.getAttribute('href'),
       overflow:document.documentElement.scrollWidth-window.innerWidth,
-      jsonLdValid,
+      jsonLdValid,schemaTypes,
+      desktopTrades:document.querySelectorAll('.desktop-trades-menu .trades-dropdown a').length,
+      mobileTrades:document.querySelectorAll('.mobile-trades-menu .mobile-trades-list a').length,
      };
     });
     if(facts.h1!==1)errors.push(path+' '+width+'px contains '+facts.h1+' H1 headings');
@@ -41,6 +46,10 @@ try{
     if(facts.canonical!=='https://uktradewebsites.co.uk'+path)errors.push(path+' canonical: '+facts.canonical);
     if(facts.overflow>2)errors.push(path+' '+width+'px has '+facts.overflow+'px horizontal overflow');
     if(!facts.jsonLdValid)errors.push(path+' invalid JSON-LD');
+    if(facts.desktopTrades!==10||facts.mobileTrades!==10)errors.push(path+' trade navigation incomplete');
+    if(path.startsWith('/websites-for-')){
+     for(const type of ['Service','BreadcrumbList'])if(!facts.schemaTypes.includes(type))errors.push(path+' missing '+type+' schema');
+    }
     if(width===390){
      // Force lazy images to load and check all retained source assets.
      const bad=await page.evaluate(async()=>{
@@ -59,7 +68,11 @@ try{
    await menu.locator('summary').click();
    if(!(await menu.evaluate(el=>el.open)))errors.push('Mobile navigation did not open');
    const links=await menu.locator('nav a').count();
-   if(links<5)errors.push('Mobile navigation links missing');
+   if(links<15)errors.push('Mobile navigation links missing');
+   const tradeSubmenu=menu.locator('details.mobile-trades-menu');
+   await tradeSubmenu.locator('summary').click();
+   if(!(await tradeSubmenu.evaluate(el=>el.open)))errors.push('Mobile trade submenu did not open');
+   if((await tradeSubmenu.locator('a').count())!==10)errors.push('Mobile trade submenu has wrong link count');
    await page.goto('http://127.0.0.1:4321/contact-us/?package=Starter%20Website',{waitUntil:'domcontentloaded'});
    const pkg=await page.locator('form.contact-form [name="package"]').first().inputValue();
    if(pkg!=='Starter Website')errors.push('Package enquiry selection was not preserved');
