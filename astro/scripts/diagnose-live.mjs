@@ -25,7 +25,7 @@ async function retrieve(route) {
 const failures = [];
 const robots = await retrieve('/robots.txt');
 console.log('ROBOTS status='+robots.status+' type='+robots.type+' destination='+robots.url);
-console.log(robots.body.slice(0,650).replace(/\r/g,''));
+console.log(robots.body.slice(0,6500).replace(/\r/g,''));
 if (robots.status!==200||!robots.type.includes('text/plain')||!/User-agent:\s*\*/i.test(robots.body)||!/Allow:\s*\//i.test(robots.body)||/^Disallow:\s*\/\s*$/im.test(robots.body))
   failures.push('robots.txt not served as a valid allow-all text file');
 const sitemap = await retrieve('/sitemap-index.xml');
