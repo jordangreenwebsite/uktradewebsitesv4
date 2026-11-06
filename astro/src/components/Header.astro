@@ -1,5 +1,6 @@
 ---
 import {site,nav} from '../data/site';
+import {trades} from '../data/trades';
 interface Props {path?:string;}
 const {path='/'}=Astro.props;
 ---
@@ -7,14 +8,28 @@ const {path='/'}=Astro.props;
   <div class="header-inner">
     <a href="/" class="brand" aria-label="UK Trade Websites - Home"><img src={site.logo} alt="UK Trade Websites logo" width="112" height="112"/></a>
     <nav class="desktop-nav" aria-label="Primary navigation">
-      {nav.map(({href,label})=><a href={href} aria-current={path===href?'page':undefined}>{label}</a>)}
+      <a href="/" aria-current={path==='/'?'page':undefined}>Home</a>
+      <details class="desktop-trades-menu">
+        <summary class={path.startsWith('/websites-for-')?'active':undefined}>Trade Websites <span aria-hidden="true">⌄</span></summary>
+        <div class="trades-dropdown" role="group" aria-label="Websites by trade">
+          {trades.map(trade=><a href={'/'+trade.slug+'/'} aria-current={path==='/'+trade.slug+'/'?'page':undefined}>{trade.search}</a>)}
+        </div>
+      </details>
+      {nav.filter(item=>item.href!=='/').map(({href,label})=><a href={href} aria-current={path===href?'page':undefined}>{label}</a>)}
     </nav>
     <a class="btn btn-accent header-cta" href={site.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
     <a class="btn home-mobile-wa" href={site.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
     <details class="mobile-menu">
       <summary aria-label="Open navigation"><span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span><span>Menu</span></summary>
       <nav aria-label="Mobile navigation">
-        {nav.map(({href,label})=><a href={href} aria-current={path===href?'page':undefined}>{label}</a>)}
+        <a href="/" aria-current={path==='/'?'page':undefined}>Home</a>
+        <details class="mobile-trades-menu">
+          <summary class={path.startsWith('/websites-for-')?'active':undefined}>Trade Websites <span aria-hidden="true">⌄</span></summary>
+          <div class="mobile-trades-list">
+            {trades.map(trade=><a href={'/'+trade.slug+'/'} aria-current={path==='/'+trade.slug+'/'?'page':undefined}>{trade.search}</a>)}
+          </div>
+        </details>
+        {nav.filter(item=>item.href!=='/').map(({href,label})=><a href={href} aria-current={path===href?'page':undefined}>{label}</a>)}
         <a class="mobile-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
       </nav>
     </details>
@@ -26,9 +41,26 @@ const {path='/'}=Astro.props;
   function onScroll(){
     const y=window.scrollY;
     header?.classList.toggle('scrolled',y>24);
+    if(header?.querySelector('details[open]')){
+      header.classList.remove('hide-header');
+      last=y;
+      return;
+    }
     if(y>600&&y>last+8) header?.classList.add('hide-header');
     else if(y<last-5||y<150) header?.classList.remove('hide-header');
     last=y;
   }
   window.addEventListener('scroll',onScroll,{passive:true});
+  document.addEventListener('keydown',event=>{
+    if(event.key==='Escape'){
+      header?.querySelectorAll<HTMLDetailsElement>('details[open]').forEach(details=>details.open=false);
+    }
+  });
+  document.addEventListener('click',event=>{
+    if(event.target instanceof Node){
+      header?.querySelectorAll<HTMLDetailsElement>('.desktop-trades-menu[open], .mobile-menu[open]').forEach(details=>{
+        if(!details.contains(event.target as Node))details.open=false;
+      });
+    }
+  });
 </script>
