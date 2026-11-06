@@ -65,6 +65,21 @@ try {
    }
   }
  }
+ // Capture the new shared trade template once at both breakpoints.
+ for(const viewport of targets){
+  const page=await browser.newPage({viewport:{width:viewport.width,height:viewport.height},deviceScaleFactor:1});
+  await page.goto('http://127.0.0.1:4321/websites-for-plumbers/',{waitUntil:'domcontentloaded',timeout:60000});
+  await page.evaluate(()=>document.fonts.ready);
+  await page.waitForTimeout(500);
+  const name='astro-plumbers-'+viewport.name;
+  const bytes=await page.screenshot({type:'jpeg',quality:65,fullPage:false});
+  fs.writeFileSync(path.join('screenshots',name+'.jpg'),bytes);
+  console.log('Screenshot saved: '+name+' ('+bytes.length+' bytes)');
+  const encoded=bytes.toString('base64');
+  for(let i=0,n=0;i<encoded.length;i+=5000,n++)
+   console.log('IMG|'+name+'|'+n+'|'+encoded.slice(i,i+5000));
+  await page.close();
+ }
  // Compare the pricing section without depending on identical scroll positions.
  for (const site of origins) {
   const page=await browser.newPage({viewport:{width:1440,height:900},deviceScaleFactor:1});
