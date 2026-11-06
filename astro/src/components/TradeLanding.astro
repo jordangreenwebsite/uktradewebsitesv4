@@ -19,13 +19,17 @@ const schema={
 };
 ---
 <Layout title={title} description={trade.intro} path={'/'+trade.slug+'/'} schema={schema}>
-  <section class="page-hero"><div class="container">
-    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / {trade.search}</nav>
-    <p class="eyebrow">Websites designed for UK trades</p>
-    <h1>{trade.search}</h1>
-    <p class="lead">{trade.hero}. {trade.intro}</p>
-    <div class="hero-cta-row"><a class="btn btn-accent" href="/contact-us/">Get a Website Quote</a><a class="btn btn-outline" href="/#pricing">View Packages</a></div>
-  </div></section>
+  <section class="legacy-hero legacy-trade-hero">
+    <svg class="legacy-wave" viewBox="0 0 1440 650" preserveAspectRatio="none" aria-hidden="true"><path fill="#FF8C42" d="M0,0 H1440 V650 H1370 C1170,520 1050,365 876,235 C795,175 751,143 710,155 C560,208 485,347 386,355 C236,368 115,525 0,650 Z"/></svg>
+    <div class="container legacy-trade-content">
+      <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / {trade.search}</nav>
+      <p class="eyebrow">Websites designed for UK trades</p>
+      <h1>{trade.search}</h1>
+      <h2>{trade.hero}</h2>
+      <p class="lead">{trade.intro}</p>
+      <div class="hero-cta-row"><a class="btn legacy-pill" href="/contact-us/">Get a Website Quote</a><a class="btn legacy-orange-pill" href="/#pricing">View Packages</a></div>
+    </div>
+  </section>
   <section class="section section-light"><div class="container split-grid">
     <div><h2>Make it easier for customers to choose your {trade.plural.toLowerCase()} business</h2><p>{trade.advantage}</p><p>{trade.detail}</p><a href={site.whatsapp} class="btn btn-primary" target="_blank" rel="noopener noreferrer">Talk about your website</a></div>
     <div class="feature-panel"><h2>Built for what matters</h2><ul class="check-list"><li>Professional, mobile-friendly design</li><li>Clear services and locations covered</li><li>Easy ways to call and request a quote</li><li>Search-friendly structure and metadata</li><li>Fast-loading static website</li><li>Hosting and maintenance options</li></ul></div>

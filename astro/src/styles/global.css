@@ -146,3 +146,16 @@
 .legacy-examples .container{width:calc(100% - 30px)}.legacy-examples h1{font-size:30px}.legacy-examples h2{font-size:18px}
 .legacy-clients .section-heading h2{font-size:31px}.legacy-clients .section-heading p{font-size:17px}
 }
+
+/* New trade landing pages inherit the same curved brand hero and overlaid header. */
+.legacy-trade-hero{min-height:650px}
+.legacy-trade-content{padding-top:200px;padding-bottom:92px;position:relative}
+.legacy-trade-hero .breadcrumbs{color:var(--navy);margin-bottom:22px}
+.legacy-trade-hero .breadcrumbs a{color:var(--navy)}
+.legacy-trade-hero .eyebrow{font-size:15px;color:var(--navy);margin-bottom:10px}
+.legacy-trade-hero h1{font:700 clamp(36px,4.2vw,54px)/1.12 'Alice',Georgia,serif;color:var(--blue);max-width:900px;margin-bottom:18px}
+.legacy-trade-hero h2{font:700 clamp(24px,2.2vw,30px)/1.25 'Montserrat',sans-serif;color:var(--blue);max-width:800px;margin-bottom:22px}
+.legacy-trade-hero .lead{max-width:750px;font-size:18px;color:var(--navy);font-weight:500}
+.legacy-trade-hero .hero-cta-row{margin-top:25px}
+@media(max-width:800px){.legacy-trade-hero{min-height:580px}.legacy-trade-content{padding-top:180px;padding-bottom:75px}.legacy-trade-hero h1{font-size:37px}.legacy-trade-hero h2{font-size:23px}.legacy-trade-hero .lead{font-size:16px}}
+@media(max-width:550px){.legacy-trade-content{width:calc(100% - 32px);padding-top:180px}.legacy-trade-hero h1{font-size:33px}.legacy-trade-hero .hero-cta-row{gap:10px}.legacy-trade-hero .btn{font-size:14px;padding:11px 17px}}
