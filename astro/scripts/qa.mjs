@@ -70,7 +70,7 @@ const indexHtml=fs.readFileSync(path.join(root,'index.html'),'utf8');
 if(/href="\/contact-us\/\?package=/.test(indexHtml))errors.push('Pricing creates query-parameter duplicate pages');
 if(!indexHtml.includes('/contact-us/#package='))errors.push('Clean pricing links missing');
 const pricingHtml=fs.readFileSync(path.join(root,'pricing','index.html'),'utf8');
-for(const expected of ['Starter Website','Trade Growth Website','No Upfront Website','£<strong>65','£39','£<strong>149','£<strong>249','1–3 pages','5–9 pages']){
+for(const expected of ['Starter Website','Trade Growth Website','No Upfront Website','£<strong>65','£39','<strong>£149','<strong>£249','1–3 pages','5–9 pages']){
  if(!pricingHtml.includes(expected))errors.push('Pricing page missing: '+expected);
 }
 if(pricingHtml.includes('Lead Generation Website'))errors.push('Retired lead-generation package still offered');
