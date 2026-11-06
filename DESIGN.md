@@ -18,14 +18,14 @@ Preserve the existing recognisable visual identity, information, homepage sectio
 | Orange CTA / accent | `#FF8C42` |
 | Pale site background | `#F5F7FA` |
 | Main text | `#1A1A1A` |
-| Body | Open Sans, 16px |
+| Body | Open Sans, 16px mobile / 17px laptop and desktop |
 | Headings | Montserrat |
 | Homepage intro accent | Alice serif |
 | Optional decorative type | Caveat |
 | Original content max width | 1120px |
 | Original base section spacing | 100px vertical / 20px horizontal |
 | Form | navy translucent panel, orange heading and orange send button |
-| Header | logo, navigation, WhatsApp CTA; hidden while scrolling down and revealed on scroll up |
+| Header | logo, navigation, WhatsApp CTA; hidden while scrolling down and revealed on scroll up; scrolled orange background at 50% opacity |
 
 Astro tokens are in `astro/src/styles/global.css`. Do not introduce different brand colours or fonts without a specific user request.
 
@@ -37,6 +37,7 @@ Astro tokens are in `astro/src/styles/global.css`. Do not introduce different br
 - `/about-us/`
 - `/contact-us/`
 - `/privacy-policy/`
+- Trade Websites dropdown: all ten `/websites-for-.../` pages, available by keyboard and mobile accordion
 - `/thank-you/` (exclude from indexing)
 
 Homepage structure: hero and dark contact form; supported trades and features; three paid-upfront price cards; no-upfront plan; agency relationship; portfolio previews; why a trade website matters; what makes the sites different; CTA/footer.
@@ -62,6 +63,7 @@ Homepage structure: hero and dark contact form; supported trades and features; t
 - `PortfolioCard.astro`: images and concept/client labels.
 - `TradeLanding.astro`: trade-specific SEO layout with a single shared visual design.
 - `src/data/trades.ts`: unique trade names, services and descriptions for the ten new pages.
+- `src/data/trade-seo.ts`: per-trade primary search intent, unique title/meta description and useful supplementary copy.
 
 ## SEO and technical rules
 
@@ -72,6 +74,10 @@ Homepage structure: hero and dark contact form; supported trades and features; t
 - Existing slugs are retained; the ten new `/websites-for-.../` pages use meaningful industry-specific service descriptions.
 - Give meaningful images descriptive alt text, explicit dimensions, loading hints. Keep originals in the source repository for this migration.
 - Avoid stuffing area names and repeating trade keywords; connect homepage and trade pages through internal links.
+- Do not use meta-keywords: Google ignores that tag. Use unique, natural HTML titles, descriptions and relevant page text.
+- Provide Organization, WebSite, WebPage, Service and BreadcrumbList JSON-LD with only verifiable properties.
+- Each trade page appears in the desktop dropdown, nested mobile menu and homepage trade links; friendly shortcut slugs 301 redirect to the canonical URL.
+- GitHub Actions runs Astro build/static SEO QA and Playwright navigation checks on main.
 - Do not use noindex on public service pages. Keep thank-you and 404 noindexed.
 - Do not add broken or placeholder navigation links.
 
