@@ -16,11 +16,27 @@ export const nav = [
   { label: 'Contact Us', href: '/contact-us/' },
 ] as const;
 export const packages = [
-  {name:'Starter Website', upfront:149, monthly:39, description:'Professional online presence for your business', items:['Professional Website','Mobile Friendly','Contact Form','Hosting Included','No Bloat'], featured:false},
-  {name:'Trade Growth Website', upfront:249, monthly:59, description:'Everything needed to attract more customers', items:['Up To 5-page Website','Google Setup','Quote Request Form','Local SEO Setup','No Bloat'], featured:true},
-  {name:'Lead Generation Website', upfront:399, monthly:99, description:'Built to generate more calls and jobs.', items:['Full Website','SEO Setup','Google Business Optimisation','Lead Tracking','No Bloat'], featured:false},
+  {
+    name:'Starter Website', pageRange:'1–3 pages', upfront:149, monthly:39, featured:false,
+    description:'A professional online home for your trade business.',
+    items:['1–3 pages for your key business information','Mobile-friendly design using your logo and colours','Call-to-action buttons and an enquiry form','Initial page titles, descriptions and basic SEO setup','Standard hosting, SSL and basic technical upkeep']
+  },
+  {
+    name:'Trade Growth Website', pageRange:'5–9 pages', upfront:249, monthly:39, featured:true,
+    description:'More room to showcase your services and local work.',
+    items:['5–9 pages with individual service sections','More tailored design and page structure','Dedicated service-page SEO titles and descriptions','Internal links, enquiry forms and contact buttons','Standard hosting, SSL and basic technical upkeep']
+  }
 ] as const;
-export const monthlyOnly = {name:'Trade Growth Website',monthly:79,description:'Everything you need to succeed.',items:['Up To 5-Page Website','Google Setup','Quote Request Form','Local SEO Setup','No Bloat']} as const;
+export const monthlyOnly = {
+  name:'No Upfront Website',pageRange:'5–9 pages',monthly:65,hostingAfterYear:39,buildRepaymentMonths:12,
+  description:'A template-led build that spreads the website cost over the first year.',
+  items:['5–9 pages using an established trade layout','You supply your wording, logo and images','Mobile-friendly pages and an enquiry form','Initial SEO page titles and descriptions','Hosting and technical upkeep included']
+} as const;
+export const seoHosting = {
+  heading:'Ongoing SEO includes standard website hosting',
+  detail:'If you sign up for our ongoing SEO service, standard hosting is included while that SEO service remains active. We will not charge the separate £39 monthly hosting fee on top of SEO.',
+  financedNote:'If you choose the no-upfront website, the £26/month first-year build-cost portion still applies during the agreed 12-month period, even when hosting is included with SEO.'
+} as const;
 const media = '/wp-content/uploads/2026/';
 export const portfolio = [
  {name:'Window Cleaning Website',business:'J Piper Cleaning',description:'An established exterior cleaning business, with clear services, mobile-friendly pages and local SEO.',image:media+'08/Screenshot-2026-08-20-052252-1024x486.png',url:'https://jpipercleaning.com/',type:'client'},
