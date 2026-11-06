@@ -1,0 +1,29 @@
+name: Astro visual comparison
+on:
+  pull_request:
+    paths:
+      - "astro/**"
+      - ".github/workflows/astro-visual-audit.yml"
+  workflow_dispatch:
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: astro
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm install --no-audit --no-fund
+      - run: npm run build
+      - run: npm install --no-save playwright
+      - run: npx playwright install --with-deps chromium
+      - run: node scripts/visual-audit.mjs
+      - run: node scripts/browser-qa.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: uktrade-live-vs-astro-screenshots
+          path: astro/screenshots/
+          retention-days: 14

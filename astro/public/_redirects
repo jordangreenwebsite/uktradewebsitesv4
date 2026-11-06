@@ -1,0 +1,5 @@
+# Preserve legacy navigation mistakes and decommission WordPress archive URLs.
+/coming-soon/ /example-websites/ 301
+/contactus/ /contact-us/ 301
+/author/uktradewebsites/ /about-us/ 301
+/qs/ / 301

@@ -1,0 +1,13 @@
+---
+interface Props { name:string;description:string;image:string;url?:string;business?:string;type?:string; }
+const {name,description,image,url,business,type}=Astro.props;
+---
+<article class="portfolio-card">
+  <div class="portfolio-image"><img src={image} alt={business?business+' website preview':name+' preview'} width="900" height="520" loading="lazy" decoding="async"/></div>
+  <div class="portfolio-body">
+    {type==='concept'&&<span class="concept-label">Concept website</span>}
+    <h3>{name}</h3>
+    <p>{description}</p>
+    {url?<a href={url} target="_blank" rel="noopener noreferrer" class="btn btn-outline">See Website <span aria-hidden="true">↗</span></a>:<a href="/contact-us/" class="btn btn-outline">Enquire</a>}
+  </div>
+</article>

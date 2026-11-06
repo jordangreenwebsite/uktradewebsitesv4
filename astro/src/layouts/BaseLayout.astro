@@ -1,0 +1,51 @@
+---
+import { site } from '../data/site';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+interface Props { title: string; description?: string; path?: string; noindex?: boolean; schema?: Record<string, unknown>; image?: string; }
+const { title, description=site.description, path=Astro.url.pathname, noindex=false, schema, image=site.logo }=Astro.props;
+const canonical=new URL(path,site.url).href;
+const imageUrl=new URL(image,site.url).href;
+const graphs: Record<string,unknown>[]=[
+ {'@type':'Organization','@id':site.url+'/#organization',name:site.name,url:site.url,logo:{'@type':'ImageObject',url:new URL(site.logo,site.url).href},email:site.email},
+ {'@type':'WebSite','@id':site.url+'/#website',name:site.name,url:site.url,inLanguage:'en-GB',publisher:{'@id':site.url+'/#organization'}},
+ {'@type':'WebPage','@id':canonical+'#webpage',url:canonical,name:title,description,isPartOf:{'@id':site.url+'/#website'},inLanguage:'en-GB'},
+];
+if(schema) graphs.push(schema);
+const jsonLd=JSON.stringify({'@context':'https://schema.org','@graph':graphs}).replace(/</g,'\\u003c');
+---
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="theme-color" content="#1E3A5F"/>
+    <title>{title}</title>
+    <meta name="description" content={description}/>
+    <meta name="robots" content={noindex?'noindex, nofollow':'index, follow, max-image-preview:large'}/>
+    <link rel="canonical" href={canonical}/>
+    <link rel="icon" href={site.favicon} sizes="32x32"/>
+    <link rel="apple-touch-icon" href="/wp-content/uploads/2026/03/cropped-UK-TRADE-WEbsites-1-180x180.png"/>
+    <meta property="og:site_name" content={site.name}/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content={title}/>
+    <meta property="og:description" content={description}/>
+    <meta property="og:url" content={canonical}/>
+    <meta property="og:image" content={imageUrl}/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:title" content={title}/>
+    <meta name="twitter:description" content={description}/>
+    <meta name="twitter:image" content={imageUrl}/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Alice&family=Caveat:wght@400;600&family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <script type="application/ld+json" set:html={jsonLd}/>
+  </head>
+  <body class={path==='/'?'home-page':(['/about-us/','/our-process/','/contact-us/','/example-websites/','/privacy-policy/','/thank-you/'].includes(path)||path.startsWith('/websites-for-'))?'marketing-page':undefined}>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <Header path={path}/>
+    <main id="main-content"><slot/></main>
+    <Footer/>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+---
+import TradeLanding from '../components/TradeLanding.astro';
+import {trades,type Trade} from '../data/trades';
+export function getStaticPaths() {
+ return trades.map((trade)=>({params:{trade:trade.slug},props:{trade}}));
+}
+interface Props {trade:Trade;}
+const {trade}=Astro.props;
+---
+<TradeLanding trade={trade}/>

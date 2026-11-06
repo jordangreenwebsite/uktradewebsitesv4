@@ -1,0 +1,22 @@
+{
+  "name": "uk-trade-websites-astro",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "predev": "node scripts/sync-assets.mjs",
+    "dev": "astro dev --host 0.0.0.0",
+    "prebuild": "node scripts/sync-assets.mjs",
+    "build": "astro check && astro build && node scripts/qa.mjs",
+    "preview": "astro preview --host 0.0.0.0",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "astro": "^5.0.0",
+    "@astrojs/sitemap": "^3.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "typescript": "^5.0.0"
+  }
+}
