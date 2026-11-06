@@ -53,3 +53,96 @@
 .home-page .hero .contact-form input,.home-page .hero .contact-form select{height:44px;padding:10px 12px;line-height:1.3}
 .home-page .hero .contact-form textarea{min-height:119px;padding:12px;line-height:1.4}
 @media(max-width:800px){.home-page .header-inner{transform:translateY(16px)}.home-page .mobile-menu{transform:translateX(-10px)}.home-page .home-mobile-wa{font-size:16px;line-height:1.12;padding-inline:16px}.home-page .hero h1{margin-bottom:20px}.home-page .hero h2{margin-bottom:18px}.home-page .hero-inner>div:first-child>.btn{position:relative;top:18px}.home-page .hero .contact-panel{padding-top:66px}}
+
+/* Migrated legacy Breakdance interior-page hero fidelity. */
+.marketing-page .site-header{position:absolute;top:0;left:0;right:0;background:transparent;backdrop-filter:none;z-index:100}
+.marketing-page .site-header.scrolled{position:fixed;background:rgba(255,140,66,.96);backdrop-filter:blur(10px)}
+.marketing-page .header-inner{min-height:185px}
+.marketing-page .brand{margin-left:15px}
+.marketing-page .brand img{width:150px}
+.marketing-page .desktop-nav a{color:var(--navy);font-weight:400}
+.marketing-page .desktop-nav a[aria-current="page"]{color:var(--navy)}
+.marketing-page .header-cta,.marketing-page .home-mobile-wa{background:var(--navy);color:var(--orange);border-radius:999px;font-weight:500;padding:14px 24px}
+.marketing-page .header-cta:hover,.marketing-page .home-mobile-wa:hover{background:#284c76;color:#fff}
+.legacy-hero{position:relative;background:var(--bg);isolation:isolate;overflow:hidden}
+.legacy-hero .legacy-wave{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.legacy-pill,.legacy-hero .btn.legacy-pill{background:var(--navy);color:var(--orange);border-radius:999px;min-width:138px;font-weight:500}
+.legacy-pill:hover{background:#284c76;color:#fff!important}
+.legacy-orange-pill{background:var(--orange);color:var(--navy);border-radius:999px;font-weight:500}
+.legacy-about{min-height:910px}
+.legacy-about-grid{padding-top:200px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.legacy-about-copy{text-align:center;padding:120px 0 0}
+.legacy-about-copy h1{font:700 48px/1.18 'Alice',Georgia,serif;color:var(--blue);letter-spacing:0;margin:0 0 45px}
+.legacy-about-copy h2{font:700 28px/1.32 'Montserrat',sans-serif;color:#727680;max-width:520px;margin:0 auto 50px}
+.legacy-about-copy .legacy-down{font-size:46px;color:var(--navy);margin-top:20px;line-height:1}
+.legacy-portrait{background:#ffffff35;padding:30px 30px 0;margin:0;max-width:500px;justify-self:center;box-shadow:0 12px 35px #1E3A5F08}
+.legacy-portrait img{display:block;width:440px;height:588px;object-fit:cover;object-position:center}
+.legacy-portrait figcaption{padding:10px 0;color:var(--ink);font-size:20px}
+.legacy-process{height:610px}
+.legacy-process-grid{position:relative;padding-top:195px;display:grid;grid-template-columns:1fr 1fr;align-items:start;gap:30px}
+.legacy-process-copy{text-align:center}
+.legacy-process-copy h1{font:700 55px/1.12 'Montserrat',sans-serif;color:var(--blue);margin:0 0 23px}
+.legacy-process-copy h2{font:700 24px/1.25 'Montserrat',sans-serif;color:var(--blue);margin:0}
+.legacy-device{display:flex;align-items:center;justify-content:center;min-height:250px}
+.legacy-device img{display:block;max-width:550px;max-height:285px;width:100%;height:auto;object-fit:contain}
+.legacy-process-cta{position:absolute;left:50%;top:515px;transform:translateX(-50%)}
+.legacy-process-cta:hover{transform:translateX(-50%) translateY(-2px)}
+.legacy-steps{padding-top:25px;background:var(--bg)}
+.legacy-steps .section-heading{margin-bottom:20px;max-width:1000px}
+.legacy-steps .section-heading h2{font-size:36px;margin-bottom:0}
+.legacy-steps .section-heading p{color:var(--navy);margin-bottom:0}
+.legacy-steps .steps .info-card{padding:24px 25px}
+.legacy-steps .steps .info-card .step-image{display:block;width:100%;height:128px;object-fit:cover;margin-bottom:25px}
+.legacy-contact{min-height:840px}
+.legacy-contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;padding-top:100px;align-items:start}
+.legacy-contact-copy{padding-top:54px;text-align:left}
+.legacy-contact-copy h1{font:700 48px/1.17 'Alice',Georgia,serif;color:var(--blue);white-space:nowrap;letter-spacing:-.01em;margin-bottom:26px}
+.legacy-contact-copy h2{font:700 55px/1.2 'Montserrat',sans-serif;color:var(--blue);margin-bottom:92px}
+.legacy-contact-copy .legacy-pill{display:flex;margin:auto;max-width:155px}
+.legacy-contact .contact-panel{max-width:502px;width:100%;background:rgba(30,58,95,.8);color:#fff;border:0;padding:58px 40px 40px;box-shadow:none;border-radius:12px}
+.legacy-contact .contact-panel h2{font:700 28px/1.2 'Montserrat',sans-serif;color:var(--orange);text-align:center;margin-bottom:25px}
+.legacy-contact .contact-panel label{color:#f5f7fa;gap:6px;line-height:1.2}
+.legacy-contact .contact-form .form-grid{gap:16px}
+.legacy-contact .contact-form input,.legacy-contact .contact-form select{height:44px;background:#F5F7FA;border:1px solid #F5F7FA;border-radius:6px;padding:10px 12px;line-height:1.3}
+.legacy-contact .contact-form textarea{background:#F5F7FA;border-radius:6px;min-height:120px}
+.legacy-contact .contact-panel .btn{width:100%;background:var(--orange);color:var(--navy);border-radius:6px}
+.legacy-contact .contact-panel .form-privacy{display:none}
+.legacy-examples{padding:244px 0 0;text-align:center}
+.legacy-examples .legacy-wave{height:340px}
+.legacy-examples h1{font:700 48px/1.2 'Montserrat',sans-serif;color:var(--blue);margin:0 0 25px}
+.legacy-examples h2{font:700 23px/1.24 'Montserrat',sans-serif;color:var(--blue);margin:0 auto 24px;max-width:1090px}
+.legacy-examples .portfolio-intro{font-size:18px;line-height:1.55;max-width:1060px;margin:0 auto 25px}
+.legacy-examples .hero-cta-row{display:flex;flex-direction:column;align-items:center;gap:24px}
+.legacy-examples .hero-cta-row .btn{min-height:47px;padding:10px 25px}
+.legacy-clients{padding-top:26px}
+.legacy-clients .section-heading{margin-bottom:16px;max-width:1120px}
+.legacy-clients .section-heading h2{font-size:38px;margin-bottom:26px}
+.legacy-clients .section-heading p{font:700 22px/1.3 'Montserrat',sans-serif;color:var(--blue);margin:0}
+@media(max-width:1000px) and (min-width:801px){.legacy-about-copy h1{font-size:38px}.legacy-process-copy h1{font-size:43px}.legacy-contact-copy h1{font-size:37px}.legacy-contact-copy h2{font-size:42px}.legacy-contact-grid{gap:25px}.legacy-examples h1{font-size:40px}}
+@media(max-width:800px){
+.marketing-page .header-inner{min-height:155px;transform:translateY(15px);gap:12px}
+.marketing-page .brand{margin-left:0;margin-right:auto}.marketing-page .brand img{width:145px}
+.marketing-page .home-mobile-wa{display:inline-flex;max-width:128px;min-width:126px;line-height:1.15;font-size:15px;padding:10px 12px;min-height:56px;order:3}
+.marketing-page .mobile-menu{order:2;margin-left:0}.marketing-page .mobile-menu summary{font-size:0}.marketing-page .mobile-menu .hamburger{width:32px;gap:6px}.marketing-page .mobile-menu .hamburger span{height:3px;background:var(--blue)}
+.legacy-about-grid,.legacy-process-grid,.legacy-contact-grid{grid-template-columns:1fr;gap:20px}
+.legacy-about{min-height:0}.legacy-about-grid{padding-top:175px;padding-bottom:60px}
+.legacy-about-copy{padding-top:0}.legacy-about-copy h1{font-size:35px;margin-bottom:25px}.legacy-about-copy h2{font-size:22px;margin-bottom:24px}.legacy-about-copy .legacy-down{display:none}
+.legacy-portrait{max-width:400px;padding:15px 15px 0}.legacy-portrait img{height:auto;max-height:520px;object-fit:contain}
+.legacy-process{height:auto;min-height:740px}.legacy-process-grid{padding-top:165px;padding-bottom:135px}
+.legacy-process-copy h1{font-size:37px}.legacy-process-copy h2{font-size:20px}
+.legacy-device img{max-width:470px;max-height:230px}
+.legacy-process-cta{top:auto;bottom:50px}.legacy-steps{padding-top:50px}
+.legacy-contact{min-height:0}.legacy-contact-grid{padding-top:165px;padding-bottom:45px}
+.legacy-contact-copy{padding-top:0;text-align:center}.legacy-contact-copy h1{font-size:35px;white-space:normal}.legacy-contact-copy h2{font-size:42px;margin-bottom:27px}
+.legacy-contact .contact-panel{max-width:540px;margin:0 auto}
+.legacy-examples{padding-top:190px}.legacy-examples h1{font-size:34px}.legacy-examples h2{font-size:19px}.legacy-examples .desktop-break{display:none}
+.legacy-examples .portfolio-intro{font-size:16px}
+}
+@media(max-width:550px){.marketing-page .header-inner{width:calc(100% - 32px)}.marketing-page .brand img{width:135px}
+.legacy-about-grid,.legacy-process-grid,.legacy-contact-grid{width:calc(100% - 40px)}
+.legacy-about-copy h1{font-size:32px}.legacy-about-copy h2{font-size:21px}
+.legacy-contact-copy h1{font-size:30px}.legacy-contact-copy h2{font-size:38px}
+.legacy-contact .contact-panel{padding:50px 25px 35px}
+.legacy-examples .container{width:calc(100% - 30px)}.legacy-examples h1{font-size:30px}.legacy-examples h2{font-size:18px}
+.legacy-clients .section-heading h2{font-size:31px}.legacy-clients .section-heading p{font-size:17px}
+}

@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/BaseLayout.astro';
 import ContactForm from '../components/ContactForm.astro';
-import {site} from '../data/site';
 const steps=[
  ['Choose your website','Pick the plan that suits your business and tell us about the services you offer.'],
  ['Send us your details',"Provide your logo, contact details, services and service areas. If you don't have everything ready, we'll help you out."],
@@ -16,8 +15,15 @@ const faqs=[
 ];
 ---
 <Layout title="Our Process - Trade Website Design Made Simple" description="We make getting your trade website simple. From setup to launch, our step-by-step process helps you get online fast and start generating more enquiries." path="/our-process/">
-<section class="page-hero"><div class="container"><h1>Our Simple Website Process</h1><p class="lead">From first enquiry to a professional website in just a few days.</p><a href="/contact-us/" class="btn btn-accent">Get Started</a></div></section>
-<section class="section"><div class="container"><div class="section-heading"><h2>A Simple 4-Step Process</h2><p>We've designed our process to be quick and straightforward so you can focus on running your business.</p></div><div class="steps">{steps.map(([heading,description],i)=><article class="info-card"><div class="step-number">{i+1}</div><h3>{heading}</h3><p>{description}</p></article>)}</div></div></section>
+<section class="legacy-hero legacy-process">
+  <svg class="legacy-wave" viewBox="0 0 1440 670" preserveAspectRatio="none" aria-hidden="true"><path fill="#FF8C42" d="M0,0 H1440 V610 C1200,451 1060,350 917,240 C840,170 766,101 712,113 C627,135 542,227 441,239 C266,253 131,382 0,539 Z"/></svg>
+  <div class="container legacy-process-grid">
+    <div class="legacy-process-copy"><h1>Our Simple<br/>Website Process</h1><h2>From first enquiry to a professional website in just a few days.</h2></div>
+    <div class="legacy-device"><img src="/wp-content/uploads/2026/03/jordan-1.png" alt="Example websites shown on laptop, tablet and mobile screens" width="1024" height="576" fetchpriority="high"/></div>
+    <a href="/contact-us/" class="btn legacy-pill legacy-process-cta">Get Started</a>
+  </div>
+</section>
+<section class="section legacy-steps"><div class="container"><div class="section-heading"><h2>A Simple 4-Step Process</h2><p>We've designed our process to be quick and straightforward so you can focus on running your business.</p></div><div class="steps">{steps.map(([heading,description],i)=><article class="info-card"><img class="step-image" src={['/wp-content/uploads/2026/03/timothy-muza-6VjPmyMj5KM-unsplash-1024x683.jpg','/wp-content/uploads/2026/03/maxim-ilyahov-0aRycsfH57A-unsplash-1024x683.jpg','/wp-content/uploads/2026/03/charlesdeluvio-Lks7vei-eAg-unsplash-1024x683.jpg','/wp-content/uploads/2026/03/flipsnack-4NYFoUCPpbk-unsplash-1024x683.jpg'][i]} width="320" height="200" alt={'Illustration of step '+(i+1)} loading="lazy"/><h3>{heading}</h3><p>{description}</p></article>)}</div></div></section>
 <section class="section section-light"><div class="container split-grid"><div><h2>How Long Does It Take?</h2><h3>Most trade websites are completed within 5–7 days after we receive all your details.</h3><p>Timelines vary with how quickly content and approvals are supplied.</p></div><div class="feature-panel"><h2>Timeline Example</h2><ul class="check-list"><li>Day 1 — Send your information</li><li>Day 3 — Website preview ready</li><li>Day 5–7 — Website launched</li></ul></div></div></section>
 <section class="section"><div class="container split-grid"><div><h2>What we need from you:</h2><ul class="check-list"><li>Business Name</li><li>Services you offer</li><li>Areas you work in</li><li>Contact details</li><li>Logo</li></ul><p>Don't worry if you need help with anything. We can help.</p></div><img src="/wp-content/uploads/2026/03/timothy-muza-6VjPmyMj5KM-unsplash-1024x683.jpg" alt="Website planning workspace with laptop" width="1024" height="683" loading="lazy"/></div></section>
 <section class="section section-light"><div class="container"><h2 class="text-center">Frequently Asked Questions</h2><div class="faq-list">{faqs.map(([q,a])=><details><summary>{q}</summary><p>{a}</p></details>)}</div></div></section>
