@@ -737,3 +737,45 @@
   .seo-hosting-band{padding:30px 24px}
   .pricing-page-hero{padding:205px 0 70px}
 }
+
+
+/* Pricing presentation: three balanced trade offers and a distinct agency referral. */
+.pricing-grid-three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;max-width:1120px;margin:0 auto 54px;align-items:stretch}
+.pricing-grid-three>.price-card{min-width:0;padding:34px 25px;align-items:stretch;text-align:left;display:flex;flex-direction:column}
+.pricing-grid-three>.price-card.featured{padding:32px 23px}
+.pricing-grid-three .price-card h3{font:700 clamp(21px,2vw,27px)/1.22 'Montserrat',sans-serif;color:var(--navy);min-height:0}
+.pricing-grid-three .price-page-range{font-size:20px}
+.pricing-grid-three .tick-list{flex:1;text-align:left}
+.pricing-grid-three .price-card .btn{margin-top:auto;min-width:0;width:100%;font-size:clamp(13px,1.1vw,15px);padding:13px 10px;white-space:normal;text-align:center}
+.pricing-grid-three .no-upfront-card{border:2px solid var(--navy);padding:33px 24px}
+.pricing-grid-three .no-upfront-card .best-choice{background:var(--navy);color:#fff}
+.prunus-referral{position:relative;isolation:isolate;overflow:hidden;max-width:1120px;margin:0 auto 36px;background:#fff;border:1px solid #e8e3e5;border-radius:18px;box-shadow:0 15px 35px rgba(30,58,95,.08);padding:36px 44px 40px}
+.prunus-referral-content{position:relative;z-index:1;max-width:730px}
+.prunus-brand{display:flex;align-items:center;gap:12px;color:#493b47;font:600 22px/1.2 Georgia,serif;margin-bottom:27px;letter-spacing:.02em}
+.prunus-brand em{font-weight:400}
+.prunus-monogram{display:grid;place-items:center;width:45px;height:45px;border:1px solid #c5a1a9;border-radius:50%;font:italic 28px Georgia,serif;color:#8d6675}
+.prunus-referral .eyebrow{color:#926b7b}
+.prunus-referral h3{font:700 clamp(27px,3vw,38px)/1.18 'Montserrat',sans-serif;color:var(--navy);margin:0 0 14px}
+.prunus-referral p:not(.eyebrow){max-width:620px;margin:0 0 24px;color:#4e5968}
+.prunus-referral .btn{display:inline-flex}
+.prunus-floral{position:absolute;right:-14px;bottom:-14px;width:310px;height:auto;opacity:.75;z-index:0;pointer-events:none}
+@media(max-width:950px){.pricing-grid-three{grid-template-columns:1fr;max-width:540px;gap:25px}.pricing-grid-three>.price-card,.pricing-grid-three>.price-card.featured,.pricing-grid-three .no-upfront-card{padding:32px 27px}.pricing-grid-three .price-card .btn{font-size:15px}.prunus-referral{max-width:540px}}
+@media(max-width:550px){.prunus-referral{padding:29px 25px 32px}.prunus-floral{width:190px;opacity:.35}.prunus-brand{font-size:20px}}
+/* Keep the expanded mobile navigation anchored to the viewport, never off-screen. */
+@media(max-width:1100px){
+ .home-page .mobile-menu,.marketing-page .mobile-menu{position:static;transform:none}
+ .home-page .header-inner,.marketing-page .header-inner{position:relative}
+ .home-page .mobile-menu>nav,.marketing-page .mobile-menu>nav{
+   position:absolute;left:auto;right:0;top:calc(100% + 6px);
+   width:min(350px,calc(100vw - 30px));max-width:calc(100vw - 30px);
+   box-sizing:border-box;transform:none;z-index:2000;
+ }
+ .home-page .mobile-menu>nav a,.marketing-page .mobile-menu>nav a{overflow-wrap:anywhere}
+}
+@media(max-width:550px){
+ .home-page .header-inner,.marketing-page .header-inner{gap:8px}
+ .home-page .brand,.marketing-page .brand{margin-left:0;min-width:0}
+ .home-page .brand img,.marketing-page .brand img{width:clamp(90px,27vw,130px)}
+ .home-page .home-mobile-wa,.marketing-page .home-mobile-wa{min-width:0;max-width:none;padding:10px 12px;font-size:clamp(12px,3.3vw,15px)}
+ .home-page .mobile-menu>nav,.marketing-page .mobile-menu>nav{right:0}
+}
