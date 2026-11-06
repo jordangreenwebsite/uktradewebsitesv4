@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import {spawn} from 'node:child_process';
 import {chromium} from 'playwright';
 
 const targets = [
@@ -11,6 +12,7 @@ const origins = [
  {name:'astro',url:'http://127.0.0.1:4321/'},
 ];
 fs.mkdirSync('screenshots',{recursive:true});
+const server=spawn('python3',['-m','http.server','4321','--bind','127.0.0.1','--directory','dist'],{stdio:'ignore'});
 const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
 let ready=false;
 for(let attempt=0;attempt<40;attempt++){
@@ -20,7 +22,7 @@ for(let attempt=0;attempt<40;attempt++){
  }catch{}
  await new Promise(resolve=>setTimeout(resolve,500));
 }
-if(!ready)throw new Error('Astro preview server did not become ready.');
+if(!ready){server.kill();throw new Error('Astro static HTTP server did not become ready.');}
 try {
  for(const viewport of targets) {
   for(const site of origins) {
@@ -39,4 +41,4 @@ try {
    await page.close();
   }
  }
-} finally { await browser.close(); }
+} finally { await browser.close();server.kill(); }

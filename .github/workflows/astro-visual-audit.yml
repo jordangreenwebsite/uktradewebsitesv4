@@ -20,7 +20,6 @@ jobs:
       - run: npm run build
       - run: npm install --no-save playwright
       - run: npx playwright install --with-deps chromium
-      - run: npm run preview -- --host 127.0.0.1 > /tmp/astro-preview.log 2>&1 &
       - run: node scripts/visual-audit.mjs
       - uses: actions/upload-artifact@v4
         with:
