@@ -426,3 +426,165 @@
   .marketing-page .site-header.scrolled .header-inner{min-height:74px}
   .mobile-menu>nav{width:min(350px,calc(100vw - 28px))}
 }
+
+
+/* November 2026 audit refinements: align navigation, increase trade-page type,
+   keep CTA/form below the overlay header, and smooth visual hero transitions. */
+@media (min-width:1101px){
+  .home-page .header-inner,
+  .marketing-page .header-inner{
+    display:grid;
+    grid-template-columns:minmax(130px,160px) minmax(0,1fr) minmax(140px,160px);
+    align-items:center;
+    column-gap:14px;
+  }
+  .home-page .desktop-nav,.marketing-page .desktop-nav{
+    justify-content:center;
+    gap:clamp(9px,1.15vw,19px);
+    min-width:0;
+  }
+  .home-page .header-cta,.marketing-page .header-cta{
+    justify-self:end;
+    width:max-content;
+  }
+  .home-page .brand,.marketing-page .brand{justify-self:start}
+}
+/* Make the dropdown trigger match its neighbours, including active and orange-header hover. */
+.home-page .desktop-trades-menu>summary,
+.marketing-page .desktop-trades-menu>summary{
+  font:400 1rem/1.4 'Open Sans',Arial,sans-serif;
+  color:var(--navy);
+  padding:12px 0;
+}
+.home-page .desktop-trades-menu>summary:hover,
+.marketing-page .desktop-trades-menu>summary:hover,
+.home-page .desktop-trades-menu>summary.active,
+.marketing-page .desktop-trades-menu>summary.active,
+.home-page .desktop-trades-menu[open]>summary,
+.marketing-page .desktop-trades-menu[open]>summary{
+  color:#172c46;
+}
+.desktop-trades-menu>summary span{
+  display:inline-block;
+  margin-left:7px;
+  vertical-align:baseline;
+  font-size:1.18em;
+  line-height:1;
+}
+.home-page .desktop-nav>a:hover,
+.marketing-page .desktop-nav>a:hover{color:#172c46}
+.home-page .desktop-nav>a:focus-visible,
+.marketing-page .desktop-nav>a:focus-visible{outline-color:var(--navy)}
+/* Homepage hero: left copy + right enquiry form stay balanced and clear of the header. */
+@media (min-width:801px){
+  .home-page .hero{min-height:920px}
+  .home-page .hero-wave{height:920px}
+  .home-page .hero-inner{
+    display:grid;
+    grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);
+    gap:clamp(28px,3.5vw,58px);
+    align-items:start;
+    padding-top:230px;
+    padding-bottom:115px;
+    min-height:920px;
+  }
+  .home-page .hero-inner>div:first-child{padding:30px 0 0 10px}
+  .home-page .hero-inner>div:first-child>.btn{
+    margin:42px 0 0 0;
+    position:static;
+  }
+  .home-page .hero .contact-panel{
+    margin:0 0 0 auto;
+    max-width:520px;
+    padding-top:44px;
+    box-shadow:0 14px 34px rgba(30,58,95,.10);
+  }
+}
+@media (min-width:801px) and (max-width:1150px){
+  .home-page .hero-inner{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px}
+  .home-page .hero h1{font-size:clamp(34px,4.1vw,48px);white-space:normal}
+  .home-page .hero h2{font-size:clamp(34px,4.6vw,55px)}
+  .home-page .hero .contact-panel{padding-inline:26px}
+}
+/* Contact: the first form input was sitting behind the 185px overlay navigation. */
+@media (min-width:801px){
+  .legacy-contact{min-height:930px}
+  .legacy-contact-grid{
+    padding-top:238px;
+    padding-bottom:105px;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    gap:clamp(25px,4vw,58px);
+  }
+  .legacy-contact-copy{padding-top:22px}
+  .legacy-contact .contact-panel{margin:0 0 0 auto}
+  .legacy-contact-copy h2{margin-bottom:52px}
+}
+/* Trade heroes use the same clean Montserrat family as the established page headings. */
+.legacy-trade-hero h1{
+  font-family:'Montserrat',sans-serif;
+  font-size:clamp(38px,4.5vw,62px);
+  font-weight:700;
+  line-height:1.12;
+  letter-spacing:-.035em;
+  max-width:960px;
+}
+.legacy-trade-hero h2{
+  font-family:'Montserrat',sans-serif;
+  font-size:clamp(26px,2.85vw,40px);
+  font-weight:600;
+  line-height:1.28;
+  max-width:940px;
+  letter-spacing:-.025em;
+}
+.legacy-trade-hero .lead{
+  font-size:clamp(18px,1.52vw,21px);
+  line-height:1.65;
+  max-width:820px;
+}
+.legacy-trade-hero .eyebrow{font-size:1rem}
+.legacy-trade-hero .breadcrumbs{font-size:1rem}
+.legacy-trade-hero .legacy-trade-content{padding-top:235px;padding-bottom:115px}
+.legacy-trade-content .hero-cta-row{gap:16px}
+@media (min-width:801px){
+  .legacy-trade-hero{min-height:680px}
+  .legacy-trade-hero + .section p,
+  .marketing-page:has(.legacy-trade-hero) .section p,
+  .marketing-page:has(.legacy-trade-hero) .section li,
+  .marketing-page:has(.legacy-trade-hero) .feature-panel p{
+    font-size:18px;
+    line-height:1.7;
+  }
+}
+.legacy-portrait{padding-bottom:18px}
+@media(max-width:800px){
+  .home-page .hero-inner{padding-top:190px;padding-bottom:80px}
+  .home-page .hero-inner>div:first-child{
+    padding-top:16px;
+    min-height:0;
+    gap:0;
+  }
+  .home-page .hero-inner>div:first-child>.btn{
+    position:static;
+    top:auto;
+    margin-top:38px;
+  }
+  .home-page .hero .contact-panel{margin:0 auto}
+  .legacy-contact-grid{padding-top:225px;padding-bottom:75px;gap:34px}
+  .legacy-contact-copy{padding-top:0}
+  .legacy-contact-copy h2{margin-bottom:30px}
+  .legacy-trade-hero .legacy-trade-content{padding-top:205px;padding-bottom:92px}
+  .legacy-trade-hero h1{font-size:clamp(32px,6vw,44px);line-height:1.16}
+  .legacy-trade-hero h2{font-size:clamp(24px,4vw,32px)}
+  .legacy-trade-hero .lead{font-size:18px}
+}
+@media(max-width:550px){
+  .legacy-contact-grid{padding-top:235px;padding-bottom:75px}
+  .legacy-contact-copy h1{font-size:clamp(31px,9vw,45px)}
+  .legacy-contact-copy h2{font-size:clamp(35px,10vw,47px);margin-bottom:32px}
+  .home-page .hero-inner{padding-top:190px}
+  .home-page .hero-wave{height:790px}
+  .home-page .hero-inner>div:first-child{padding-inline:8px}
+  .legacy-trade-hero .legacy-trade-content{padding-top:195px;padding-bottom:75px}
+  .legacy-trade-hero h1{font-size:clamp(32px,8.5vw,39px)}
+  .legacy-trade-hero h2{font-size:clamp(24px,6vw,29px)}
+}
