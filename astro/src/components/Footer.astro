@@ -15,7 +15,7 @@ import {site} from '../data/site';
       <a href="/our-process/">Our Process</a>
       <a href="/privacy-policy/">Privacy Policy</a>
     </nav>
-    <div class="footer-action"><a href={site.whatsapp} target="_blank" rel="noopener noreferrer" class="btn btn-accent">WhatsApp Us</a><a href={"mailto:"+site.email}>{site.email}</a><p class="footer-hours">Enquiry hours: {site.contactHours.label}</p></div>
+    <div class="footer-action"><a href={site.whatsapp} target="_blank" rel="noopener noreferrer" class="btn btn-accent">WhatsApp Us</a><span class="footer-email" set:html={'<!--email_off--><a href="mailto:'+site.email+'">'+site.email+'</a><!--/email_off-->'}/><p class="footer-hours">Enquiry hours: {site.contactHours.label}</p></div>
   </div>
   <div class="container footer-bottom">
     <a href="#main-content">Back to top ↑</a>
