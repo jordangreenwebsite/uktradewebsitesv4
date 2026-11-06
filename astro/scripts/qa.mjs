@@ -82,6 +82,8 @@ if(/href="\/contact-us\/\?package=/.test(indexHtml))errors.push('Pricing creates
 if(!indexHtml.includes('/contact-us/#package='))errors.push('Clean pricing links missing');
 if(!indexHtml.includes('<!--email_off-->')||!indexHtml.includes('<!--/email_off-->'))errors.push('Footer email needs Cloudflare email_off markers to prevent broken /cdn-cgi/l/email-protection link');
 if(!indexHtml.includes('mailto:uktradewebsites@gmail.com'))errors.push('Footer needs a working mailto link');
+const privacyHtml=fs.readFileSync(path.join(root,'privacy-policy','index.html'),'utf8');
+if(!privacyHtml.includes('<!--email_off-->')||!privacyHtml.includes('<!--/email_off-->'))errors.push('Privacy policy email must be protected from Cloudflare rewriting');
 const pricingHtml=fs.readFileSync(path.join(root,'pricing','index.html'),'utf8');
 for(const expected of ['Starter Website','Trade Growth Website','No Upfront Website','£<strong>65','£39','<strong>£149','<strong>£249','1–5 pages','5–9 pages']){
  if(!pricingHtml.includes(expected))errors.push('Pricing page missing: '+expected);
