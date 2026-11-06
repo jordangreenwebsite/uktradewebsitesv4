@@ -3,11 +3,14 @@ import Layout from '../layouts/BaseLayout.astro';
 import ContactForm from './ContactForm.astro';
 import {site,packages} from '../data/site';
 import {trades,type Trade} from '../data/trades';
+import {tradeSeo} from '../data/trade-seo';
 interface Props {trade: Trade;}
 const {trade}=Astro.props;
-const title=trade.search+' | Trade Website Design UK';
+const seo=tradeSeo[trade.slug];
+if(!seo) throw new Error('Missing SEO copy for trade: '+trade.slug);
+const title=seo.title;
 const url=site.url+'/'+trade.slug+'/';
-const schema={
+const serviceSchema={
  '@type':'Service',
  '@id':url+'#service',
  name:trade.search,
@@ -15,10 +18,19 @@ const schema={
  serviceType:'Website design for '+trade.name,
  areaServed:{'@type':'Country',name:'United Kingdom'},
  provider:{'@id':site.url+'/#organization'},
+ mainEntityOfPage:{'@id':url+'#webpage'},
  url,
 };
+const breadcrumbSchema={
+ '@type':'BreadcrumbList',
+ '@id':url+'#breadcrumbs',
+ itemListElement:[
+  {'@type':'ListItem',position:1,name:'Home',item:site.url+'/'},
+  {'@type':'ListItem',position:2,name:trade.search,item:url},
+ ],
+};
 ---
-<Layout title={title} description={trade.intro} path={'/'+trade.slug+'/'} schema={schema}>
+<Layout title={title} description={seo.description} path={'/'+trade.slug+'/'} schema={[serviceSchema,breadcrumbSchema]}>
   <section class="legacy-hero legacy-trade-hero">
     <svg class="legacy-wave" viewBox="0 0 1440 650" preserveAspectRatio="none" aria-hidden="true"><path fill="#FF8C42" d="M0,0 H1440 V650 H1370 C1170,520 1050,365 876,235 C795,175 751,143 710,155 C560,208 485,347 386,355 C236,368 115,525 0,650 Z"/></svg>
     <div class="container legacy-trade-content">
@@ -39,10 +51,14 @@ const schema={
     <ul class="service-list">{trade.services.map(s=><li>{s}</li>)}</ul>
     <p class="muted" style="margin-top:25px">Your finished website will use the services you actually provide, real photos and reviews where available, and genuine areas you cover.</p>
   </div></section>
+  <section class="section-tight section-light" aria-labelledby={'seo-'+trade.slug}><div class="container content-page">
+    <h2 id={'seo-'+trade.slug}>{seo.heading}</h2>
+    <p>{seo.copy}</p>
+  </div></section>
   <section class="section section-light"><div class="container split-grid">
     <div><h2>Simple, clear pricing</h2><p>Choose a package that fits your business. Our current trade website packages start from <strong>£{packages[0].upfront} upfront plus £{packages[0].monthly} per month</strong>, on a 12-month contract.</p><p>For more pages, local SEO or lead tracking, see our full website packages.</p><a class="btn btn-primary" href="/#pricing">See all website packages</a></div>
     <div class="feature-panel"><h2>{trade.example?'See an example website':'See what we can build'}</h2><p>{trade.example?'Browse a demonstration design created for this type of trade. The demo is a concept, not a client website.':'We can tailor a design to your trade, brand colours, services, work photos and the areas you cover.'}</p><a class="btn btn-outline" href={trade.example||'/example-websites/'} target={trade.example?'_blank':undefined} rel={trade.example?'noopener noreferrer':undefined}>{trade.example?'View demo website':'View example websites'}</a></div>
   </div></section>
   <section class="bottom-contact"><div class="container"><p class="eyebrow text-center">Ready when you are</p><ContactForm heading={'Get a '+trade.plural.toLowerCase()+' website quote'} id={'form-'+trade.slug}/></div></section>
-  <section class="section-tight"><div class="container"><h2>Websites for more trades</h2><ul class="trade-links">{trades.filter(t=>t.slug!==trade.slug).slice(0,6).map(t=><li><a href={'/'+t.slug+'/'}>{t.search}</a></li>)}</ul></div></section>
+  <section class="section-tight"><div class="container"><h2>Websites for more trades</h2><ul class="trade-links">{trades.filter(t=>t.slug!==trade.slug).map(t=><li><a href={'/'+t.slug+'/'}>{t.search}</a></li>)}</ul></div></section>
 </Layout>
