@@ -1,6 +1,12 @@
 ---
 import Layout from '../layouts/BaseLayout.astro';
+import {site} from '../data/site';
 ---
-<Layout title="Thank you - UK Trade Websites" description="Thanks for contacting UK Trade Websites." path="/thank-you/" noindex={true}>
-<section class="section"><div class="container"><div class="thank-you-content"><h1>We've got your enquiry, and we'll respond soon.</h1><p>Thanks for getting in touch. We’ll be in contact as soon as we can.</p><a class="btn btn-primary" href="/">Back to homepage</a></div></div></section>
+<Layout title="Thank you - UK Trade Websites" description="We've got your enquiry, and we'll respond soon." path="/thank-you/" noindex={true}>
+  <section class="legacy-thanks">
+    <div class="container legacy-thanks-inner">
+      <h1>We've got your enquiry, and we'll respond soon.</h1>
+      <a class="btn thanks-cta" href={site.whatsapp} target="_blank" rel="noopener noreferrer">You Can Also Whatsapp Us</a>
+    </div>
+  </section>
 </Layout>

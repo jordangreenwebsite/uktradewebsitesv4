@@ -213,3 +213,50 @@
   .pricing-section{padding-top:150px}
   .pricing-section>.pricing-wave{height:390px}
 }
+
+/* Match the existing privacy policy's orange wave, type scale and content widths. */
+.legacy-privacy{min-height:1000px;background:var(--bg)}
+.legacy-privacy .legacy-wave{height:950px}
+.legacy-privacy-content{position:relative;padding:203px 20px 110px}
+.legacy-privacy-content h1{
+ color:var(--blue);font:700 49px/1.15 'Montserrat',sans-serif;
+ letter-spacing:0;margin:0 0 29px
+}
+.legacy-privacy-content .privacy-date{margin:0 0 15px}
+.legacy-privacy-content h2{font:700 38px/1.2 'Montserrat',sans-serif;color:var(--blue);letter-spacing:-.02em;margin:30px 0}
+.legacy-privacy-content p{margin:0 0 16px;line-height:1.55}
+.legacy-privacy-content ul{margin:0 0 18px;padding-left:40px}
+.legacy-privacy-content li{padding-left:0;margin:11px 0}
+/* The original thank-you hero uses this exact source photograph from the export. */
+.legacy-thanks{
+ min-height:795px;
+ background:#f5f7fa url('/wp-content/uploads/2026/03/wilhelm-gunkel-E_CNfb2s94-unsplash-scaled.jpg') center center / cover no-repeat;
+}
+.legacy-thanks-inner{padding-top:528px;text-align:center}
+.legacy-thanks h1{
+ color:var(--blue);font:700 48px/1.17 'Montserrat',sans-serif;
+ letter-spacing:-.02em;max-width:1120px;margin:0 auto 8px;
+}
+.legacy-thanks .thanks-cta{background:var(--orange);color:var(--navy);border-radius:999px;font-weight:500;min-height:45px}
+.legacy-thanks .thanks-cta:hover{background:#ffab6b;color:var(--navy)}
+@media(max-width:800px){
+ .legacy-privacy-content{padding-top:190px}
+ .legacy-thanks{min-height:800px}
+ .legacy-thanks-inner{padding-top:525px}
+ .legacy-thanks h1{font-size:40px}
+}
+@media(max-width:550px){
+ .legacy-privacy .legacy-wave{height:900px}
+ .legacy-privacy-content{width:calc(100% - 40px);padding:205px 0 80px}
+ .legacy-privacy-content h1{
+  font:700 48px/1.15 'Montserrat',sans-serif;
+  max-width:255px;letter-spacing:-.02em;margin-bottom:32px;
+ }
+ .legacy-privacy-content .privacy-date{margin-bottom:14px}
+ .legacy-privacy-content h2{font-size:36px;line-height:1.13;margin:36px 0 25px}
+ .legacy-privacy-content p{font-size:16px;line-height:1.5}
+ .legacy-privacy-content ul{padding-left:40px}
+ .legacy-thanks{min-height:800px}
+ .legacy-thanks-inner{padding-top:530px;width:calc(100% - 40px)}
+ .legacy-thanks h1{font-size:44px;line-height:1.13;margin-bottom:20px}
+}
