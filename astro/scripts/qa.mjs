@@ -60,16 +60,16 @@ for(const page of pages){
 const robotsPath=path.join(root,'robots.txt');
 if(fs.existsSync(robotsPath)){
  const robots=fs.readFileSync(robotsPath,'utf8');
- if(!/User-agent:\\s*\\*/i.test(robots)||!/Allow:\\s*\\//i.test(robots))errors.push('robots.txt must explicitly allow crawling');
- if(/^Disallow:\\s*\\/\\s*$/im.test(robots))errors.push('robots.txt blocks all crawling');
+ if(!/User-agent:\s*\*/i.test(robots)||!/Allow:\s*\//i.test(robots))errors.push('robots.txt must explicitly allow crawling');
+ if(/^Disallow:\s*\/\s*$/im.test(robots))errors.push('robots.txt blocks all crawling');
  if(!robots.includes('https://uktradewebsites.co.uk/sitemap-index.xml'))errors.push('robots.txt missing sitemap');
 }
 const redirects=fs.readFileSync(path.join(root,'_redirects'),'utf8');
 if(!redirects.includes('/plumbers/ /websites-for-plumbers/ 301'))errors.push('Short trade URL redirect missing');
 const indexHtml=fs.readFileSync(path.join(root,'index.html'),'utf8');
-if(/href="\\/contact-us\\/\\?package=/.test(indexHtml))errors.push('Pricing creates query-parameter duplicate pages');
+if(/href="\/contact-us\/\?package=/.test(indexHtml))errors.push('Pricing creates query-parameter duplicate pages');
 if(!indexHtml.includes('/contact-us/#package='))errors.push('Clean pricing links missing');
-if(/href="http:\\/\\//i.test(indexHtml))errors.push('Insecure HTTP external link on homepage');
+if(/href="http:\/\//i.test(indexHtml))errors.push('Insecure HTTP external link on homepage');
 for(const file of ['sitemap-index.xml','robots.txt','404.html']){
  // 404 is output as /404.html for Astro static; check only sitemap and robots
  if(file==='404.html')continue;
