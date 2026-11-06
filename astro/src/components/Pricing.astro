@@ -9,9 +9,9 @@ const {fullPage=false}=Astro.props;
    <div class="section-heading pricing-heading">
      <p class="eyebrow">Straightforward website prices</p>
      <h2 id="pricing-title">Our trade website packages</h2>
-     <p>Two website sizes. £39/month for standard hosting and technical upkeep, whichever build you choose.</p>
+     <p>Choose the website that fits your trade business. Clear pricing, no unnecessary extras.</p>
    </div>
-   <div class="pricing-grid pricing-grid-two">
+   <div class="pricing-grid pricing-grid-three">
     {packages.map(plan=>
       <article class:list={['price-card',{'featured':plan.featured}]}>
         {plan.featured&&<span class="best-choice">Popular choice</span>}
@@ -26,25 +26,18 @@ const {fullPage=false}=Astro.props;
         <a class="btn btn-primary" href={'/contact-us/#package='+encodeURIComponent(plan.name)}>Enquire about {plan.name}</a>
       </article>
     )}
-   </div>
-   <div class="no-upfront no-upfront-clarified">
-     <div>
-       <p class="eyebrow">Prefer to spread the cost?</p>
-       <h3>5–9 pages with nothing to pay upfront.</h3>
-       <p>Our no-upfront option uses a proven trade website layout and content you provide. You pay a little more over the first year in exchange for avoiding the build fee.</p>
-       <p><strong>After 12 months your payment reduces to £39/month</strong> for standard hosting and technical upkeep.</p>
-     </div>
-     <article class="price-card compact">
-       <span class="best-choice">£0 upfront</span>
-       <h3>{monthlyOnly.name}</h3>
-       <p class="price-page-range">{monthlyOnly.pageRange}</p>
-       <p class="upfront"><strong>£0</strong> upfront build cost</p>
-       <p class="monthly">£<strong>{monthlyOnly.monthly}</strong><span> /month</span></p>
-       <p class="contract">First 12 months · then £{monthlyOnly.hostingAfterYear}/month</p>
-       <p class="price-description">{monthlyOnly.description}</p>
-       <ul class="tick-list">{monthlyOnly.items.map(item=><li>{item}</li>)}</ul>
-       <a class="btn btn-primary" href={'/contact-us/#package='+encodeURIComponent(monthlyOnly.name)}>Enquire about no-upfront</a>
-     </article>
+   <article class="price-card no-upfront-card">
+     <span class="best-choice">£0 upfront</span>
+     <h3>{monthlyOnly.name}</h3>
+     <p class="price-page-range">{monthlyOnly.pageRange}</p>
+     <p class="upfront"><strong>£0</strong> upfront build cost</p>
+     <p class="monthly">£<strong>{monthlyOnly.monthly}</strong><span> /month</span></p>
+     <p class="monthly-label">First 12 months · then £{monthlyOnly.hostingAfterYear}/month</p>
+     <p class="contract">12-month minimum term</p>
+     <p class="price-description">{monthlyOnly.description}</p>
+     <ul class="tick-list">{monthlyOnly.items.map(item=><li>{item}</li>)}</ul>
+     <a class="btn btn-primary" href={'/contact-us/#package='+encodeURIComponent(monthlyOnly.name)}>Enquire about no-upfront</a>
+   </article>
    </div>
    <aside class="seo-hosting-band" aria-labelledby="seo-hosting-title">
      <div>
@@ -55,10 +48,16 @@ const {fullPage=false}=Astro.props;
      </div>
      <a class="btn btn-accent" href="/contact-us/#package=Ongoing%20SEO%20with%20hosting">Ask about SEO</a>
    </aside>
-   <div class="pricing-custom">
-     <div><h3>Need 10+ pages or something bespoke?</h3><p>Bigger website builds and more advanced projects are handled through our wider agency, Prunus Media.</p></div>
-     <a href="https://prunusmedia.com/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Visit Prunus Media</a>
-   </div>
+   <aside class="prunus-referral" aria-label="Larger website projects by Prunus Media">
+     <svg class="prunus-floral" viewBox="0 0 330 270" aria-hidden="true"><g fill="none" stroke="#bd9a9f" stroke-width="1.5" stroke-linecap="round"><path d="M310 260C236 195 251 105 170 42M260 208c-48-17-82-7-113-45M244 169c38-30 35-65 35-97M203 102c-46-12-58-42-62-78"/><path d="M170 42c-26-18-43-9-41 9 19 10 32 7 41-9Zm0 0c-4-27 10-39 25-31 2 19-6 28-25 31ZM147 163c-24-24-47-20-48-1 16 16 33 18 48 1Zm132-91c-2-26 12-40 29-33 3 19-7 30-29 33Z"/></g><g fill="#f4dce0" stroke="#bd9a9f" stroke-width="1.4"><circle cx="170" cy="42" r="7"/><circle cx="147" cy="163" r="6"/><circle cx="279" cy="72" r="7"/><circle cx="204" cy="102" r="5"/></g></svg>
+     <div class="prunus-referral-content">
+       <div class="prunus-brand"><span class="prunus-monogram" aria-hidden="true">P</span><span>Prunus <em>Media</em></span></div>
+       <p class="eyebrow">For bigger ideas</p>
+       <h3>Need a bigger website?</h3>
+       <p>For 10+ pages, bespoke features or a more tailored design, explore our wider web design services at Prunus Media.</p>
+       <a href="https://prunusmedia.com/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Explore Prunus Media</a>
+     </div>
+   </aside>
    <p class="pricing-smallprint">A four-page website can be quoted within the Growth package. All packages cover the agreed scope; monthly payments cover hosting, SSL and basic technical upkeep, not unlimited amendments, ongoing SEO, domain renewals or paid third-party tools. Contact us for a written quote before starting.</p>
    {!fullPage&&<p class="text-center pricing-page-cta"><a class="btn btn-outline" href="/pricing/">Compare pricing, terms and FAQs</a></p>}
  </div>
