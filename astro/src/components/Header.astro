@@ -10,8 +10,9 @@ const {path='/'}=Astro.props;
     <nav class="desktop-nav" aria-label="Primary navigation">
       <a href="/" aria-current={path==='/'?'page':undefined}>Home</a>
       <details class="desktop-trades-menu">
-        <summary class={path.startsWith('/websites-for-')?'active':undefined}>Trade Websites <span aria-hidden="true">⌄</span></summary>
+        <summary class={(path.startsWith('/websites-for-')||path==='/pricing/')?'active':undefined}>Trade Websites <span aria-hidden="true">⌄</span></summary>
         <div class="trades-dropdown" role="group" aria-label="Websites by trade">
+          <a href="/pricing/" class="pricing-dropdown-link" aria-current={path==='/pricing/'?'page':undefined}>Website Pricing</a>
           {trades.map(trade=><a href={'/'+trade.slug+'/'} aria-current={path==='/'+trade.slug+'/'?'page':undefined}>{trade.search}</a>)}
         </div>
       </details>
@@ -24,8 +25,9 @@ const {path='/'}=Astro.props;
       <nav aria-label="Mobile navigation">
         <a href="/" aria-current={path==='/'?'page':undefined}>Home</a>
         <details class="mobile-trades-menu">
-          <summary class={path.startsWith('/websites-for-')?'active':undefined}>Trade Websites <span aria-hidden="true">⌄</span></summary>
+          <summary class={(path.startsWith('/websites-for-')||path==='/pricing/')?'active':undefined}>Trade Websites <span aria-hidden="true">⌄</span></summary>
           <div class="mobile-trades-list">
+            <a href="/pricing/" class="pricing-dropdown-link" aria-current={path==='/pricing/'?'page':undefined}>Website Pricing</a>
             {trades.map(trade=><a href={'/'+trade.slug+'/'} aria-current={path==='/'+trade.slug+'/'?'page':undefined}>{trade.search}</a>)}
           </div>
         </details>
