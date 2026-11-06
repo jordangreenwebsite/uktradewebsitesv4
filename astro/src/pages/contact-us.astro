@@ -7,7 +7,7 @@ import {site} from '../data/site';
 <section class="legacy-hero legacy-contact">
   <svg class="legacy-wave" viewBox="0 0 1440 840" preserveAspectRatio="none" aria-hidden="true"><path fill="#FF8C42" d="M0,0 H1440 V632 C1300,595 1090,380 855,235 C755,175 700,155 630,215 C540,292 470,395 340,430 C210,470 95,640 0,760 Z"/></svg>
   <div class="container legacy-contact-grid">
-    <div class="legacy-contact-copy"><h1>Ready to get started?</h1><h2>More Calls.<br/>More Quotes.<br/>More Jobs.</h2><a class="btn legacy-pill" href={site.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp Us</a></div>
+    <div class="legacy-contact-copy"><h1>Ready to get started?</h1><h2>More Calls.<br/>More Quotes.<br/>More Jobs.</h2><a class="btn legacy-pill" href={site.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp Us</a><p class="contact-hours-line">Enquiry hours: {site.contactHours.label}</p></div>
     <ContactForm id="contact"/>
   </div>
 </section>
