@@ -74,6 +74,17 @@ Homepage structure: hero and dark contact form; supported trades and features; t
 - Portfolio CTAs and other site arrows use plain text arrows (such as → and ↓), not emoji-style ↗ or ⬇. Use the `text-arrow` CSS class to force typographic rendering.
 - The general pricing small print is concise, while retaining clear exclusions for ongoing SEO, domain renewals, unlimited edits, and paid tools.
 
+## SEO audit remediation, November 6
+
+- The automated Prunus audit returned 88/100 across 17 crawled pages. The audit did not identify the exact broken URL.
+- GitHub Actions now runs `astro/scripts/diagnose-live.mjs` to inspect the deployed domain over HTTP, including `/robots.txt`, the XML sitemap and same-origin links.
+- The live broken link was Cloudflare Email Address Obfuscation rewriting the footer and privacy policy email addresses into `/cdn-cgi/l/email-protection`; both are wrapped in Cloudflare's documented `<!--email_off-->` markers so the accessible `mailto:` links remain usable. CI checks guard against regression.
+- `/robots.txt` is a valid plain-text 200 response with `User-agent: *` and `Allow: /`. Cloudflare prepends its Managed Bot Preference Sync directives to restrict named AI-training crawlers, while generic search indexing is allowed. The audit's generic "all crawlers blocked" result therefore misinterprets individual AI crawler restrictions as a general block. To remove injected directives, the domain owner must adjust Cloudflare Security Settings > AI Crawler and Agent access policies > Enable Bot Preference Sync. Do not change bot policy solely to increase an audit score without understanding the tradeoff.
+- Approved enquiry hours: Monday–Friday 09:00–17:30 UK local time. They are displayed on Contact and in the footer and encoded as `ContactPoint.hoursAvailable` and `Service.hoursAvailable` with `OpeningHoursSpecification`.
+- Brand-specific, verified UK Trade Websites social profiles were not found; do not fabricate `sameAs` URLs or use Prunus Media social accounts as UK Trade Websites identity links.
+- The business serves customers across the UK remotely. Retain truthful `Organization`, `Service` and parent-organization schema; do not invent a physical address or misclassify it as a local branch of `LocalBusiness` just for an audit.
+- Audit scores are not proof of ranking improvements. Re-run after Cloudflare has deployed new commits, and evaluate actual indexability via Search Console.
+
 ## November 6 pricing and mobile correction
 
 - Three UK Trade website offers appear as equal-width, centred cards in one desktop row and stack in the same order on narrow screens: Starter, Trade Growth, No Upfront.
