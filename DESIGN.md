@@ -49,7 +49,7 @@ Homepage structure: hero and dark contact form; supported trades and features; t
 - Starter Website: 1–5 pages, £149 upfront + £39/month for standard hosting/technical upkeep, 12-month minimum term.
 - Trade Growth Website: 5–9 pages, £249 upfront + £39/month for standard hosting/technical upkeep, 12-month minimum term; five-page enquiries may be quoted in Starter or Growth depending on design and scope.
 - No Upfront Website: template-led 5–9-page build with client-provided content, £0 upfront + £65/month for the first 12 months, then £39/month hosting. The first year is £780 versus £717 for upfront Growth.
-- Ongoing SEO includes standard £39/month website hosting while active. If a customer is financing the no-upfront build, the £26/month build-cost component remains due through month 12.
+- Ongoing SEO is £195/month and includes standard £39/month website hosting while SEO remains active. The pricing offer shows the separate £39/month fee struck out, followed by free standard hosting and concise supporting terms. If a customer is financing the no-upfront build, the £26/month build-cost component remains due through month 12.
 - Projects with 10+ pages or bespoke requirements are referred to Prunus Media. No separate Lead Generation Website package.
 - Preserve package wording until owner requests changes. Do not invent warranties, ratings, customer counts or testimonials.
 - Formspree endpoint is kept from the exported site (check live delivery before switching).
@@ -66,6 +66,13 @@ Homepage structure: hero and dark contact form; supported trades and features; t
 - `TradeLanding.astro`: trade-specific SEO layout with a single shared visual design.
 - `src/data/trades.ts`: unique trade names, services and descriptions for the ten new pages.
 - `src/data/trade-seo.ts`: per-trade primary search intent, unique title/meta description and useful supplementary copy.
+
+## November 6 SEO offer and arrow typography
+
+- The navy SEO banner presents ongoing SEO at £195/month, visibly strikes through the otherwise £39/month hosting fee, and states free standard hosting while SEO remains active.
+- Keep the explanation short: no-upfront website build repayments of £26/month still apply for the first 12 months.
+- Portfolio CTAs and other site arrows use plain text arrows (such as → and ↓), not emoji-style ↗ or ⬇. Use the `text-arrow` CSS class to force typographic rendering.
+- The general pricing small print is concise, while retaining clear exclusions for ongoing SEO, domain renewals, unlimited edits, and paid tools.
 
 ## November 6 pricing and mobile correction
 
