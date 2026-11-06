@@ -12,6 +12,15 @@ const origins = [
 ];
 fs.mkdirSync('screenshots',{recursive:true});
 const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
+let ready=false;
+for(let attempt=0;attempt<40;attempt++){
+ try{
+  const response=await fetch('http://127.0.0.1:4321/');
+  if(response.ok){ready=true;break;}
+ }catch{}
+ await new Promise(resolve=>setTimeout(resolve,500));
+}
+if(!ready)throw new Error('Astro preview server did not become ready.');
 try {
  for(const viewport of targets) {
   for(const site of origins) {
