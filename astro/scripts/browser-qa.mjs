@@ -1,7 +1,7 @@
 import {spawn} from 'node:child_process';
 import {chromium} from 'playwright';
 const paths=['/','/about-us/','/contact-us/','/example-websites/','/our-process/',
- '/privacy-policy/','/thank-you/','/websites-for-plumbers/','/websites-for-electricians/',
+ '/pricing/','/privacy-policy/','/thank-you/','/websites-for-plumbers/','/websites-for-electricians/',
  '/websites-for-window-cleaners/','/websites-for-painters/','/websites-for-floor-cleaners/',
  '/websites-for-roofers/','/websites-for-builders/','/websites-for-landscapers/',
  '/websites-for-plasterers/','/websites-for-driveway-cleaners/'];
@@ -46,7 +46,7 @@ try{
     if(facts.canonical!=='https://uktradewebsites.co.uk'+path)errors.push(path+' canonical: '+facts.canonical);
     if(facts.overflow>2)errors.push(path+' '+width+'px has '+facts.overflow+'px horizontal overflow');
     if(!facts.jsonLdValid)errors.push(path+' invalid JSON-LD');
-    if(path==='/'||path==='/contact-us/'||path.startsWith('/websites-for-')){
+    if(path==='/'||path==='/contact-us/'||path==='/pricing/'||path.startsWith('/websites-for-')){
       const overlaps=await page.evaluate(()=>{
         const header=document.getElementById('site-header');
         const hero=document.querySelector('.hero, .legacy-hero');
@@ -70,13 +70,23 @@ try{
         };
       });
       if(navFacts.weight!==navFacts.neighbourWeight)errors.push('Desktop Trade Websites menu weight differs from other links');
-      if(navFacts.count!==10)errors.push('Desktop trade menu link count incorrect');
+      if(navFacts.count!==11)errors.push('Desktop trade menu link count incorrect');
       const badLinks=await page.locator('a[href^="/contact-us/?package="]').count();
       if(badLinks)errors.push('Pricing navigation still uses duplicate query URLs');
     }
-    if(facts.desktopTrades!==10||facts.mobileTrades!==10)errors.push(path+' trade navigation incomplete');
+    if(facts.desktopTrades!==11||facts.mobileTrades!==11)errors.push(path+' trade navigation incomplete');
     if(path.startsWith('/websites-for-')){
      for(const type of ['Service','BreadcrumbList'])if(!facts.schemaTypes.includes(type))errors.push(path+' missing '+type+' schema');
+    }
+    if(path==='/pricing/'){
+      const pricingFacts=await page.evaluate(()=>({
+        cards:document.querySelectorAll('.pricing-grid-two .price-card').length,
+        priceText:document.querySelector('.no-upfront-clarified .monthly')?.textContent||'',
+        pricingLink:document.querySelector('.desktop-trades-menu a.pricing-dropdown-link')?.getAttribute('href')
+      }));
+      if(pricingFacts.cards!==2)errors.push('Pricing must have exactly two upfront packages');
+      if(!pricingFacts.priceText.includes('65'))errors.push('No-upfront rate should be £65/month');
+      if(pricingFacts.pricingLink!=='/pricing/')errors.push('Pricing submenu link missing');
     }
     if(width===390){
      // Force lazy images to load and check all retained source assets.
@@ -100,7 +110,7 @@ try{
    const tradeSubmenu=menu.locator('details.mobile-trades-menu');
    await tradeSubmenu.locator('summary').click();
    if(!(await tradeSubmenu.evaluate(el=>el.open)))errors.push('Mobile trade submenu did not open');
-   if((await tradeSubmenu.locator('a').count())!==10)errors.push('Mobile trade submenu has wrong link count');
+   if((await tradeSubmenu.locator('a').count())!==11)errors.push('Mobile trade submenu has wrong link count');
    await page.goto('http://127.0.0.1:4321/contact-us/#package=Starter%20Website',{waitUntil:'domcontentloaded'});
    const pkg=await page.locator('form.contact-form [name="package"]').first().inputValue();
    if(pkg!=='Starter Website')errors.push('Hash-based package enquiry selection was not preserved');
