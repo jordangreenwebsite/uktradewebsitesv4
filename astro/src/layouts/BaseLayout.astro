@@ -7,10 +7,48 @@ interface Props { title: string; description?: string; path?: string; noindex?: 
 const { title, description=site.description, path=Astro.url.pathname, noindex=false, schema, image=site.logo }=Astro.props;
 const canonical=new URL(path,site.url).href;
 const imageUrl=new URL(image,site.url).href;
+const hoursAvailable = {
+  '@type': 'OpeningHoursSpecification',
+  dayOfWeek: site.contactHours.days.map(day => 'https://schema.org/' + day),
+  opens: site.contactHours.opens,
+  closes: site.contactHours.closes,
+};
+// A UK-wide online service, not a fabricated local branch or shopfront.
 const graphs: Record<string,unknown>[]=[
- {'@type':'Organization','@id':site.url+'/#organization',name:site.name,url:site.url,description:site.description,logo:{'@type':'ImageObject',url:new URL(site.logo,site.url).href},email:site.email,areaServed:{'@type':'Country',name:'United Kingdom'},contactPoint:[{'@type':'ContactPoint',contactType:'sales enquiries',email:site.email,url:site.whatsapp,areaServed:{'@type':'Country',name:'United Kingdom'},availableLanguage:'en-GB'}]},
- {'@type':'WebSite','@id':site.url+'/#website',name:site.name,url:site.url,inLanguage:'en-GB',publisher:{'@id':site.url+'/#organization'}},
- {'@type':'WebPage','@id':canonical+'#webpage',url:canonical,name:title,description,isPartOf:{'@id':site.url+'/#website'},inLanguage:'en-GB'},
+  {
+    '@type': 'Organization',
+    '@id': site.url+'/#organization',
+    name: site.name,
+    url: site.url,
+    description: site.description,
+    logo: {'@type':'ImageObject',url:new URL(site.logo,site.url).href},
+    email: site.email,
+    areaServed: {'@type':'Country',name:'United Kingdom'},
+    parentOrganization: {'@type':'Organization',name:'Prunus Media',url:'https://prunusmedia.com/'},
+    knowsAbout: ['Website design for tradespeople','Trade business websites','Search engine optimisation','Website hosting'],
+    ...(site.officialProfiles.length ? {sameAs:site.officialProfiles} : {}),
+    contactPoint: [{
+      '@type':'ContactPoint',
+      contactType:'sales enquiries',
+      email:site.email,
+      url:site.whatsapp,
+      areaServed:{'@type':'Country',name:'United Kingdom'},
+      availableLanguage:'en-GB',
+      hoursAvailable
+    }]
+  },
+  {
+    '@type':'Service',
+    '@id':site.url+'/#trade-website-design',
+    name:'Trade website design and support',
+    serviceType:'Website design for UK tradespeople',
+    description:'Fast, mobile-friendly trade business websites with enquiry forms, technical upkeep and optional ongoing SEO.',
+    provider:{'@id':site.url+'/#organization'},
+    areaServed:{'@type':'Country',name:'United Kingdom'},
+    hoursAvailable
+  },
+  {'@type':'WebSite','@id':site.url+'/#website',name:site.name,url:site.url,inLanguage:'en-GB',publisher:{'@id':site.url+'/#organization'}},
+  {'@type':'WebPage','@id':canonical+'#webpage',url:canonical,name:title,description,isPartOf:{'@id':site.url+'/#website'},inLanguage:'en-GB'},
 ];
 if(schema) graphs.push(...(Array.isArray(schema)?schema:[schema]));
 const jsonLd=JSON.stringify({'@context':'https://schema.org','@graph':graphs}).replace(/</g,'\\u003c');
