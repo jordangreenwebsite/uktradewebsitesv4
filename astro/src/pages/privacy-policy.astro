@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/BaseLayout.astro';
+import {site} from '../data/site';
 ---
 <Layout title="Privacy Policy - UK Trade Websites" description="How UK Trade Websites collects and uses information sent through our website." path="/privacy-policy/">
 <section class="legacy-hero legacy-privacy">
@@ -14,7 +15,7 @@ import Layout from '../layouts/BaseLayout.astro';
 <h2>4. Cookies</h2><p>Our website may use cookies to improve your browsing experience and analyse website traffic.</p><p>Cookies are small files stored on your device that help websites function effectively.</p><p>You can disable cookies through your browser settings if you prefer.</p>
 <h2>5. Third-Party Services</h2><p>We may use trusted third-party services to help operate our website, such as:</p><ul><li>Website hosting providers</li><li>Website analytics tools</li></ul><p>These providers only process data necessary to perform their services.</p>
 <h2>6. Your Data Rights</h2><p>Under UK data protection law, you have the right to:</p><ul><li>Request access to the personal data we hold about you</li><li>Request correction of inaccurate information</li><li>Request deletion of your personal data</li></ul><p>To make a request, please contact us using the details below.</p>
-<h2>7. Contact Us</h2><p>If you have any questions about this Privacy Policy or how your data is handled, you can contact us at:</p><p>Email: <a href="mailto:uktradewebsites@gmail.com">uktradewebsites@gmail.com</a><br/>Website: <a href="https://uktradewebsites.co.uk/">https://uktradewebsites.co.uk/</a></p>
+<h2>7. Contact Us</h2><p>If you have any questions about this Privacy Policy or how your data is handled, you can contact us at:</p><p>Email: <span set:html={'<!--email_off--><a href="mailto:'+site.email+'">'+site.email+'</a><!--/email_off-->'}/><br/>Website: <a href="https://uktradewebsites.co.uk/">https://uktradewebsites.co.uk/</a></p>
 <h2>8. Changes to This Policy</h2><p>We may update this policy occasionally. Any updates will be posted on this page.</p>
 </div></section>
 </Layout>
