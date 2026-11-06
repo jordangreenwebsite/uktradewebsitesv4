@@ -41,13 +41,13 @@ Astro tokens are in `astro/src/styles/global.css`. Do not introduce different br
 - Trade Websites dropdown: all ten `/websites-for-.../` pages, available by keyboard and mobile accordion
 - `/thank-you/` (exclude from indexing)
 
-Homepage structure: hero and dark contact form; supported trades and features; two paid-upfront price cards, a separately explained no-upfront option, SEO-hosting inclusion, Prunus Media referral; portfolio previews, agency relationship and CTA/footer.
+Homepage structure: hero and dark contact form; supported trades and features; three aligned price cards (Starter, Trade Growth, No Upfront), an immediate separate white floral Prunus Media referral with the retained authentic logo, SEO-hosting inclusion; portfolio previews, agency relationship and CTA/footer.
 
 ## Business data
 
 - Single source of truth: `astro/src/data/site.ts`
-- Starter Website: 1–3 pages, £149 upfront + £39/month for standard hosting/technical upkeep, 12-month minimum term.
-- Trade Growth Website: 5–9 pages, £249 upfront + £39/month for standard hosting/technical upkeep, 12-month minimum term; a four-page enquiry can be quoted under Growth.
+- Starter Website: 1–5 pages, £149 upfront + £39/month for standard hosting/technical upkeep, 12-month minimum term.
+- Trade Growth Website: 5–9 pages, £249 upfront + £39/month for standard hosting/technical upkeep, 12-month minimum term; five-page enquiries may be quoted in Starter or Growth depending on design and scope.
 - No Upfront Website: template-led 5–9-page build with client-provided content, £0 upfront + £65/month for the first 12 months, then £39/month hosting. The first year is £780 versus £717 for upfront Growth.
 - Ongoing SEO includes standard £39/month website hosting while active. If a customer is financing the no-upfront build, the £26/month build-cost component remains due through month 12.
 - Projects with 10+ pages or bespoke requirements are referred to Prunus Media. No separate Lead Generation Website package.
@@ -66,6 +66,14 @@ Homepage structure: hero and dark contact form; supported trades and features; t
 - `TradeLanding.astro`: trade-specific SEO layout with a single shared visual design.
 - `src/data/trades.ts`: unique trade names, services and descriptions for the ten new pages.
 - `src/data/trade-seo.ts`: per-trade primary search intent, unique title/meta description and useful supplementary copy.
+
+## November 6 pricing and mobile correction
+
+- Three UK Trade website offers appear as equal-width, centred cards in one desktop row and stack in the same order on narrow screens: Starter, Trade Growth, No Upfront.
+- The Prunus Media referral appears immediately below the three offers as its own white panel with floral linework, a retained real logo asset and an external link to prunusmedia.com. SEO hosting is a separate band below.
+- Starter is 1–5 pages (not 1–3); Growth is 5–9, with five-page builds scoped according to complexity.
+- The mobile navigation panel is positioned relative to the complete header inner container rather than the narrow hamburger element so that it cannot extend beyond the left edge of the phone.
+- Browser QA now measures opened-menu viewport bounds, equal desktop card sizing and grid centring, three-card mobile stacking, referral placement and presence of the actual logo. Visual checks should cover both homepage and pricing routes.
 
 ## November 6 audit and visual refinements
 
