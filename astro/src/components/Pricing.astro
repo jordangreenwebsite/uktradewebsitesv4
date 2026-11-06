@@ -1,0 +1,33 @@
+---
+import {packages, monthlyOnly} from '../data/site';
+---
+<section class="section pricing-section" id="pricing" aria-label="Trade website pricing packages">
+ <div class="container">
+  <div class="pricing-grid">
+    {packages.map((plan)=>
+      <article class:list={['price-card',{'featured':plan.featured}]}>
+        {plan.featured&&<span class="best-choice">Best Choice</span>}
+        <h3>{plan.name}</h3>
+        <p class="upfront"><strong>£{plan.upfront}</strong> Upfront</p>
+        <p class="monthly">£<strong>{plan.monthly}</strong><span> pm</span></p>
+        <p class="contract">12-Month Contract</p>
+        <p class="price-description">{plan.description}</p>
+        <ul class="tick-list">{plan.items.map(item=><li>{item}</li>)}</ul>
+        <a class="btn btn-primary" href={'/contact-us/?package='+encodeURIComponent(plan.name)}>Enquire</a>
+      </article>)}
+  </div>
+  <p class="pricing-note">One Extra Job A Month Easily Pays For The Website</p>
+  <div class="no-upfront">
+    <div><p class="eyebrow">Prefer no upfront cost?</p><h3>That's fine, spread the cost over the year!</h3></div>
+    <article class="price-card compact">
+      <span class="best-choice">No Upfront Cost</span>
+      <h3>{monthlyOnly.name}</h3>
+      <p class="monthly">£<strong>{monthlyOnly.monthly}</strong><span> pm</span></p>
+      <p class="contract">12-Month Contract · limited time offer</p>
+      <p class="price-description">{monthlyOnly.description}</p>
+      <ul class="tick-list">{monthlyOnly.items.map(item=><li>{item}</li>)}</ul>
+      <a class="btn btn-primary" href="/contact-us/?package=Trade%20Growth%20Website%20-%20No%20Upfront">Enquire</a>
+    </article>
+  </div>
+ </div>
+</section>

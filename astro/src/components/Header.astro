@@ -1,0 +1,33 @@
+---
+import {site,nav} from '../data/site';
+interface Props {path?:string;}
+const {path='/'}=Astro.props;
+---
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <a href="/" class="brand" aria-label="UK Trade Websites - Home"><img src={site.logo} alt="UK Trade Websites logo" width="112" height="112"/></a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      {nav.map(({href,label})=><a href={href} aria-current={path===href?'page':undefined}>{label}</a>)}
+    </nav>
+    <a class="btn btn-accent header-cta" href={site.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
+    <details class="mobile-menu">
+      <summary aria-label="Open navigation"><span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span><span>Menu</span></summary>
+      <nav aria-label="Mobile navigation">
+        {nav.map(({href,label})=><a href={href} aria-current={path===href?'page':undefined}>{label}</a>)}
+        <a class="mobile-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
+      </nav>
+    </details>
+  </div>
+</header>
+<script>
+  let last=window.scrollY;
+  const header=document.getElementById('site-header');
+  function onScroll(){
+    const y=window.scrollY;
+    header?.classList.toggle('scrolled',y>24);
+    if(y>600&&y>last+8) header?.classList.add('hide-header');
+    else if(y<last-5||y<150) header?.classList.remove('hide-header');
+    last=y;
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+</script>
