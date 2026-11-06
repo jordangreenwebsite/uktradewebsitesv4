@@ -80,6 +80,8 @@ if(!redirects.includes('/plumbers/ /websites-for-plumbers/ 301'))errors.push('Sh
 const indexHtml=fs.readFileSync(path.join(root,'index.html'),'utf8');
 if(/href="\/contact-us\/\?package=/.test(indexHtml))errors.push('Pricing creates query-parameter duplicate pages');
 if(!indexHtml.includes('/contact-us/#package='))errors.push('Clean pricing links missing');
+if(!indexHtml.includes('<!--email_off-->')||!indexHtml.includes('<!--/email_off-->'))errors.push('Footer email needs Cloudflare email_off markers to prevent broken /cdn-cgi/l/email-protection link');
+if(!indexHtml.includes('mailto:uktradewebsites@gmail.com'))errors.push('Footer needs a working mailto link');
 const pricingHtml=fs.readFileSync(path.join(root,'pricing','index.html'),'utf8');
 for(const expected of ['Starter Website','Trade Growth Website','No Upfront Website','£<strong>65','£39','<strong>£149','<strong>£249','1–5 pages','5–9 pages']){
  if(!pricingHtml.includes(expected))errors.push('Pricing page missing: '+expected);
