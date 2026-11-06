@@ -2,6 +2,7 @@
 import {packages, monthlyOnly} from '../data/site';
 ---
 <section class="section pricing-section" id="pricing" aria-label="Trade website pricing packages">
+ <svg class="pricing-wave" aria-hidden="true" viewBox="0 0 1440 560" preserveAspectRatio="none"><path fill="#FF8C42" d="M0,145 C250,210 500,235 725,212 C995,180 1190,70 1440,0 V540 C1110,432 880,395 610,405 C375,414 205,435 0,476 Z"/></svg>
  <div class="container">
   <div class="pricing-grid">
     {packages.map((plan)=>
@@ -12,7 +13,7 @@ import {packages, monthlyOnly} from '../data/site';
         <p class="monthly">£<strong>{plan.monthly}</strong><span> pm</span></p>
         <p class="contract">12-Month Contract</p>
         <p class="price-description">{plan.description}</p>
-        <ul class="tick-list">{plan.items.map(item=><li>{item}</li>)}</ul>
+        <ul class="tick-list">{plan.items.map(item=><li class:no-bloat={item.toLowerCase()==='no bloat'}>{item}</li>)}</ul>
         <a class="btn btn-primary" href={'/contact-us/?package='+encodeURIComponent(plan.name)}>Enquire</a>
       </article>)}
   </div>
@@ -25,7 +26,7 @@ import {packages, monthlyOnly} from '../data/site';
       <p class="monthly">£<strong>{monthlyOnly.monthly}</strong><span> pm</span></p>
       <p class="contract">12-Month Contract · limited time offer</p>
       <p class="price-description">{monthlyOnly.description}</p>
-      <ul class="tick-list">{monthlyOnly.items.map(item=><li>{item}</li>)}</ul>
+      <ul class="tick-list">{monthlyOnly.items.map(item=><li class:no-bloat={item.toLowerCase()==='no bloat'}>{item}</li>)}</ul>
       <a class="btn btn-primary" href="/contact-us/?package=Trade%20Growth%20Website%20-%20No%20Upfront">Enquire</a>
     </article>
   </div>
