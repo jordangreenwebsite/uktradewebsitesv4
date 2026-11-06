@@ -36,19 +36,21 @@ Astro tokens are in `astro/src/styles/global.css`. Do not introduce different br
 - `/our-process/`
 - `/about-us/`
 - `/contact-us/`
+- `/pricing/` — separate indexable pricing and FAQ landing page, plus a highlighted link within the Trade Websites dropdown
 - `/privacy-policy/`
 - Trade Websites dropdown: all ten `/websites-for-.../` pages, available by keyboard and mobile accordion
 - `/thank-you/` (exclude from indexing)
 
-Homepage structure: hero and dark contact form; supported trades and features; three paid-upfront price cards; no-upfront plan; agency relationship; portfolio previews; why a trade website matters; what makes the sites different; CTA/footer.
+Homepage structure: hero and dark contact form; supported trades and features; two paid-upfront price cards, a separately explained no-upfront option, SEO-hosting inclusion, Prunus Media referral; portfolio previews, agency relationship and CTA/footer.
 
 ## Business data
 
 - Single source of truth: `astro/src/data/site.ts`
-- Starter Website: £149 upfront + £39/month, 12-month contract.
-- Trade Growth Website: £249 upfront + £59/month, 12-month contract.
-- Lead Generation Website: £399 upfront + £99/month, 12-month contract.
-- Trade Growth no-upfront: £79/month, 12-month contract.
+- Starter Website: 1–3 pages, £149 upfront + £39/month for standard hosting/technical upkeep, 12-month minimum term.
+- Trade Growth Website: 5–9 pages, £249 upfront + £39/month for standard hosting/technical upkeep, 12-month minimum term; a four-page enquiry can be quoted under Growth.
+- No Upfront Website: template-led 5–9-page build with client-provided content, £0 upfront + £65/month for the first 12 months, then £39/month hosting. The first year is £780 versus £717 for upfront Growth.
+- Ongoing SEO includes standard £39/month website hosting while active. If a customer is financing the no-upfront build, the £26/month build-cost component remains due through month 12.
+- Projects with 10+ pages or bespoke requirements are referred to Prunus Media. No separate Lead Generation Website package.
 - Preserve package wording until owner requests changes. Do not invent warranties, ratings, customer counts or testimonials.
 - Formspree endpoint is kept from the exported site (check live delivery before switching).
 - WhatsApp is normalised to wa.me and the form thank-you redirect uses `.co.uk`.
@@ -103,7 +105,7 @@ The portfolio includes real clients and demo concepts. Don't represent demo site
 1. Build from repo checkout: `cd astro && npm install && npm run build`.
 2. The automated build checks the existing pages, ten trade pages, sitemap, canonicals, missing assets and legacy references.
 3. Compare desktop (e.g. 1440px) and mobile (e.g. 390px) screenshots against the current live site. The intent is fidelity, but a visual review is still necessary to verify exact correspondence.
-4. Verify all four pricing plans and Formspree submission/thank-you flow in a non-production preview.
+4. Verify both upfront tiers, the no-upfront option and Formspree submission/thank-you flow in a non-production preview.
 5. Verify external examples and the navigation, privacy policy, noindex and indexing.
 6. Configure Cloudflare Pages with root directory `astro`, build `npm run build`, output `dist` (from root directory).
 7. Do not switch the production domain until preview accepted. Keep legacy checkout / deployment settings as fallback.
