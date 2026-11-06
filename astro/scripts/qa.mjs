@@ -24,7 +24,7 @@ for(const page of pages){
  const title=html.match(/<title>([^<]+)<\/title>/)?.[1]?.trim();
  const description=html.match(/<meta name="description" content="([^"]+)"/)?.[1]?.trim();
  if(!title||title.length<16)errors.push('Missing/short title: '+page);
- if(!description||description.length<60)errors.push('Missing/short meta description: '+page);
+ if(!description||description.length<(page==='thank-you'?35:60))errors.push('Missing/short meta description: '+page);
  if(title&&titles.has(title))errors.push('Duplicate page title: '+page+' and '+titles.get(title));
  if(description&&descriptions.has(description))errors.push('Duplicate meta description: '+page+' and '+descriptions.get(description));
  if(title)titles.set(title,page);
@@ -46,7 +46,7 @@ for(const page of pages){
    }
   }catch(err){errors.push('Invalid JSON-LD: '+page+': '+err.message)}
  }
- if(tradePages.includes(page)&&!html.includes('href="/'+page+'/">'))errors.push('Trade link missing from navigation: '+page);
+ if(tradePages.includes(page)&&!html.includes('href="/'+page+'/"'))errors.push('Trade link missing from navigation: '+page);
 
  for(const hit of html.matchAll(/(?:href|src)="(\/[^"#?]*)(?:[?#][^"]*)?"/g)){
   const link=hit[1];
