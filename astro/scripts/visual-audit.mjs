@@ -43,20 +43,26 @@ try {
  }
  // Audit the non-homepage layouts as well, on desktop.
  for (const route of ['about-us','our-process','contact-us','example-websites']) {
-  for (const site of origins) {
-   const page=await browser.newPage({viewport:{width:1440,height:900},deviceScaleFactor:1});
-   await page.goto(site.url+route+'/',{waitUntil:'domcontentloaded',timeout:60000});
-   await page.evaluate(()=>document.fonts.ready);
-   await page.waitForTimeout(700);
-   const name=site.name+'-'+route+'-desktop';
-   const bytes=await page.screenshot({type:'jpeg',quality:65,fullPage:false});
-   fs.writeFileSync(path.join('screenshots',name+'.jpg'),bytes);
-   console.log('Screenshot saved: '+name+' ('+bytes.length+' bytes)');
-   const encoded=bytes.toString('base64');
-   for(let i=0,n=0;i<encoded.length;i+=5000,n++){
-    console.log('IMG|'+name+'|'+n+'|'+encoded.slice(i,i+5000));
+  for (const viewport of targets) {
+   for (const site of origins) {
+    const page=await browser.newPage({viewport:{width:viewport.width,height:viewport.height},deviceScaleFactor:1});
+    await page.goto(site.url+route+'/',{waitUntil:'domcontentloaded',timeout:60000});
+    await page.evaluate(()=>document.fonts.ready);
+    await page.waitForTimeout(700);
+    const name=site.name+'-'+route+'-'+viewport.name;
+    const bytes=await page.screenshot({type:'jpeg',quality:65,fullPage:false});
+    fs.writeFileSync(path.join('screenshots',name+'.jpg'),bytes);
+    console.log('Screenshot saved: '+name+' ('+bytes.length+' bytes)');
+    const encoded=bytes.toString('base64');
+    for(let i=0,n=0;i<encoded.length;i+=5000,n++){
+     console.log('IMG|'+name+'|'+n+'|'+encoded.slice(i,i+5000));
+    }
+    if(site.name==='astro' && viewport.name==='mobile'){
+     const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth+2);
+     if(overflow) throw new Error('Horizontal mobile overflow on '+route);
+    }
+    await page.close();
    }
-   await page.close();
   }
  }
  // Compare the pricing section without depending on identical scroll positions.
