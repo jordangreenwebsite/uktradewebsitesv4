@@ -17,9 +17,9 @@ export const nav = [
 ] as const;
 export const packages = [
   {
-    name:'Starter Website', pageRange:'1–3 pages', upfront:149, monthly:39, featured:false,
+    name:'Starter Website', pageRange:'1–5 pages', upfront:149, monthly:39, featured:false,
     description:'A professional online home for your trade business.',
-    items:['1–3 pages for your key business information','Mobile-friendly design using your logo and colours','Call-to-action buttons and an enquiry form','Initial page titles, descriptions and basic SEO setup','Standard hosting, SSL and basic technical upkeep']
+    items:['1–5 pages for your key business information','Mobile-friendly design using your logo and colours','Call-to-action buttons and an enquiry form','Initial page titles, descriptions and basic SEO setup','Standard hosting, SSL and basic technical upkeep']
   },
   {
     name:'Trade Growth Website', pageRange:'5–9 pages', upfront:249, monthly:39, featured:true,
