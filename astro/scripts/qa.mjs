@@ -48,6 +48,7 @@ for(const page of pages){
    }
   }catch(err){errors.push('Invalid JSON-LD: '+page+': '+err.message)}
  }
+ if(/[↗⬇➡⬆↖↘↙⤴⤵]/u.test(html))errors.push('Emoji-style arrow remains on page: '+page);
  if(tradePages.includes(page)&&!html.includes('href="/'+page+'/"'))errors.push('Trade link missing from navigation: '+page);
 
  for(const hit of html.matchAll(/(?:href|src)="(\/[^"#?]*)(?:[?#][^"]*)?"/g)){
@@ -78,6 +79,9 @@ if(!pricingHtml.includes('prunus-logo')||!pricingHtml.includes('Prunus-Media-Lef
 if(!pricingHtml.includes('https://prunusmedia.com/'))errors.push('Prunus Media referral link missing');
 if(pricingHtml.includes('Lead Generation Website'))errors.push('Retired lead-generation package still offered');
 if(!pricingHtml.includes('hosting is included'))errors.push('Pricing page omits SEO-inclusive hosting');
+if(!pricingHtml.includes('£195 a month'))errors.push('Pricing page missing £195/month SEO offer');
+if(!pricingHtml.includes('<del>£39/month</del>'))errors.push('Pricing SEO box missing crossed-out £39/month hosting');
+if(!pricingHtml.includes('Free hosting'))errors.push('Pricing SEO box missing free hosting statement');
 if(!indexHtml.includes('href="/pricing/"'))errors.push('Homepage missing pricing link');
 
 if(/href="http:\/\//i.test(indexHtml))errors.push('Insecure HTTP external link on homepage');
