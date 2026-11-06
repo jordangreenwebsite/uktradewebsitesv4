@@ -26,6 +26,8 @@ jobs:
       - run: npm install --no-save playwright
       - run: npx playwright install --with-deps chromium
       - run: node scripts/browser-qa.mjs
+      - name: Diagnose live robots and broken links
+        run: node scripts/diagnose-live.mjs
       - uses: actions/upload-artifact@v4
         with:
           name: uk-trade-websites-astro-static-build
