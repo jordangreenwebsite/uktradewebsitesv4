@@ -14,7 +14,7 @@ import {packages, monthlyOnly} from '../data/site';
         <p class="contract">12-Month Contract</p>
         <p class="price-description">{plan.description}</p>
         <ul class="tick-list">{plan.items.map(item=><li class:list={[{'no-bloat':item.toLowerCase()==='no bloat'}]}>{item}</li>)}</ul>
-        <a class="btn btn-primary" href={'/contact-us/?package='+encodeURIComponent(plan.name)}>Enquire</a>
+        <a class="btn btn-primary" href={'/contact-us/#package='+encodeURIComponent(plan.name)}>Enquire</a>
       </article>)}
   </div>
   <p class="pricing-note">One Extra Job A Month Easily Pays For The Website</p>
@@ -27,7 +27,7 @@ import {packages, monthlyOnly} from '../data/site';
       <p class="contract">12-Month Contract · limited time offer</p>
       <p class="price-description">{monthlyOnly.description}</p>
       <ul class="tick-list">{monthlyOnly.items.map(item=><li class:list={[{'no-bloat':item.toLowerCase()==='no bloat'}]}>{item}</li>)}</ul>
-      <a class="btn btn-primary" href="/contact-us/?package=Trade%20Growth%20Website%20-%20No%20Upfront">Enquire</a>
+      <a class="btn btn-primary" href="/contact-us/#package=Trade%20Growth%20Website%20-%20No%20Upfront">Enquire</a>
     </article>
   </div>
  </div>
