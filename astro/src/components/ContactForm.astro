@@ -27,7 +27,7 @@ const {heading='Grow Your Business',id='enquiry'}=Astro.props;
 
 <script>
   // Preserve the package the visitor selected without introducing a backend.
-  const selectedPackage = new URLSearchParams(window.location.search).get('package');
+  const selectedPackage = new URLSearchParams(window.location.hash.slice(1)).get('package') || new URLSearchParams(window.location.search).get('package');
   if (selectedPackage) {
     document.querySelectorAll<HTMLInputElement>('[data-package-choice]').forEach(input => {
       input.value = selectedPackage.slice(0, 160);
