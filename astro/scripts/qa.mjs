@@ -70,9 +70,12 @@ const indexHtml=fs.readFileSync(path.join(root,'index.html'),'utf8');
 if(/href="\/contact-us\/\?package=/.test(indexHtml))errors.push('Pricing creates query-parameter duplicate pages');
 if(!indexHtml.includes('/contact-us/#package='))errors.push('Clean pricing links missing');
 const pricingHtml=fs.readFileSync(path.join(root,'pricing','index.html'),'utf8');
-for(const expected of ['Starter Website','Trade Growth Website','No Upfront Website','£<strong>65','£39','<strong>£149','<strong>£249','1–3 pages','5–9 pages']){
+for(const expected of ['Starter Website','Trade Growth Website','No Upfront Website','£<strong>65','£39','<strong>£149','<strong>£249','1–5 pages','5–9 pages']){
  if(!pricingHtml.includes(expected))errors.push('Pricing page missing: '+expected);
 }
+if((pricingHtml.match(/class="price-card/g)||[]).length!==3)errors.push('Pricing page must have three trade cards');
+if(!pricingHtml.includes('prunus-logo')||!pricingHtml.includes('Prunus-Media-Left-orientation-300x300.png'))errors.push('Real Prunus logo missing from referral panel');
+if(!pricingHtml.includes('https://prunusmedia.com/'))errors.push('Prunus Media referral link missing');
 if(pricingHtml.includes('Lead Generation Website'))errors.push('Retired lead-generation package still offered');
 if(!pricingHtml.includes('hosting is included'))errors.push('Pricing page omits SEO-inclusive hosting');
 if(!indexHtml.includes('href="/pricing/"'))errors.push('Homepage missing pricing link');
