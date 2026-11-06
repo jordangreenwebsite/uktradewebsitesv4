@@ -65,6 +65,19 @@ Homepage structure: hero and dark contact form; supported trades and features; t
 - `src/data/trades.ts`: unique trade names, services and descriptions for the ten new pages.
 - `src/data/trade-seo.ts`: per-trade primary search intent, unique title/meta description and useful supplementary copy.
 
+## November 6 audit and visual refinements
+
+- Header primary links and "Trade Websites" have matched font weight, with a centrally aligned desktop menu and dark hover contrast over the 50%-opaque orange scroll header.
+- Homepage hero keeps the working contact form on the right and sales copy on the left, with more reliable responsive balance and extra clearance below the overlapping header.
+- Contact hero leaves enough top space for the WhatsApp button and form, while the Home, Contact, About and trade-page orange wave shapes taper instead of ending abruptly.
+- New trade-page hero headings are larger Montserrat with more legible introductory text. Established core-page styling remains otherwise unchanged.
+- The About photo no longer has a visible "Jordan & Mikie" caption (descriptive image alt text remains).
+- The four pricing selections use `#package=...` anchors, not crawler-visible query strings; the form still accepts legacy `?package=...` links. This avoids audit-reported duplicate crawl URLs without losing plan preselection.
+- Public Organization schema includes verified UK-wide areaServed and the published email/WhatsApp sales contact point. Do **not** fabricate an address, LocalBusiness classification, phone call availability, business hours, ratings or official social profiles.
+- `/robots.txt` is a public allow-all text file with a sitemap declaration. Cloudflare has an explicit text/plain header. Browser and build checks cover core SEO, menu and hero overlap.
+- The HTTPS portfolio link to PawPrints/Cotswold Pawprints replaces its insecure HTTP predecessor.
+- Concept/demo previews are not promoted above the lead form until meaningful, working demo destinations are ready.
+
 ## SEO and technical rules
 
 - Use full canonical addresses on https://uktradewebsites.co.uk (not `.local` or `.com`).
