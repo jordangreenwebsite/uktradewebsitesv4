@@ -79,14 +79,33 @@ try{
      for(const type of ['Service','BreadcrumbList'])if(!facts.schemaTypes.includes(type))errors.push(path+' missing '+type+' schema');
     }
     if(path==='/pricing/'){
-      const pricingFacts=await page.evaluate(()=>({
-        cards:document.querySelectorAll('.pricing-grid-two .price-card').length,
-        priceText:document.querySelector('.no-upfront-clarified .monthly')?.textContent||'',
-        pricingLink:document.querySelector('.desktop-trades-menu a.pricing-dropdown-link')?.getAttribute('href')
-      }));
-      if(pricingFacts.cards!==2)errors.push('Pricing must have exactly two upfront packages');
+      const pricingFacts=await page.evaluate(()=>{
+        const cards=[...document.querySelectorAll('.pricing-grid-three > .price-card')];
+        const bounds=cards.map(card=>{const r=card.getBoundingClientRect();return {x:r.left,y:r.top,w:r.width,b:r.bottom}});
+        const referral=document.querySelector('.prunus-referral');
+        const referralBox=referral?.getBoundingClientRect();
+        return {
+          cards:cards.length,bounds,
+          priceText:document.querySelector('.no-upfront-card .monthly')?.textContent||'',
+          pricingLink:document.querySelector('.desktop-trades-menu a.pricing-dropdown-link')?.getAttribute('href'),
+          referralTop:referralBox?.top??-1,
+          logo:referral?.querySelector('img.prunus-logo')?.getAttribute('src'),
+          referralLink:referral?.querySelector('a[href^="https://prunusmedia.com"]')?.getAttribute('href')
+        };
+      });
+      if(pricingFacts.cards!==3)errors.push('Pricing must have exactly three trade website cards');
       if(!pricingFacts.priceText.includes('65'))errors.push('No-upfront rate should be £65/month');
       if(pricingFacts.pricingLink!=='/pricing/')errors.push('Pricing submenu link missing');
+      if(!pricingFacts.logo?.includes('Prunus-Media-Left-orientation-300x300.png'))errors.push('Prunus referral logo missing');
+      if(pricingFacts.referralLink!=='https://prunusmedia.com/')errors.push('Prunus referral link missing');
+      if(pricingFacts.bounds.length===3){
+        const b=pricingFacts.bounds;
+        if(pricingFacts.referralTop<=Math.max(...b.map(card=>card.b))-2)errors.push('Prunus referral is not below all three price cards');
+        if(width>950){
+          if(b.some(card=>Math.abs(card.y-b[0].y)>3||Math.abs(card.w-b[0].w)>3))errors.push('Desktop pricing cards are not equal-sized and aligned');
+          if(Math.abs((b[0].x+b[2].x+b[2].w)/2-width/2)>10)errors.push('Desktop pricing grid is off centre');
+        }else if(!(b[0].y<b[1].y&&b[1].y<b[2].y))errors.push('Mobile pricing cards do not stack in offer order');
+      }
     }
     if(width===390){
      // Force lazy images to load and check all retained source assets.
@@ -105,11 +124,22 @@ try{
    const menu=page.locator('details.mobile-menu');
    await menu.locator(':scope > summary').click();
    if(!(await menu.evaluate(el=>el.open)))errors.push('Mobile navigation did not open');
+   const menuBounds=await page.evaluate(()=>{
+     const rect=document.querySelector('.mobile-menu > nav')?.getBoundingClientRect();
+     return {left:rect?.left??-1000,right:rect?.right??1000,viewport:window.innerWidth,overflow:document.documentElement.scrollWidth-window.innerWidth};
+   });
+   if(menuBounds.left<0||menuBounds.right>menuBounds.viewport+1)errors.push('Mobile menu clips outside viewport: '+JSON.stringify(menuBounds));
+   if(menuBounds.overflow>2)errors.push('Opening mobile menu causes horizontal overflow: '+menuBounds.overflow);
    const links=await menu.locator('nav a').count();
    if(links<15)errors.push('Mobile navigation links missing');
    const tradeSubmenu=menu.locator('details.mobile-trades-menu');
    await tradeSubmenu.locator('summary').click();
    if(!(await tradeSubmenu.evaluate(el=>el.open)))errors.push('Mobile trade submenu did not open');
+   const nestedBounds=await page.evaluate(()=>{
+     const rect=document.querySelector('.mobile-menu > nav')?.getBoundingClientRect();
+     return {left:rect?.left??-1000,right:rect?.right??1000,viewport:window.innerWidth};
+   });
+   if(nestedBounds.left<0||nestedBounds.right>nestedBounds.viewport+1)errors.push('Expanded trade submenu clips outside viewport: '+JSON.stringify(nestedBounds));
    if((await tradeSubmenu.locator('a').count())!==11)errors.push('Mobile trade submenu has wrong link count');
    await page.goto('http://127.0.0.1:4321/contact-us/#package=Starter%20Website',{waitUntil:'domcontentloaded'});
    const pkg=await page.locator('form.contact-form [name="package"]').first().inputValue();
