@@ -34,7 +34,6 @@ const breadcrumbSchema={
   <section class="legacy-hero legacy-trade-hero">
     <svg class="legacy-wave" viewBox="0 0 1440 650" preserveAspectRatio="none" aria-hidden="true"><path fill="#FF8C42" d="M0,0 H1440 V505 C1250,520 1090,350 870,235 C783,170 733,160 670,210 C528,315 448,360 345,405 C180,490 84,565 0,585 Z"/></svg>
     <div class="container legacy-trade-content">
-      <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / {trade.search}</nav>
       <p class="eyebrow">Websites designed for UK trades</p>
       <h1>{trade.search}</h1>
       <h2>{trade.hero}</h2>
@@ -59,6 +58,6 @@ const breadcrumbSchema={
     <div><h2>Simple, clear pricing</h2><p>Choose a package that fits your business. Our current trade website packages start from <strong>£{packages[0].upfront} upfront plus £{packages[0].monthly} per month</strong>, on a 12-month contract.</p><p>Our Starter package covers 1–5 pages and Trade Growth covers 5–9 pages. For 10 or more pages or a bespoke build, visit Prunus Media.</p><a class="btn btn-primary" href="/pricing/">See all website packages</a></div>
     <div class="feature-panel"><h2>{trade.example?'See an example website':'See what we can build'}</h2><p>{trade.example?'Browse a demonstration design created for this type of trade. The demo is a concept, not a client website.':'We can tailor a design to your trade, brand colours, services, work photos and the areas you cover.'}</p><a class="btn btn-outline" href={trade.example||'/example-websites/'} target={trade.example?'_blank':undefined} rel={trade.example?'noopener noreferrer':undefined}>{trade.example?'View demo website':'View example websites'}</a></div>
   </div></section>
-  <section class="bottom-contact"><div class="container"><p class="eyebrow text-center">Ready when you are</p><ContactForm heading={'Get a '+trade.plural.toLowerCase()+' website quote'} id={'form-'+trade.slug}/></div></section>
+  <section class="bottom-contact"><div class="container"><p class="eyebrow text-center">Ready when you are</p><ContactForm id={'form-'+trade.slug}/></div></section>
   <section class="section-tight"><div class="container"><h2>Websites for more trades</h2><ul class="trade-links">{trades.filter(t=>t.slug!==trade.slug).map(t=><li><a href={'/'+t.slug+'/'}>{t.search}</a></li>)}</ul></div></section>
 </Layout>
