@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/BaseLayout.astro';
 import Pricing from '../components/Pricing.astro';
+import ContactForm from '../components/ContactForm.astro';
 ---
 <Layout title="Trade Website Pricing UK | Starter & Growth Packages" description="Compare UK trade website prices: 1–5 pages from £149 or 5–9 pages from £249, with £39/month hosting. Or choose no-upfront at £65/month for the first year." path="/pricing/">
   <section class="legacy-hero pricing-page-hero">
@@ -28,4 +29,5 @@ import Pricing from '../components/Pricing.astro';
       <div class="text-center pricing-faq-cta"><a class="btn btn-accent" href="/contact-us/">Ask for a website quote</a></div>
     </div>
   </section>
+  <section class="bottom-contact"><div class="container"><p class="eyebrow text-center">Ready to get your website online?</p><ContactForm id="pricing-enquiry"/></div></section>
 </Layout>
