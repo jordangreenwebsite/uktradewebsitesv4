@@ -18,6 +18,7 @@ try{
  browser=await chromium.launch({headless:true,args:['--no-sandbox']});
  for(const width of [390,768,1101,1440]){
   const page=await browser.newPage({viewport:{width,height:900},deviceScaleFactor:1});
+  let contactFormReference=null;
   for(const path of paths){
    try{
     const response=await page.goto('http://127.0.0.1:4321'+path,{waitUntil:'domcontentloaded',timeout:30000});
@@ -77,6 +78,37 @@ try{
     if(facts.desktopTrades!==11||facts.mobileTrades!==11)errors.push(path+' trade navigation incomplete');
     if(path.startsWith('/websites-for-')){
      for(const type of ['Service','BreadcrumbList'])if(!facts.schemaTypes.includes(type))errors.push(path+' missing '+type+' schema');
+     if(await page.locator('.legacy-trade-hero nav.breadcrumbs').count())errors.push(path+' still has visible breadcrumb trail');
+    }
+    if(path==='/contact-us/' || path==='/pricing/' || path.startsWith('/websites-for-') ||
+      path==='/about-us/' || path==='/our-process/' || path==='/example-websites/'){
+      const formInfo=await page.evaluate(()=>{
+        const panel=document.querySelector('.legacy-contact .contact-panel, .bottom-contact .contact-panel');
+        const heading=panel?.querySelector('h2');
+        const input=panel?.querySelector('input[name="name"]');
+        const button=panel?.querySelector('button[type="submit"]');
+        const form=panel?.querySelector('form.contact-form');
+        return {
+          exists:!!form,
+          heading:heading?.textContent?.trim()||'',
+          fields:form?[...form.querySelectorAll('input[name], select[name], textarea[name]')].map(el=>el.getAttribute('name')).filter(Boolean):[],
+          bg:panel?getComputedStyle(panel).backgroundColor:'',
+          headingColor:heading?getComputedStyle(heading).color:'',
+          fieldColor:input?getComputedStyle(input).backgroundColor:'',
+          buttonColor:button?getComputedStyle(button).backgroundColor:''
+        };
+      });
+      if(!formInfo.exists)errors.push(path+' shared contact form missing');
+      if(formInfo.heading!=='Grow Your Business')errors.push(path+' contact form heading differs from homepage');
+      for(const field of ['name','email','phone','business','service','message','package']){
+        if(!formInfo.fields.includes(field))errors.push(path+' form field missing: '+field);
+      }
+      if(path==='/contact-us/')contactFormReference=formInfo;
+      if(contactFormReference&&path!=='/contact-us/'){
+        for(const key of ['bg','headingColor','fieldColor','buttonColor']){
+          if(formInfo[key]!==contactFormReference[key])errors.push(path+' shared form style differs from contact page: '+key);
+        }
+      }
     }
     if(path==='/pricing/'){
       const pricingFacts=await page.evaluate(()=>{
