@@ -1,0 +1,41 @@
+---
+import Layout from '../../layouts/BaseLayout.astro';
+import RoofingCaseStudy from '../../components/RoofingCaseStudy.astro';
+const url='https://uktradewebsites.co.uk/our-work/residential-roofing-and-fascias/';
+const schema={
+ '@type':'BreadcrumbList','@id':url+'#breadcrumbs',
+ itemListElement:[
+  {'@type':'ListItem',position:1,name:'Home',item:'https://uktradewebsites.co.uk/'},
+  {'@type':'ListItem',position:2,name:'Our Work',item:'https://uktradewebsites.co.uk/our-work/'},
+  {'@type':'ListItem',position:3,name:'Residential Roofing & Fascias',item:url}
+ ]
+};
+---
+<Layout title="Roofing Website Redesign Before and After | Case Study" description="See how Residential Roofing & Fascias' website was rebuilt with a professional design, 15 additional service and area pages, and improved navigation for local SEO." path="/our-work/residential-roofing-and-fascias/" schema={schema}>
+ <section class="legacy-hero our-work-hero">
+  <svg class="legacy-wave" aria-hidden="true" viewBox="0 0 1440 590" preserveAspectRatio="none"><path fill="#FF8C42" d="M0,0 H1440 V350 C1230,410 1010,195 800,200 C620,208 460,390 255,450 C140,490 62,485 0,505 Z"/></svg>
+  <div class="container our-work-hero-inner">
+   <p class="eyebrow">Real project / Roofing & home improvement</p>
+   <h1>Residential Roofing &amp; Fascias: before and after</h1>
+   <p class="lead">A familiar-looking website, rebuilt to be faster, clearer and better organised for the roofing services and local areas this business actually covers.</p>
+   <a href="#roofing-case-study-details" class="btn legacy-pill">Explore the rebuild</a>
+  </div>
+ </section>
+ <RoofingCaseStudy id="roofing-case-study-details"/>
+ <section class="section section-light">
+  <div class="container split-grid">
+   <div>
+    <p class="eyebrow">Website redesign &amp; local SEO</p>
+    <h2>The service behind the transformation</h2>
+    <p>This was a bespoke website rebuild, rather than a small template package. It included the new static Astro website, 15 additional pages within a 17-page site, more logical navigation and technical SEO foundations.</p>
+    <p>The website is designed to support future visibility in Cirencester, Swindon, Gloucestershire and Wiltshire. Search performance requires ongoing review, relevant content and time for search engines to discover and evaluate new pages.</p>
+   </div>
+   <div class="feature-panel">
+    <h2>Could we do the same for your business?</h2>
+    <p>We can review the website you already have and explain what to keep, what to rebuild and whether more specific service or area pages would genuinely help your visitors.</p>
+    <a class="btn btn-primary" href="/contact-us/">Talk about your website</a>
+    <p class="muted">For larger bespoke builds and ongoing SEO, our wider team at <a href="https://prunusmedia.com/" rel="noopener noreferrer">Prunus Media</a> can help.</p>
+   </div>
+  </div>
+ </section>
+</Layout>
