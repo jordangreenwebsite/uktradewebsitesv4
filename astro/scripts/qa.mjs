@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 const root=path.resolve(process.cwd(),'dist');
-const pages=['','about-us','contact-us','example-websites','our-process','pricing','privacy-policy','thank-you',
+const pages=['','about-us','contact-us','our-work','our-process','pricing','privacy-policy','thank-you',
  'websites-for-plumbers','websites-for-electricians','websites-for-window-cleaners','websites-for-painters',
  'websites-for-floor-cleaners','websites-for-roofers','websites-for-builders','websites-for-landscapers',
  'websites-for-plasterers','websites-for-driveway-cleaners'];
@@ -84,6 +84,17 @@ if(!indexHtml.includes('<!--email_off-->')||!indexHtml.includes('<!--/email_off-
 if(!indexHtml.includes('mailto:uktradewebsites@gmail.com'))errors.push('Footer needs a working mailto link');
 const privacyHtml=fs.readFileSync(path.join(root,'privacy-policy','index.html'),'utf8');
 if(!privacyHtml.includes('<!--email_off-->')||!privacyHtml.includes('<!--/email_off-->'))errors.push('Privacy policy email must be protected from Cloudflare rewriting');
+
+const ourWorkHtml=fs.readFileSync(path.join(root,'our-work','index.html'),'utf8');
+if(!ourWorkHtml.includes('role="tablist"'))errors.push('Our Work project tabs missing');
+if((ourWorkHtml.match(/role="tab"/g)||[]).length!==22)errors.push('Our Work must contain 22 project tabs');
+for(const name of ['J Piper Cleaning Services','Residential Roofing &amp; Fascias','PP Power Detailing','Caring Companions Pet Care','Katie’s Flower Hut','Prunus Certificates','My Sweet Pea Flowers','Hush Bake']){
+ if(!ourWorkHtml.includes(name))errors.push('Our Work project missing: '+name);
+}
+if(!ourWorkHtml.includes('https://prunusmedia.com/our-work/'))errors.push('Portfolio project details links missing');
+if(indexHtml.includes('href="/example-websites/"'))errors.push('Homepage still links to retired examples page');
+if(!indexHtml.includes('href="/our-work/"'))errors.push('Homepage does not link to Our Work');
+if(!redirects.includes('/example-websites/ /our-work/ 301'))errors.push('Old Example Websites URL must redirect to Our Work');
 const pricingHtml=fs.readFileSync(path.join(root,'pricing','index.html'),'utf8');
 for(const expected of ['Starter Website','Trade Growth Website','No Upfront Website','£<strong>65','£39','<strong>£149','<strong>£249','1–5 pages','5–9 pages']){
  if(!pricingHtml.includes(expected))errors.push('Pricing page missing: '+expected);
