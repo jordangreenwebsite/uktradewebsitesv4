@@ -4,7 +4,7 @@ const paths=['/','/about-us/','/contact-us/','/our-work/','/our-work/residential
  '/pricing/','/privacy-policy/','/thank-you/','/websites-for-plumbers/','/websites-for-electricians/',
  '/websites-for-window-cleaners/','/websites-for-painters/','/websites-for-floor-cleaners/',
  '/websites-for-roofers/','/websites-for-builders/','/websites-for-landscapers/',
- '/websites-for-plasterers/','/websites-for-driveway-cleaners/'];
+ '/websites-for-plasterers/','/websites-for-driveway-cleaners/','/websites-for-pressure-washers/'];
 const server=spawn('python3',['-m','http.server','4321','--bind','127.0.0.1','--directory','dist'],{stdio:'ignore'});
 let browser;
 const errors=[];
@@ -130,11 +130,11 @@ try{
         };
       });
       if(navFacts.weight!==navFacts.neighbourWeight)errors.push('Desktop Trade Websites menu weight differs from other links');
-      if(navFacts.count!==11)errors.push('Desktop trade menu link count incorrect');
+      if(navFacts.count!==12)errors.push('Desktop trade menu link count incorrect');
       const badLinks=await page.locator('a[href^="/contact-us/?package="]').count();
       if(badLinks)errors.push('Pricing navigation still uses duplicate query URLs');
     }
-    if(facts.desktopTrades!==11||facts.mobileTrades!==11)errors.push(path+' trade navigation incomplete');
+    if(facts.desktopTrades!==12||facts.mobileTrades!==12)errors.push(path+' trade navigation incomplete');
     if(path.startsWith('/websites-for-')){
      for(const type of ['Service','BreadcrumbList'])if(!facts.schemaTypes.includes(type))errors.push(path+' missing '+type+' schema');
      if(await page.locator('.legacy-trade-hero nav.breadcrumbs').count())errors.push(path+' still has visible breadcrumb trail');
@@ -168,6 +168,18 @@ try{
           if(formInfo[key]!==contactFormReference[key])errors.push(path+' shared form style differs from contact page: '+key);
         }
       }
+    }
+    if(path==='/'){
+      const feature=page.locator('.hero .demo-feature');
+      if(await feature.count()!==1)errors.push('Homepage featured demo missing from hero second column');
+      if(await page.locator('.hero .contact-panel').count())errors.push('Homepage old hero form should be relocated below preview');
+      if(!(await page.locator('.home-enquiry form.contact-form').count()))errors.push('Homepage enquiry form missing below hero');
+      if(!(await feature.locator('a[href="/demos/jemoba/"]').count()))errors.push('Homepage demo URL missing');
+    }
+    if(path==='/websites-for-pressure-washers/'){
+      if(!(await page.locator('.pressure-hero-grid .demo-feature').count()))errors.push('Pressure washing page has no featured demo');
+      if(!(await page.locator('.pressure-faq details').count()))errors.push('Pressure washing FAQ section missing');
+      if(!facts.schemaTypes.includes('FAQPage'))errors.push('Pressure washing FAQ schema missing');
     }
     if(path==='/our-work/'){
       const portfolioFacts=await page.evaluate(()=>({
@@ -287,7 +299,7 @@ try{
      return {left:rect?.left??-1000,right:rect?.right??1000,viewport:window.innerWidth};
    });
    if(nestedBounds.left<0||nestedBounds.right>nestedBounds.viewport+1)errors.push('Expanded trade submenu clips outside viewport: '+JSON.stringify(nestedBounds));
-   if((await tradeSubmenu.locator('a').count())!==11)errors.push('Mobile trade submenu has wrong link count');
+   if((await tradeSubmenu.locator('a').count())!==12)errors.push('Mobile trade submenu has wrong link count');
    await page.goto('http://127.0.0.1:4321/contact-us/#package=Starter%20Website',{waitUntil:'domcontentloaded'});
    const pkg=await page.locator('form.contact-form [name="package"]').first().inputValue();
    if(pkg!=='Starter Website')errors.push('Hash-based package enquiry selection was not preserved');
