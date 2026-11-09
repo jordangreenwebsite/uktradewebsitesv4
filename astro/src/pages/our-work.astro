@@ -1,0 +1,133 @@
+---
+import Layout from '../layouts/BaseLayout.astro';
+import ContactForm from '../components/ContactForm.astro';
+import {site,portfolio} from '../data/site';
+const existing=portfolio.map(item=>({...item,url:'url' in item?item.url:'',image:item.image}));
+const agencyFeatured={
+ name:'Pet Care Website',
+ business:'Caring Companions Pet Care',
+ description:'A warm, reassuring website designed to explain the services available and help pet owners understand their care options.',
+ image:'',
+ url:'',
+ type:'client' as const,
+ note:'Featured by the same team on Prunus Media. A direct website link and project screenshot are not available here yet.'
+};
+const projects=[
+ ...existing.filter(item=>item.type==='client'),
+ agencyFeatured,
+ ...existing.filter(item=>item.type==='concept')
+];
+const liveCount=projects.filter(item=>item.type==='client').length;
+const conceptCount=projects.filter(item=>item.type==='concept').length;
+const pageUrl=site.url+'/our-work/';
+const breadcrumbSchema={
+ '@type':'BreadcrumbList',
+ '@id':pageUrl+'#breadcrumbs',
+ itemListElement:[
+  {'@type':'ListItem',position:1,name:'Home',item:site.url+'/'},
+  {'@type':'ListItem',position:2,name:'Our Work',item:pageUrl}
+ ]
+};
+---
+<Layout title="Our Work | Trade Website Designs & Real Projects" description="Explore websites built by our team for trades and service businesses, plus clearly labelled concept designs. Browse each project and visit live sites." path="/our-work/" schema={breadcrumbSchema}>
+  <section class="legacy-hero our-work-hero">
+    <svg class="legacy-wave" aria-hidden="true" viewBox="0 0 1440 590" preserveAspectRatio="none"><path fill="#FF8C42" d="M0,0 H1440 V350 C1230,410 1010,195 800,200 C620,208 460,390 255,450 C140,490 62,485 0,505 Z"/></svg>
+    <div class="container our-work-hero-inner">
+      <p class="eyebrow">Websites from our team</p>
+      <h1>Our Work</h1>
+      <p class="lead">Every business is different. Browse real websites our team has worked on, alongside a separate selection of concept designs that show what's possible for your trade.</p>
+      <div class="hero-cta-row">
+        <a class="btn legacy-pill" href="#projects">Browse the projects</a>
+        <a class="btn legacy-orange-pill" href="/contact-us/">Ask for a website quote</a>
+      </div>
+    </div>
+  </section>
+  <section class="section our-work-section" id="projects" aria-labelledby="our-work-projects-heading">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Real websites &amp; design ideas</p>
+        <h2 id="our-work-projects-heading">Explore a project</h2>
+        <p>Choose a website tab to see its design and visit the site where a working link is available. Demo concepts are labelled clearly and aren't presented as paid client work.</p>
+      </div>
+      <div class="work-stats" aria-label="Project types">
+        <span><strong>{liveCount}</strong> live and featured website projects</span>
+        <span><strong>{conceptCount}</strong> design concepts</span>
+      </div>
+      <div class="work-browser" data-project-tabs>
+        <div class="work-tabbar" role="tablist" aria-label="Choose a website project">
+          {projects.map((project,i)=><button
+            type="button"
+            role="tab"
+            id={'project-tab-'+i}
+            aria-controls={'project-panel-'+i}
+            aria-selected={i===0?'true':'false'}
+            tabindex={i===0?0:-1}
+            class:list={['work-tab',{'work-tab-concept':project.type==='concept'}]}>
+            <span class="work-tab-label">{project.business}</span>
+            <small>{project.type==='concept'?'Concept':'Website'}</small>
+          </button>)}
+        </div>
+        <div class="work-panels">
+          {projects.map((project,i)=><article class="work-project-panel" id={'project-panel-'+i} role="tabpanel" aria-labelledby={'project-tab-'+i} data-project-panel tabindex="0">
+            <div class="work-project-preview">
+              {project.image
+                ? <img src={project.image} width="1024" height="560" loading="lazy" decoding="async" alt={'Website design preview for '+project.business}/>
+                : <div class="work-project-noimage" aria-label="Screenshot not yet available"><span>Project preview<br/>being prepared</span></div>}
+            </div>
+            <div class="work-project-details">
+              <p class="eyebrow">{project.type==='concept'?'Design concept · not a client project':'A project by our team'}</p>
+              <h3>{project.business}</h3>
+              <p class="work-project-type">{project.name}</p>
+              <p>{project.description}</p>
+              {'note' in project&&project.note&&<p class="work-project-note">{project.note}</p>}
+              <div class="work-project-actions">
+                {project.url
+                  ? <a href={project.url} class="btn btn-primary" target="_blank" rel="noopener noreferrer">{project.type==='concept'?'Open concept design':'Visit website'} <span class="text-arrow" aria-hidden="true">→</span></a>
+                  : <a href="/contact-us/" class="btn btn-outline">Ask about this design</a>}
+                <a href="/pricing/" class="work-price-link">View website packages <span class="text-arrow" aria-hidden="true">→</span></a>
+              </div>
+            </div>
+          </article>)}
+        </div>
+      </div>
+      <p class="work-attribution">UK Trade Websites and <a href="https://prunusmedia.com/" target="_blank" rel="noopener noreferrer">Prunus Media</a> are services from the same team. Some projects were completed through Prunus Media; larger bespoke website enquiries are handled there.</p>
+    </div>
+  </section>
+  <section class="section section-light">
+    <div class="container split-grid">
+      <div><p class="eyebrow">Your site, your trade</p><h2>Like one of these website designs?</h2><p>We can create a professional website around your own services, photos, colours and the places you cover. The examples here are starting points for a conversation, not fixed templates you have to copy.</p><a href="/pricing/" class="btn btn-primary">Explore website pricing</a></div>
+      <div class="feature-panel"><h2>Built for real businesses</h2><ul class="check-list"><li>Clear service information</li><li>Layouts that work on phones</li><li>Easy contact and quote options</li><li>Search-friendly page structures</li><li>Distinctive colours and genuine photography where provided</li></ul></div>
+    </div>
+  </section>
+  <section class="bottom-contact"><div class="container"><p class="eyebrow text-center">Ready to get started?</p><ContactForm id="our-work"/></div></section>
+</Layout>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-project-tabs]').forEach(browser=>{
+    const tabs=Array.from(browser.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+    const panels=Array.from(browser.querySelectorAll<HTMLElement>('[data-project-panel]'));
+    const activate=(index:number,moveFocus=false)=>{
+      tabs.forEach((tab,i)=>{
+        const active=i===index;
+        tab.setAttribute('aria-selected',String(active));
+        tab.tabIndex=active?0:-1;
+      });
+      panels.forEach((panel,i)=>{panel.hidden=i!==index;});
+      if(moveFocus)tabs[index]?.focus();
+    };
+    browser.classList.add('is-enhanced');
+    activate(0);
+    tabs.forEach((tab,index)=>{
+      tab.addEventListener('click',()=>activate(index));
+      tab.addEventListener('keydown',event=>{
+        let next=index;
+        if(event.key==='ArrowRight')next=(index+1)%tabs.length;
+        else if(event.key==='ArrowLeft')next=(index-1+tabs.length)%tabs.length;
+        else if(event.key==='Home')next=0;
+        else if(event.key==='End')next=tabs.length-1;
+        else return;
+        event.preventDefault();
+        activate(next,true);
+      });
+    });
+  });
+</script>
