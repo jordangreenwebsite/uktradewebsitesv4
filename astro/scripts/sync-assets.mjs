@@ -40,4 +40,4 @@ for (const file of files) {
 console.log('Copied ' + files.length + ' retained local media assets from legacy export.');
 
 // Source the roofing before/after assets from the uploaded optimisation archive.
-await import('./inspect-case-study-archive.mjs');
+await import('./sync-case-study.mjs');
