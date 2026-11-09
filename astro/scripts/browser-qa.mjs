@@ -149,7 +149,11 @@ try{
         const section=document.querySelector('.roofing-story');
         const panes=section?[...section.querySelectorAll('.roofing-screenshot-scroll')]:[];
         const images=section?[...section.querySelectorAll('img')]:[];
-        await Promise.all(images.map(img=>img.decode().catch(()=>{})));
+        images.forEach(img=>{img.loading='eager';});
+        await Promise.race([
+          Promise.all(images.map(img=>img.decode().catch(()=>{}))),
+          new Promise(resolve=>setTimeout(resolve,6000))
+        ]);
         const before=panes[0],after=panes[1];
         if(before)before.scrollTop=100;
         const independent=before?.scrollTop>0 && (after?.scrollTop||0)===0;
