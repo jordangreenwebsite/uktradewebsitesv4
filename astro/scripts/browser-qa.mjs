@@ -148,9 +148,39 @@ try{
       if(path==='/blog/'){
         if((await page.locator('.blog-card').count())!==3)errors.push('Blog index must show three useful starter articles');
         if(!facts.schemaTypes.includes('Blog'))errors.push('Blog landing missing Blog schema');
+        const search=page.locator('#blog-search-input');
+        if(!(await search.count()))errors.push('Blog search field missing');
+        else{
+          await search.fill('visitors but few enquiries');
+          if((await page.locator('.blog-card:visible').count())!==1)
+            errors.push('Blog search should show the matching article only at '+width+'px');
+          await search.fill('zzz-no-such-blog-123');
+          if((await page.locator('.blog-card:visible').count())!==0)
+            errors.push('Blog search should hide all cards for unmatched terms at '+width+'px');
+          if(!(await page.locator('[data-blog-empty]').isVisible()))
+            errors.push('Blog search no-results state missing at '+width+'px');
+          await page.locator('[data-blog-reset]').click();
+          if((await page.locator('.blog-card:visible').count())!==3)
+            errors.push('Blog search reset should restore all articles at '+width+'px');
+          if((await search.inputValue())!=='')
+            errors.push('Blog search reset should clear the query at '+width+'px');
+        }
       }else{
         if(!(await page.locator('.blog-prose h2').count()))errors.push(path+' blog article missing readable subheadings');
         if(!facts.schemaTypes.includes('BlogPosting'))errors.push(path+' missing BlogPosting schema');
+        const next=page.locator('.blog-read-next-band');
+        if((await next.count())!==1)errors.push(path+' missing a single Read Next band');
+        else{
+          const link=next.locator('a.blog-read-next-action');
+          const href=await link.getAttribute('href');
+          if(!href?.startsWith('/blog/')||href===path)
+            errors.push(path+' Read Next must link to another article');
+          const bounds=await next.boundingBox();
+          if(!bounds||Math.abs(bounds.x)>2||Math.abs(bounds.width-width)>3)
+            errors.push(path+' Read Next should stretch across the full viewport at '+width+'px');
+          if(!((await next.textContent())||'').includes('Read next'))
+            errors.push(path+' Read Next heading missing');
+        }
       }
     }
     if(path.startsWith('/websites-for-')){
