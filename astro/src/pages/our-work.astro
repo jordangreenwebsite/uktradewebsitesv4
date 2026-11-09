@@ -63,7 +63,21 @@ const breadcrumbSchema={
             <div class="work-project-preview">
               {project.image
                 ? <img src={project.image} width="1024" height="560" loading="lazy" decoding="async" alt={'Website design preview for '+project.title}/>
-                : <div class="work-project-noimage" aria-label="Screenshot not yet available"><span>Project information<br/>and website link</span></div>}
+                : <div class:list={['work-project-noimage','work-project-noimage--'+project.status]}
+                    role="img" aria-label={'Stylised portfolio illustration for '+project.title+', '+workStatusLabels[project.status]+'. Not a website screenshot.'}>
+                    <div class="work-project-art">
+                      <div class="work-project-browser-top" aria-hidden="true">
+                        <span class="work-project-browser-dots"><i></i><i></i><i></i></span>
+                        <span class="work-project-browser-address"></span>
+                      </div>
+                      <div class="work-project-art-body">
+                        <span class="work-project-art-status">{workStatusLabels[project.status]}</span>
+                        <h4>{project.title}</h4>
+                        <p>{project.category}</p>
+                      </div>
+                      <div class="work-project-art-footer" aria-hidden="true"><span></span><span></span><span></span></div>
+                    </div>
+                  </div>}
             </div>
             <div class="work-project-details">
               <p class="eyebrow">{workStatusLabels[project.status]}</p>
