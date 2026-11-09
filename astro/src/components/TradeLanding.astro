@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/BaseLayout.astro';
 import ContactForm from './ContactForm.astro';
+import DemoShowcase from './DemoShowcase.astro';
 import {site,packages} from '../data/site';
 import {trades,type Trade} from '../data/trades';
 import {tradeSeo} from '../data/trade-seo';
@@ -10,6 +11,18 @@ const seo=tradeSeo[trade.slug];
 if(!seo) throw new Error('Missing SEO copy for trade: '+trade.slug);
 const title=seo.title;
 const url=site.url+'/'+trade.slug+'/';
+const isPressure=trade.slug==='websites-for-pressure-washers';
+const pressureFaqs=[
+ {question:'What should a pressure washing business website show?',answer:'Show the real surfaces you clean, clear service and coverage information, genuine before-and-after photographs and an easy way to request a quote. Proof of actual work is more useful than a generic gallery.'},
+ {question:'Can my customers request a quote by sending photos?',answer:'Yes. A quote form can ask for the postcode, surface type, approximate size and photographs, or provide an obvious email or messaging route. The final method is tailored to how your business handles enquiries.'},
+ {question:'Do I need separate pages for driveway and patio cleaning?',answer:'If you genuinely offer these as distinct services, dedicated pages can explain different surfaces, methods, aftercare and customer questions. Avoid copying the same paragraphs across lots of near-identical local pages.'},
+ {question:'Will a new website automatically put my jet washing business first on Google?',answer:'No. Well-structured service pages, accurate local information, fast pages and relevant photos provide a foundation for search visibility, but rankings and enquiries depend on competition, relevance and ongoing work.'}
+];
+const pressureFaqSchema={
+ '@type':'FAQPage',
+ '@id':url+'#faqs',
+ mainEntity:pressureFaqs.map(({question,answer})=>({'@type':'Question',name:question,acceptedAnswer:{'@type':'Answer',text:answer}})),
+};
 const serviceSchema={
  '@type':'Service',
  '@id':url+'#service',
@@ -30,15 +43,28 @@ const breadcrumbSchema={
  ],
 };
 ---
-<Layout title={title} description={seo.description} path={'/'+trade.slug+'/'} schema={[serviceSchema,breadcrumbSchema]}>
+<Layout title={title} description={seo.description} path={'/'+trade.slug+'/'} schema={[serviceSchema,breadcrumbSchema,...(isPressure?[pressureFaqSchema]:[])]}>
   <section class="legacy-hero legacy-trade-hero">
     <svg class="legacy-wave" viewBox="0 0 1440 650" preserveAspectRatio="none" aria-hidden="true"><path fill="#FF8C42" d="M0,0 H1440 V505 C1250,520 1090,350 870,235 C783,170 733,160 670,210 C528,315 448,360 345,405 C180,490 84,565 0,585 Z"/></svg>
-    <div class="container legacy-trade-content">
+    <div class:list={['container','legacy-trade-content',{'pressure-landing':isPressure}]}>
+      {isPressure ?
+        <div class="pressure-hero-grid">
+          <div class="pressure-hero-copy">
+            <p class="eyebrow">UK pressure washing &amp; jet washing website design</p>
+            <h1>{trade.search}</h1>
+            <h2>{trade.hero}</h2>
+            <p class="lead">{trade.intro}</p>
+            <div class="hero-cta-row"><a class="btn legacy-pill" href="/contact-us/">Get a Website Quote</a><a class="btn legacy-orange-pill" href="/pricing/">View Packages</a></div>
+          </div>
+          <DemoShowcase variant="trade" />
+        </div>
+      : <>
       <p class="eyebrow">Websites designed for UK trades</p>
       <h1>{trade.search}</h1>
       <h2>{trade.hero}</h2>
       <p class="lead">{trade.intro}</p>
       <div class="hero-cta-row"><a class="btn legacy-pill" href="/contact-us/">Get a Website Quote</a><a class="btn legacy-orange-pill" href="/pricing/">View Packages</a></div>
+      </>}
     </div>
   </section>
   <section class="section section-light"><div class="container split-grid">
@@ -54,6 +80,39 @@ const breadcrumbSchema={
     <h2 id={'seo-'+trade.slug}>{seo.heading}</h2>
     <p>{seo.copy}</p>
   </div></section>
+  {isPressure && <section class="section pressure-washing-advice" aria-labelledby="pressure-site-features">
+    <div class="container">
+      <p class="eyebrow">Designed around real exterior cleaning enquiries</p>
+      <h2 id="pressure-site-features">What makes a useful pressure washing website?</h2>
+      <p class="lead">A website for a pressure washer needs to help customers recognise the service they need, trust the work and make contact. These features give an exterior cleaning business a stronger starting point.</p>
+      <div class="pressure-topic-grid">
+        <article>
+          <h3>Lead with real results</h3>
+          <p>Include photographs of genuine driveway, patio, paving or commercial jobs, with short descriptions of the surface and work completed. Before-and-after comparisons are effective only when they show the same job accurately.</p>
+        </article>
+        <article>
+          <h3>Explain the work you actually offer</h3>
+          <p>Pressure washing and jet washing can cover different surfaces and treatments. Distinguish domestic driveways, garden patios, paths and commercial cleaning where relevant. Only advertise render cleaning, roof work or sealing if you really undertake it.</p>
+        </article>
+        <article>
+          <h3>Make local quotes easy</h3>
+          <p>Prominent mobile contact buttons, a short enquiry form and a clear list of real service areas help visitors take the next step. Customers can describe the surface and supply photographs where the chosen enquiry system supports them.</p>
+        </article>
+      </div>
+      <p style="margin-top:25px">Specialise mainly in patios and block paving? See our <a href="/websites-for-driveway-cleaners/">website design for driveway cleaning businesses</a> page. We build for both specialist driveway cleaners and wider exterior-cleaning companies.</p>
+    </div>
+  </section>}
+  {isPressure && <section class="section section-light" aria-labelledby="pressure-faq-heading">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Pressure washing website FAQs</p>
+        <h2 id="pressure-faq-heading">Questions from pressure washing businesses</h2>
+      </div>
+      <div class="pressure-faq">
+        {pressureFaqs.map(({question,answer})=><details><summary>{question}</summary><p>{answer}</p></details>)}
+      </div>
+    </div>
+  </section>}
   <section class="section section-light"><div class="container split-grid">
     <div><h2>Simple, clear pricing</h2><p>Choose a package that fits your business. Our current trade website packages start from <strong>£{packages[0].upfront} upfront plus £{packages[0].monthly} per month</strong>, on a 12-month contract.</p><p>Our Starter package covers 1–5 pages and Trade Growth covers 5–9 pages. For 10 or more pages or a bespoke build, visit Prunus Media.</p><a class="btn btn-primary" href="/pricing/">See all website packages</a></div>
     <div class="feature-panel"><h2>{trade.example?'See an example website':'See what we can build'}</h2><p>{trade.example?'Browse a demonstration design created for this type of trade. The demo is a concept, not a client website.':'We can tailor a design to your trade, brand colours, services, work photos and the areas you cover.'}</p><a class="btn btn-outline" href={trade.example||'/our-work/'} target={trade.example?'_blank':undefined} rel={trade.example?'noopener noreferrer':undefined}>{trade.example?'View demo website' :'View our work'}</a></div>
