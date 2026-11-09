@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/BaseLayout.astro';
 import ContactForm from '../components/ContactForm.astro';
+import RoofingCaseStudy from '../components/RoofingCaseStudy.astro';
 import {site} from '../data/site';
 import {workProjects,workStatusLabels} from '../data/work';
 const projects=workProjects;
@@ -98,6 +99,7 @@ const breadcrumbSchema={
       <p class="work-attribution">UK Trade Websites and <a href="https://prunusmedia.com/" target="_blank" rel="noopener noreferrer">Prunus Media</a> are services from the same team. Some projects were completed through Prunus Media; larger bespoke website enquiries are handled there.</p>
     </div>
   </section>
+  <RoofingCaseStudy id="roofing-work-feature" compact={true}/>
   <section class="section section-light">
     <div class="container split-grid">
       <div><p class="eyebrow">Your site, your trade</p><h2>Like one of these website designs?</h2><p>We can create a professional website around your own services, photos, colours and the places you cover. The examples here are starting points for a conversation, not fixed templates you have to copy.</p><a href="/pricing/" class="btn btn-primary">Explore website pricing</a></div>
