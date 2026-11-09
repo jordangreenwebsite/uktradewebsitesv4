@@ -170,11 +170,15 @@ try{
       }
     }
     if(path==='/'){
-      const feature=page.locator('.hero .demo-feature');
-      if(await feature.count()!==1)errors.push('Homepage featured demo missing from hero second column');
-      if(await page.locator('.hero .contact-panel').count())errors.push('Homepage old hero form should be relocated below preview');
-      if(!(await page.locator('.home-enquiry form.contact-form').count()))errors.push('Homepage enquiry form missing below hero');
-      if(!(await feature.locator('a[href="/demos/jemoba/"]').count()))errors.push('Homepage demo URL missing');
+      if(await page.locator('.hero .demo-feature').count())errors.push('Homepage must not contain the JEMOBA concept');
+      if(await page.locator('.home-enquiry').count())errors.push('Homepage must not include the added enquiry section');
+      if(!(await page.locator('.hero .contact-panel form.contact-form').count()))errors.push('Original homepage enquiry form must be restored in hero right column');
+    }
+    if(path==='/websites-for-driveway-cleaners/'){
+      if(!(await page.locator('.pressure-hero-grid .demo-feature').count()))errors.push('Driveway cleaning hero second column missing JEMOBA demo');
+      if(!(await page.locator('.pressure-faq details').count()))errors.push('Driveway cleaning FAQ section missing');
+      if(!facts.schemaTypes.includes('FAQPage'))errors.push('Driveway cleaning FAQ schema missing');
+      if(!(await page.locator('#driveway-site-features').count()))errors.push('Driveway cleaners editorial section missing');
     }
     if(path==='/websites-for-pressure-washers/'){
       if(!(await page.locator('.pressure-hero-grid .demo-feature').count()))errors.push('Pressure washing page has no featured demo');
