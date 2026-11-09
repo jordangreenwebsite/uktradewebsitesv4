@@ -1276,3 +1276,51 @@
   }
   .site-header .mobile-menu nav>a.mobile-client-signin:hover{background:#dfe9f3}
 }
+
+
+/* Industry demo showcase — keep the homepage's original left-hand hero copy.
+   The original hero enquiry form moves directly below into this accessible section. */
+.home-page .hero-inner>aside.demo-feature{align-self:start;margin:0;position:relative;z-index:2}
+.home-enquiry{background:#fff}
+.home-enquiry-inner{display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);align-items:center;gap:clamp(30px,5vw,75px)}
+.home-enquiry .home-enquiry-copy{max-width:460px}
+.home-enquiry .home-enquiry-copy h2{font:700 clamp(28px,3vw,42px)/1.2 'Montserrat',sans-serif;color:var(--navy)}
+.home-enquiry .home-enquiry-copy>p:not(.eyebrow){font-size:1.08rem;line-height:1.7;color:var(--muted)}
+.home-enquiry .contact-panel{margin:0;width:100%;max-width:unset}
+@media(max-width:800px){
+  .home-page .hero-inner>aside.demo-feature{width:100%;max-width:570px;align-self:center;margin:0 auto}
+  .home-enquiry-inner{grid-template-columns:1fr;gap:25px}
+  .home-enquiry .home-enquiry-copy{max-width:640px}
+}
+@media(max-width:550px){
+  .home-page .hero-inner>aside.demo-feature{max-width:100%}
+  .home-enquiry .home-enquiry-copy h2{font-size:29px}
+}
+
+/* Unique pressure-washing landing-page split hero and editorial content.
+   Existing trade landing pages retain their existing layout. */
+.legacy-trade-content.pressure-landing{padding-top:198px;padding-bottom:80px}
+.pressure-hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.95fr);align-items:center;gap:clamp(24px,3vw,48px)}
+.pressure-hero-grid .pressure-hero-copy{min-width:0}
+.pressure-hero-grid .pressure-hero-copy h1{font-size:clamp(33px,3.2vw,46px)}
+.pressure-hero-grid .pressure-hero-copy h2{font-size:clamp(22px,2.1vw,29px)}
+.pressure-hero-grid .pressure-hero-copy .lead{font-size:17px;line-height:1.7}
+.pressure-hero-grid .demo-feature{align-self:center}
+.pressure-topic-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:23px;margin-top:30px}
+.pressure-topic-grid article{border:1px solid var(--line);background:#fff;border-radius:12px;padding:27px 24px;box-shadow:0 5px 17px #1e3a5f0a}
+.pressure-topic-grid h3{font-size:1.3rem;color:var(--navy);line-height:1.25;margin-bottom:12px}
+.pressure-topic-grid p{margin-bottom:0;color:var(--muted)}
+.pressure-faq{max-width:875px;margin:40px auto 0}
+.pressure-faq details{border:1px solid var(--line);border-radius:8px;padding:20px 23px;margin:12px 0;background:#fff}
+.pressure-faq summary{font-weight:700;cursor:pointer;color:var(--navy)}
+.pressure-faq details p{margin:14px 0 0}
+@media(max-width:900px){
+  .pressure-hero-grid{grid-template-columns:1fr;gap:25px}
+  .pressure-hero-grid .demo-feature{max-width:620px;margin-inline:0}
+  .pressure-topic-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:550px){
+  .legacy-trade-content.pressure-landing{padding-top:180px;padding-bottom:50px}
+  .pressure-hero-grid .demo-feature{width:100%}
+  .pressure-topic-grid{grid-template-columns:1fr}
+}
