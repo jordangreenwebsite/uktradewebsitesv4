@@ -1,0 +1,53 @@
+---
+import Layout from '../../layouts/BaseLayout.astro';
+import {getCollection,render,type CollectionEntry} from 'astro:content';
+import {site} from '../../data/site';
+
+export async function getStaticPaths(){
+  const posts=await getCollection('blog');
+  return posts.map(post=>({params:{slug:post.id},props:{post}}));
+}
+interface Props {post:CollectionEntry<'blog'>;}
+const {post}=Astro.props;
+const {Content}=await render(post);
+const url=site.url+'/blog/'+post.id+'/';
+const published=post.data.date.toISOString().slice(0,10);
+const updated=(post.data.updated||post.data.date).toISOString().slice(0,10);
+const displayDate=post.data.date.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'});
+const schema=[
+  {'@type':'BlogPosting','@id':url+'#article',url,headline:post.data.title,description:post.data.description,
+   datePublished:published,dateModified:updated,articleSection:post.data.category,inLanguage:'en-GB',
+   author:{'@id':site.url+'/#organization'},publisher:{'@id':site.url+'/#organization'},
+   mainEntityOfPage:{'@id':url+'#webpage'},isAccessibleForFree:true},
+  {'@type':'BreadcrumbList',itemListElement:[
+   {'@type':'ListItem',position:1,name:'Home',item:site.url+'/'},
+   {'@type':'ListItem',position:2,name:'Blog',item:site.url+'/blog/'},
+   {'@type':'ListItem',position:3,name:post.data.title,item:url}
+  ]}
+];
+---
+<Layout title={post.data.title+' | UK Trade Websites'} description={post.data.description}
+ path={'/blog/'+post.id+'/'} schema={schema}>
+ <header class="blog-post-header">
+   <div class="container blog-post-header-inner">
+     <nav class="blog-breadcrumbs" aria-label="Breadcrumbs">
+       <a href="/">Home</a><span aria-hidden="true">/</span>
+       <a href="/blog/">Blog</a><span aria-hidden="true">/</span>
+       <span>{post.data.category}</span>
+     </nav>
+     <p class="eyebrow">{post.data.category}</p>
+     <h1>{post.data.title}</h1>
+     <p class="lead">{post.data.summary}</p>
+     <p class="blog-post-meta">UK Trade Websites · <time datetime={published}>{displayDate}</time></p>
+   </div>
+ </header>
+ <div class="container">
+   <article class="blog-article">
+     <div class="blog-prose"><Content /></div>
+     <div class="blog-post-end">
+       <a href="/blog/">More trade website advice</a>
+       <a href="/contact-us/">Ask us about your website</a>
+     </div>
+   </article>
+ </div>
+</Layout>
