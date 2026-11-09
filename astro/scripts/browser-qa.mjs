@@ -1,6 +1,6 @@
 import {spawn} from 'node:child_process';
 import {chromium} from 'playwright';
-const paths=['/','/about-us/','/contact-us/','/our-work/','/our-process/',
+const paths=['/','/about-us/','/contact-us/','/our-work/','/our-work/residential-roofing-and-fascias/','/our-process/',
  '/pricing/','/privacy-policy/','/thank-you/','/websites-for-plumbers/','/websites-for-electricians/',
  '/websites-for-window-cleaners/','/websites-for-painters/','/websites-for-floor-cleaners/',
  '/websites-for-roofers/','/websites-for-builders/','/websites-for-landscapers/',
@@ -143,6 +143,24 @@ try{
       if(visualFacts.legacyText)errors.push('Our Work still displays the old no-image placeholder wording');
       if(!(await page.locator('[data-project-tabs] [role="tabpanel"]').nth(1).locator('.work-project-noimage--live').count()))errors.push('Roofing project should show the live-work gradient card');
 
+    }
+    if(path==='/'||path==='/our-work/'||path==='/our-work/residential-roofing-and-fascias/'){
+      const roofing=await page.evaluate(async()=>{
+        const section=document.querySelector('.roofing-story');
+        const panes=section?[...section.querySelectorAll('.roofing-screenshot-scroll')]:[];
+        const images=section?[...section.querySelectorAll('img')]:[];
+        await Promise.all(images.map(img=>img.decode().catch(()=>{})));
+        const before=panes[0],after=panes[1];
+        if(before)before.scrollTop=100;
+        const independent=before?.scrollTop>0 && (after?.scrollTop||0)===0;
+        return {panes:panes.length,images:images.map(img=>({src:img.getAttribute('src'),loaded:img.naturalWidth>0})),
+          scrollable:panes.map(el=>el.scrollHeight>el.clientHeight+20),independent,
+          hasMenu:!!section?.querySelector('.roofing-menu-shot img'),
+          hasFifteen:!!section?.querySelector('.roofing-page-count strong')?.textContent?.includes('15')};
+      });
+      if(roofing.panes!==2||!roofing.independent||roofing.scrollable.some(v=>!v))errors.push(path+' roofing comparison not independently scrollable');
+      if(roofing.images.length!==3||roofing.images.some(img=>!img.loaded))errors.push(path+' roofing comparison image failed to load');
+      if(!roofing.hasMenu||!roofing.hasFifteen)errors.push(path+' roofing menu or page count missing');
     }
     if(path==='/pricing/'){
       const pricingFacts=await page.evaluate(()=>{
