@@ -12,16 +12,25 @@ if(!seo) throw new Error('Missing SEO copy for trade: '+trade.slug);
 const title=seo.title;
 const url=site.url+'/'+trade.slug+'/';
 const isPressure=trade.slug==='websites-for-pressure-washers';
+const isDriveway=trade.slug==='websites-for-driveway-cleaners';
+const isDemoTrade=isPressure||isDriveway;
 const pressureFaqs=[
  {question:'What should a pressure washing business website show?',answer:'Show the real surfaces you clean, clear service and coverage information, genuine before-and-after photographs and an easy way to request a quote. Proof of actual work is more useful than a generic gallery.'},
  {question:'Can my customers request a quote by sending photos?',answer:'Yes. A quote form can ask for the postcode, surface type, approximate size and photographs, or provide an obvious email or messaging route. The final method is tailored to how your business handles enquiries.'},
  {question:'Do I need separate pages for driveway and patio cleaning?',answer:'If you genuinely offer these as distinct services, dedicated pages can explain different surfaces, methods, aftercare and customer questions. Avoid copying the same paragraphs across lots of near-identical local pages.'},
  {question:'Will a new website automatically put my jet washing business first on Google?',answer:'No. Well-structured service pages, accurate local information, fast pages and relevant photos provide a foundation for search visibility, but rankings and enquiries depend on competition, relevance and ongoing work.'}
 ];
+const drivewayFaqs=[
+ {question:'What should a driveway cleaning website include?',answer:'A straightforward service list, your real coverage areas, clear quote options and genuine photographs of driveway or patio cleaning jobs. Include block paving and aftercare details only if they match your services.'},
+ {question:'How can I show before-and-after driveway cleaning results?',answer:'Use side-by-side photographs of the same surface with a brief description of the job. Avoid misleading stock photographs or images from other businesses labelled as your work.'},
+ {question:'Should patio cleaning and driveway cleaning have different pages?',answer:'They can have separate helpful pages if you offer both, particularly when the materials, methods and customer questions differ. Write useful original information instead of repeating generic copy.'},
+ {question:'How can customers request a driveway cleaning quote?',answer:'A mobile-friendly form can collect the postcode, driveway or patio type, estimated size and notes, and support photo uploads if configured. Phone and email contact options should also be easy to find.'}
+];
+const tradeFaqs=isDriveway?drivewayFaqs:pressureFaqs;
 const pressureFaqSchema={
  '@type':'FAQPage',
  '@id':url+'#faqs',
- mainEntity:pressureFaqs.map(({question,answer})=>({'@type':'Question',name:question,acceptedAnswer:{'@type':'Answer',text:answer}})),
+ mainEntity:tradeFaqs.map(({question,answer})=>({'@type':'Question',name:question,acceptedAnswer:{'@type':'Answer',text:answer}})),
 };
 const serviceSchema={
  '@type':'Service',
@@ -43,14 +52,14 @@ const breadcrumbSchema={
  ],
 };
 ---
-<Layout title={title} description={seo.description} path={'/'+trade.slug+'/'} schema={[serviceSchema,breadcrumbSchema,...(isPressure?[pressureFaqSchema]:[])]}>
+<Layout title={title} description={seo.description} path={'/'+trade.slug+'/'} schema={[serviceSchema,breadcrumbSchema,...(isDemoTrade?[pressureFaqSchema]:[])]}>
   <section class="legacy-hero legacy-trade-hero">
     <svg class="legacy-wave" viewBox="0 0 1440 650" preserveAspectRatio="none" aria-hidden="true"><path fill="#FF8C42" d="M0,0 H1440 V505 C1250,520 1090,350 870,235 C783,170 733,160 670,210 C528,315 448,360 345,405 C180,490 84,565 0,585 Z"/></svg>
-    <div class:list={['container','legacy-trade-content',{'pressure-landing':isPressure}]}>
-      {isPressure ?
+    <div class:list={['container','legacy-trade-content',{'pressure-landing':isDemoTrade}]}>
+      {isDemoTrade ?
         <div class="pressure-hero-grid">
           <div class="pressure-hero-copy">
-            <p class="eyebrow">UK pressure washing &amp; jet washing website design</p>
+            <p class="eyebrow">{isDriveway?"Websites for UK driveway & patio cleaners":"UK pressure washing & jet washing website design"}</p>
             <h1>{trade.search}</h1>
             <h2>{trade.hero}</h2>
             <p class="lead">{trade.intro}</p>
@@ -102,15 +111,28 @@ const breadcrumbSchema={
       <p style="margin-top:25px">Specialise mainly in patios and block paving? See our <a href="/websites-for-driveway-cleaners/">website design for driveway cleaning businesses</a> page. We build for both specialist driveway cleaners and wider exterior-cleaning companies.</p>
     </div>
   </section>}
-  {isPressure && <section class="section section-light" aria-labelledby="pressure-faq-heading">
+  {isDemoTrade && <section class="section section-light" aria-labelledby="pressure-faq-heading">
     <div class="container">
       <div class="section-heading">
-        <p class="eyebrow">Pressure washing website FAQs</p>
-        <h2 id="pressure-faq-heading">Questions from pressure washing businesses</h2>
+        <p class="eyebrow">{isDriveway?'Driveway cleaning website FAQs':'Pressure washing website FAQs'}</p>
+        <h2 id="pressure-faq-heading">{isDriveway?'Questions from driveway and patio cleaners':'Questions from pressure washing businesses'}</h2>
       </div>
       <div class="pressure-faq">
-        {pressureFaqs.map(({question,answer})=><details><summary>{question}</summary><p>{answer}</p></details>)}
+        {tradeFaqs.map(({question,answer})=><details><summary>{question}</summary><p>{answer}</p></details>)}
       </div>
+    </div>
+  </section>}
+  {isDriveway && <section class="section pressure-washing-advice" aria-labelledby="driveway-site-features">
+    <div class="container">
+      <p class="eyebrow">Showcase the quality of your cleaning</p>
+      <h2 id="driveway-site-features">What makes a good driveway cleaning website?</h2>
+      <p class="lead">Homeowners want to see how you handle their surface, what the finished results can look like and whether you work in their area. A focused website makes those answers easy to find.</p>
+      <div class="pressure-topic-grid">
+        <article><h3>Before-and-after project galleries</h3><p>Use genuine job photos to show cleaning results on block paving, concrete, stone and patio slabs. Add short captions about each surface and service without claiming illustrative stock photographs are completed work.</p></article>
+        <article><h3>Separate services and aftercare</h3><p>Explain which materials you clean, plus relevant add-ons such as re-sanding, weed treatment or sealing if you offer them. Give visitors an accurate picture of the services available.</p></article>
+        <article><h3>Easy quotes from local customers</h3><p>Make mobile enquiry buttons obvious, show the areas you really cover and help visitors describe the surface and size of the job. Photo submissions can make estimates easier where supported.</p></article>
+      </div>
+      <p style="margin-top:25px">Offer a broader range of jet washing and exterior cleaning? Visit our <a href="/websites-for-pressure-washers/">website design for pressure washing businesses</a> page for more ideas.</p>
     </div>
   </section>}
   <section class="section section-light"><div class="container split-grid">
