@@ -111,12 +111,33 @@ if(!indexHtml.includes('href="/our-work/"'))errors.push('Homepage does not link 
 if(!redirects.includes('/example-websites/ /our-work/ 301'))errors.push('Old Example Websites URL must redirect to Our Work');
 const blogHtml=fs.readFileSync(path.join(root,'blog','index.html'),'utf8');
 if(!blogHtml.includes('"@type":"Blog"'))errors.push('Blog index missing Blog schema');
-for(const slug of ['what-should-a-trade-business-website-include','service-pages-vs-area-pages-for-trades','website-visitors-but-no-enquiries']){
+if(!blogHtml.includes('data-blog-search')||!blogHtml.includes('data-blog-card')||!blogHtml.includes('data-blog-empty'))
+ errors.push('Blog index must include searchable cards and no-results state');
+const blogSlugs=['what-should-a-trade-business-website-include','service-pages-vs-area-pages-for-trades','website-visitors-but-no-enquiries'];
+const blogNextLinks=new Map();
+
+for(const slug of blogSlugs){
  if(!blogHtml.includes('/blog/'+slug+'/'))errors.push('Blog index missing article link: '+slug);
  const articleHtml=fs.readFileSync(path.join(root,'blog',slug,'index.html'),'utf8');
  if(!articleHtml.includes('"@type":"BlogPosting"'))errors.push('Blog article schema missing: '+slug);
  if(!articleHtml.includes('href="https://uktradewebsites.co.uk/blog/'+slug+'/'))errors.push('Blog article canonical missing: '+slug);
+ if(!articleHtml.includes('blog-read-next-band')||!articleHtml.includes('Read next'))
+  errors.push('Full-width Read Next band missing on article: '+slug);
+ const next=articleHtml.match(/class="blog-read-next-action" href="\/blog\/([^"/]+)\//)?.[1];
+ if(!next||next===slug||!blogSlugs.includes(next))
+  errors.push('Read Next must link to a different published article: '+slug);
+ if(next)blogNextLinks.set(slug,next);
 }
+// Confirm recommendations produce a complete cycle, with a wrap to the newest.
+let cursor=blogSlugs[0];
+const visited=new Set();
+for(let i=0;i<blogSlugs.length;i++){
+ if(!cursor||visited.has(cursor))break;
+ visited.add(cursor);
+ cursor=blogNextLinks.get(cursor);
+}
+if(visited.size!==blogSlugs.length||cursor!==blogSlugs[0])
+ errors.push('Read Next links must form a complete chronological cycle without dead ends');
 for(const href of ['/about-us/','/contact-us/','/blog/']){
  if(!indexHtml.includes('href="'+href+'"'))errors.push('Combined About menu missing '+href);
 }
