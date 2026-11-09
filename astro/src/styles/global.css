@@ -1278,25 +1278,6 @@
 }
 
 
-/* Industry demo showcase — keep the homepage's original left-hand hero copy.
-   The original hero enquiry form moves directly below into this accessible section. */
-.home-page .hero-inner>aside.demo-feature{align-self:start;margin:0;position:relative;z-index:2}
-.home-enquiry{background:#fff}
-.home-enquiry-inner{display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);align-items:center;gap:clamp(30px,5vw,75px)}
-.home-enquiry .home-enquiry-copy{max-width:460px}
-.home-enquiry .home-enquiry-copy h2{font:700 clamp(28px,3vw,42px)/1.2 'Montserrat',sans-serif;color:var(--navy)}
-.home-enquiry .home-enquiry-copy>p:not(.eyebrow){font-size:1.08rem;line-height:1.7;color:var(--muted)}
-.home-enquiry .contact-panel{margin:0;width:100%;max-width:unset}
-@media(max-width:800px){
-  .home-page .hero-inner>aside.demo-feature{width:100%;max-width:570px;align-self:center;margin:0 auto}
-  .home-enquiry-inner{grid-template-columns:1fr;gap:25px}
-  .home-enquiry .home-enquiry-copy{max-width:640px}
-}
-@media(max-width:550px){
-  .home-page .hero-inner>aside.demo-feature{max-width:100%}
-  .home-enquiry .home-enquiry-copy h2{font-size:29px}
-}
-
 /* Unique pressure-washing landing-page split hero and editorial content.
    Existing trade landing pages retain their existing layout. */
 .legacy-trade-content.pressure-landing{padding-top:198px;padding-bottom:80px}
