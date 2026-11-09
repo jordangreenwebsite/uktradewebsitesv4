@@ -1,5 +1,5 @@
 # Preserve legacy navigation mistakes and decommission WordPress archive URLs.
-/coming-soon/ /example-websites/ 301
+/coming-soon/ /our-work/ 301
 /contactus/ /contact-us/ 301
 /author/uktradewebsites/ /about-us/ 301
 /qs/ / 301
@@ -15,3 +15,7 @@
 /landscapers/ /websites-for-landscapers/ 301
 /plasterers/ /websites-for-plasterers/ 301
 /driveway-cleaners/ /websites-for-driveway-cleaners/ 301
+
+# Consolidate the old examples page into the new accessible portfolio.
+/example-websites/ /our-work/ 301
+/example-websites /our-work/ 301
