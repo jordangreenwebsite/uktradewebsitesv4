@@ -13,6 +13,11 @@ const schema=[
  ]}
 ];
 const displayDate=(date:Date)=>date.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'});
+// Include the Markdown body when available, so searching finds topics inside articles too.
+const searchText=(post:(typeof posts)[number])=>[
+  post.data.title,post.data.description,post.data.summary,post.data.category,
+  ('body' in post && typeof post.body==='string'?post.body:'')
+].join(' ').toLocaleLowerCase('en-GB');
 ---
 <Layout title="Trade Website Tips & Local SEO Advice | UK Trade Websites Blog"
  description="Practical articles for UK tradespeople on website design, local SEO, service pages and turning website visitors into quote enquiries. No jargon or inflated promises."
@@ -33,8 +38,22 @@ const displayDate=(date:Date)=>date.toLocaleDateString('en-GB',{day:'numeric',mo
        <h2 id="latest-blog-heading">Latest articles</h2>
        <p>Advice you can put into practice, whether you are starting a new website or improving an existing one.</p>
      </div>
-     <div class="blog-card-grid">
-       {posts.map(post=><article class="blog-card">
+     <div class="blog-search" data-blog-search role="search">
+       <label for="blog-search-input">Search blog articles</label>
+       <div class="blog-search-control">
+         <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.7" cy="10.7" r="6.7"></circle><path d="m16 16 4.8 4.8"></path></svg>
+         <input id="blog-search-input" name="q" type="search" placeholder="Search SEO, websites, enquiries…" autocomplete="off" aria-describedby="blog-search-status"/>
+         <button class="blog-search-clear" data-blog-clear type="button" hidden>Clear</button>
+       </div>
+       <p class="blog-search-status" id="blog-search-status" role="status" aria-live="polite">Showing all {posts.length} articles</p>
+     </div>
+     <div class="blog-search-empty" data-blog-empty hidden>
+       <h3>No matching articles</h3>
+       <p>Try a different topic, such as “SEO”, “service pages” or “enquiries”.</p>
+       <button type="button" data-blog-reset>Show all articles</button>
+     </div>
+     <div class="blog-card-grid" data-blog-grid>
+       {posts.map(post=><article class="blog-card" data-blog-card data-search-text={searchText(post)}>
          <div class="blog-card-meta"><span class="blog-card-category">{post.data.category}</span><time datetime={post.data.date.toISOString().slice(0,10)}>{displayDate(post.data.date)}</time></div>
          <h2>{post.data.title}</h2>
          <p>{post.data.summary}</p>
@@ -63,3 +82,41 @@ const displayDate=(date:Date)=>date.toLocaleDateString('en-GB',{day:'numeric',mo
    </div>
  </section>
 </Layout>
+<script>
+  // Progressive enhancement: all articles remain visible if JavaScript is disabled.
+  const root=document.querySelector<HTMLElement>('[data-blog-search]');
+  const input=root?.querySelector<HTMLInputElement>('#blog-search-input');
+  const clear=root?.querySelector<HTMLButtonElement>('[data-blog-clear]');
+  const status=root?.querySelector<HTMLElement>('[role="status"]');
+  const empty=document.querySelector<HTMLElement>('[data-blog-empty]');
+  const reset=empty?.querySelector<HTMLButtonElement>('[data-blog-reset]');
+  const cards=Array.from(document.querySelectorAll<HTMLElement>('[data-blog-card]'));
+  if(root&&input&&clear&&status&&empty&&reset){
+    const normalize=(text:string)=>text.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('en-GB');
+    const applySearch=()=>{
+      const query=normalize(input.value.trim());
+      const words=query.split(/\s+/).filter(Boolean);
+      let visible=0;
+      cards.forEach(card=>{
+        const haystack=normalize(card.dataset.searchText||'');
+        const found=words.every(word=>haystack.includes(word));
+        card.hidden=!found;
+        if(found)visible++;
+      });
+      clear.hidden=input.value.length===0;
+      empty.hidden=visible!==0;
+      status.textContent=words.length
+        ?visible===1?'1 article found':visible+' articles found'
+        :'Showing all '+cards.length+' articles';
+    };
+    input.addEventListener('input',applySearch);
+    const resetSearch=()=>{
+      input.value='';
+      applySearch();
+      input.focus();
+    };
+    clear.addEventListener('click',resetSearch);
+    reset.addEventListener('click',resetSearch);
+    applySearch();
+  }
+</script>
