@@ -1,6 +1,6 @@
 import {spawn} from 'node:child_process';
 import {chromium} from 'playwright';
-const paths=['/','/about-us/','/contact-us/','/example-websites/','/our-process/',
+const paths=['/','/about-us/','/contact-us/','/our-work/','/our-process/',
  '/pricing/','/privacy-policy/','/thank-you/','/websites-for-plumbers/','/websites-for-electricians/',
  '/websites-for-window-cleaners/','/websites-for-painters/','/websites-for-floor-cleaners/',
  '/websites-for-roofers/','/websites-for-builders/','/websites-for-landscapers/',
@@ -109,6 +109,23 @@ try{
           if(formInfo[key]!==contactFormReference[key])errors.push(path+' shared form style differs from contact page: '+key);
         }
       }
+    }
+    if(path==='/our-work/'){
+      const portfolioFacts=await page.evaluate(()=>({
+        tabs:document.querySelectorAll('[data-project-tabs] [role="tab"]').length,
+        panels:document.querySelectorAll('[data-project-tabs] [role="tabpanel"]').length,
+        activeTabs:document.querySelectorAll('[data-project-tabs] [role="tab"][aria-selected="true"]').length,
+        visiblePanels:[...document.querySelectorAll('[data-project-tabs] [role="tabpanel"]')].filter(node=>!node.hasAttribute('hidden')).length,
+        firstProject:document.querySelector('[data-project-tabs] [role="tabpanel"]:not([hidden]) h3')?.textContent?.trim()
+      }));
+      if(portfolioFacts.tabs!==22||portfolioFacts.panels!==22)errors.push('Our Work should have 22 matched project tabs and panels');
+      if(portfolioFacts.activeTabs!==1||portfolioFacts.visiblePanels!==1)errors.push('Our Work should show one selected project at a time');
+      if(portfolioFacts.firstProject!=='J Piper Cleaning Services')errors.push('Our Work first portfolio project mismatch');
+      const secondTab=page.locator('[data-project-tabs] [role="tab"]').nth(1);
+      await secondTab.click();
+      if((await secondTab.getAttribute('aria-selected'))!=='true')errors.push('Our Work clicked project tab did not activate');
+      if(!(await page.locator('[data-project-tabs] [role="tabpanel"]').nth(1).isVisible()))errors.push('Our Work new project panel is not visible');
+      if(await page.locator('[data-project-tabs] [role="tabpanel"]').first().isVisible())errors.push('Our Work previous project panel did not hide');
     }
     if(path==='/pricing/'){
       const pricingFacts=await page.evaluate(()=>{
