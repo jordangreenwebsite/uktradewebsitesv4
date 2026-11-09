@@ -1174,3 +1174,57 @@
   .work-project-actions{flex-direction:column;align-items:stretch}
   .work-project-actions .btn{text-align:center}
 }
+
+
+/* Residential Roofing case study — genuine scroll-through screenshots. */
+.roofing-story{padding:95px 0;background:#f5f7fa}
+.roofing-story--compact{padding:80px 0}
+.roofing-story-intro{max-width:930px;margin:0 auto 40px;text-align:center}
+.roofing-story-intro h2{font:700 clamp(29px,3.3vw,44px)/1.18 'Montserrat',sans-serif;color:var(--navy);margin:10px 0 22px}
+.roofing-story-intro p:not(.eyebrow){font-size:clamp(17px,1.4vw,19px);line-height:1.68;color:var(--ink)}
+.roofing-comparison{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:stretch}
+.roofing-screenshot{margin:0;border-radius:12px;border:1px solid #d7e1ee;background:#fff;overflow:hidden;box-shadow:0 15px 35px rgba(30,58,95,.1)}
+.roofing-screenshot figcaption{display:flex;gap:13px;align-items:center;flex-wrap:wrap;min-height:70px;padding:16px 20px;font-size:1.05rem;color:var(--navy)}
+.roofing-stage{display:inline-flex;border-radius:999px;align-items:center;justify-content:center;font-weight:700;font-size:.83rem;line-height:1;padding:9px 14px}
+.roofing-stage--before{background:#e8edf3;color:#384e64}
+.roofing-stage--after{background:#ffe6d3;color:#8c3b06}
+.roofing-screenshot-scroll{height:clamp(340px,42vw,610px);overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#9aa9bd #edf2f7;outline-offset:-4px;background:#fff;border-top:1px solid #e3eaf1}
+.roofing-screenshot-scroll:focus-visible{outline:3px solid var(--orange)}
+.roofing-screenshot-scroll img{display:block;width:100%;height:auto;object-fit:contain}
+.roofing-scroll-hint{text-align:center;color:var(--muted);font-size:.94rem;line-height:1.5;margin:18px 0 38px}
+.roofing-story-outcome{display:grid;grid-template-columns:165px minmax(0,1fr);gap:30px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:12px;padding:32px clamp(25px,3vw,45px);margin:0 auto 48px;max-width:1020px}
+.roofing-page-count{display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--navy);color:#fff;border-radius:10px;min-height:160px;text-align:center;padding:14px}
+.roofing-page-count strong{font:700 68px/1 'Montserrat',sans-serif;color:var(--orange)}
+.roofing-page-count span{font-weight:700;font-size:.94rem;line-height:1.25;margin-top:8px}
+.roofing-story-outcome h3{font:700 clamp(22px,2.25vw,28px)/1.26 'Montserrat',sans-serif;color:var(--navy);margin:0 0 13px}
+.roofing-story-outcome p{font-size:1.06rem;line-height:1.64;margin:0 0 10px}
+.roofing-story-outcome p:last-child{margin:0}
+.roofing-menu-feature{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);align-items:center;gap:clamp(24px,3vw,46px);margin-top:30px}
+.roofing-menu-feature h3{font:700 clamp(23px,2.6vw,34px)/1.2 'Montserrat',sans-serif;color:var(--navy)}
+.roofing-menu-feature-copy p:not(.eyebrow),.roofing-menu-feature li{font-size:1.04rem;line-height:1.62}
+.roofing-menu-feature .check-list{margin-top:22px}
+.roofing-menu-shot{background:#fff;padding:14px;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);margin:0}
+.roofing-menu-shot img{display:block;width:100%;height:auto;border-radius:6px}
+.roofing-menu-shot figcaption{font-size:.9rem;color:var(--muted);line-height:1.5;margin:12px 5px 4px}
+.roofing-story-actions{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:42px}
+.roofing-story-actions .btn{border-radius:6px}
+.roofing-story--compact .roofing-story-intro{max-width:850px}
+.roofing-story--compact .roofing-screenshot-scroll{height:clamp(300px,36vw,510px)}
+@media(max-width:800px){
+ .roofing-story{padding:65px 0}
+ .roofing-comparison{grid-template-columns:1fr;gap:22px}
+ .roofing-screenshot-scroll,.roofing-story--compact .roofing-screenshot-scroll{height:440px}
+ .roofing-story-outcome{grid-template-columns:1fr;gap:20px}
+ .roofing-page-count{min-height:110px;max-width:220px;margin:0 auto;width:100%}
+ .roofing-page-count strong{font-size:53px}
+ .roofing-menu-feature{grid-template-columns:1fr}
+ .roofing-story-intro{text-align:left}
+}
+@media(max-width:550px){
+ .roofing-screenshot-scroll,.roofing-story--compact .roofing-screenshot-scroll{height:365px}
+ .roofing-screenshot figcaption{padding:13px 15px;min-height:60px}
+ .roofing-story-outcome{padding:24px 20px}
+ .roofing-menu-shot{padding:8px}
+ .roofing-story-actions{flex-direction:column}
+ .roofing-story-actions .btn{text-align:center;width:100%}
+}
