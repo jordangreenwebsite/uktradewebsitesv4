@@ -57,6 +57,31 @@ try{
         }
       }
     }
+    const signin=await page.evaluate(()=>{
+      const desktop=document.querySelector('.site-header .header-signin');
+      const mobile=document.querySelector('.site-header .mobile-client-signin');
+      const nav=document.querySelector('.site-header .desktop-nav');
+      const whatsapp=document.querySelector('.site-header .header-cta');
+      const inner=document.querySelector('.site-header .header-inner');
+      const rect=el=>el?.getBoundingClientRect();
+      const intersects=(a,b)=>!!a&&!!b&&a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top;
+      const a=rect(desktop),n=rect(nav),w=rect(whatsapp),i=rect(inner);
+      return {
+        href:desktop?.getAttribute('href'),mobileHref:mobile?.getAttribute('href'),
+        mobileInMenu:!!mobile?.closest('nav[aria-label="Mobile navigation"]'),
+        desktopVisible:desktop?getComputedStyle(desktop).display!=='none':false,
+        overlapNav:intersects(a,n),
+        overlapWhatsApp:intersects(a,w),
+        onRight:!!a&&!!i&&Math.abs(a.right-i.right)<5
+      };
+    });
+    if(signin.href!=='https://prunusmedia.com/client-login/'||
+       signin.mobileHref!==signin.href||!signin.mobileInMenu)
+      errors.push(path+' '+width+'px client Sign In link missing or inconsistent');
+    if(width>1100&&(!signin.desktopVisible||!signin.onRight||signin.overlapNav||signin.overlapWhatsApp))
+      errors.push(path+' '+width+'px Sign In must sit at far right without changing menu/WhatsApp layout');
+    if(width<=1100&&signin.desktopVisible)
+      errors.push(path+' '+width+'px duplicate desktop Sign In visible on mobile');
     const facts=await page.evaluate(()=>{
      const h1s=document.querySelectorAll('main h1');
      let jsonLdValid=true;
