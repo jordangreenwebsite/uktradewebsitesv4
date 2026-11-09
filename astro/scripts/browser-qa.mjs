@@ -126,6 +126,23 @@ try{
       if((await secondTab.getAttribute('aria-selected'))!=='true')errors.push('Our Work clicked project tab did not activate');
       if(!(await page.locator('[data-project-tabs] [role="tabpanel"]').nth(1).isVisible()))errors.push('Our Work new project panel is not visible');
       if(await page.locator('[data-project-tabs] [role="tabpanel"]').first().isVisible())errors.push('Our Work previous project panel did not hide');
+      const visualFacts=await page.evaluate(()=>{
+        const panels=[...document.querySelectorAll('[data-project-tabs] [role="tabpanel"]')];
+        const missing=panels.filter(panel=>!panel.querySelector('.work-project-preview img'));
+        const bad=missing.filter(panel=>{
+          const art=panel.querySelector('.work-project-noimage');
+          const title=panel.querySelector('.work-project-art h4')?.textContent?.trim();
+          const expected=panel.querySelector('.work-project-details h3')?.textContent?.trim();
+          const status=[...art?.classList||[]].some(c=>/^work-project-noimage--(live|concept|archived|owned|portfolio)$/.test(c));
+          return !art||!art.querySelector('.work-project-browser-top')||!art.querySelector('.work-project-art-status')||!status||!title||title!==expected||!getComputedStyle(art).backgroundImage.includes('linear-gradient');
+        });
+        return {missing:missing.length,bad:bad.length,legacyText:document.body.textContent?.includes('Project information and website link')||false};
+      });
+      if(visualFacts.missing===0)errors.push('Our Work should exercise at least one status gradient card');
+      if(visualFacts.bad>0)errors.push('Our Work has '+visualFacts.bad+' incomplete gradient preview cards');
+      if(visualFacts.legacyText)errors.push('Our Work still displays the old no-image placeholder wording');
+      if(!(await secondTab.locator('.work-project-noimage--live').count()))errors.push('Roofing project should show the live-work gradient card');
+
     }
     if(path==='/pricing/'){
       const pricingFacts=await page.evaluate(()=>{
