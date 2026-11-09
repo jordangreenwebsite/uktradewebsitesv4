@@ -93,13 +93,15 @@ const searchText=(post:(typeof posts)[number])=>[
   const cards=Array.from(document.querySelectorAll<HTMLElement>('[data-blog-card]'));
   if(root&&input&&clear&&status&&empty&&reset){
     const normalize=(text:string)=>text.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('en-GB');
+    const entries=cards.map(card=>({card,haystack:normalize(card.dataset.searchText||'')}));
     const applySearch=()=>{
-      const query=normalize(input.value.trim());
+      const query=normalize(input.value.trim()).replace(/\s+/g,' ');
       const words=query.split(/\s+/).filter(Boolean);
+      // Prioritise an exact phrase when there is one; otherwise match all terms.
+      const hasPhrase=words.length>1&&entries.some(({haystack})=>haystack.includes(query));
       let visible=0;
-      cards.forEach(card=>{
-        const haystack=normalize(card.dataset.searchText||'');
-        const found=words.every(word=>haystack.includes(word));
+      entries.forEach(({card,haystack})=>{
+        const found=!words.length||(hasPhrase?haystack.includes(query):words.every(word=>haystack.includes(word)));
         card.hidden=!found;
         if(found)visible++;
       });
