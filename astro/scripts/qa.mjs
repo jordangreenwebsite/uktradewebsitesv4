@@ -4,7 +4,8 @@ const root=path.resolve(process.cwd(),'dist');
 const pages=['','about-us','contact-us','our-work','our-work/residential-roofing-and-fascias','our-process','pricing','privacy-policy','thank-you',
  'websites-for-plumbers','websites-for-electricians','websites-for-window-cleaners','websites-for-painters',
  'websites-for-floor-cleaners','websites-for-roofers','websites-for-builders','websites-for-landscapers',
- 'websites-for-plasterers','websites-for-driveway-cleaners','websites-for-pressure-washers'];
+ 'websites-for-plasterers','websites-for-driveway-cleaners','websites-for-pressure-washers',
+ 'blog','blog/what-should-a-trade-business-website-include','blog/service-pages-vs-area-pages-for-trades','blog/website-visitors-but-no-enquiries'];
 const errors=[];
 const titles=new Map();
 const descriptions=new Map();
@@ -108,6 +109,20 @@ if(!ourWorkHtml.includes('https://prunusmedia.com/our-work/'))errors.push('Portf
 if(indexHtml.includes('href="/example-websites/"'))errors.push('Homepage still links to retired examples page');
 if(!indexHtml.includes('href="/our-work/"'))errors.push('Homepage does not link to Our Work');
 if(!redirects.includes('/example-websites/ /our-work/ 301'))errors.push('Old Example Websites URL must redirect to Our Work');
+const blogHtml=fs.readFileSync(path.join(root,'blog','index.html'),'utf8');
+if(!blogHtml.includes('"@type":"Blog"'))errors.push('Blog index missing Blog schema');
+for(const slug of ['what-should-a-trade-business-website-include','service-pages-vs-area-pages-for-trades','website-visitors-but-no-enquiries']){
+ if(!blogHtml.includes('/blog/'+slug+'/'))errors.push('Blog index missing article link: '+slug);
+ const articleHtml=fs.readFileSync(path.join(root,'blog',slug,'index.html'),'utf8');
+ if(!articleHtml.includes('"@type":"BlogPosting"'))errors.push('Blog article schema missing: '+slug);
+ if(!articleHtml.includes('href="https://uktradewebsites.co.uk/blog/'+slug+'/'))errors.push('Blog article canonical missing: '+slug);
+}
+for(const href of ['/about-us/','/contact-us/','/blog/']){
+ if(!indexHtml.includes('href="'+href+'"'))errors.push('Combined About menu missing '+href);
+}
+if(!indexHtml.includes('desktop-info-menu')||!indexHtml.includes('mobile-info-menu'))
+ errors.push('Combined About dropdown missing on desktop or mobile');
+if(!indexHtml.includes('mobile-trades-menu'))errors.push('Trade Websites menu must remain untouched');
 const pressurePagePath=path.join(root,'websites-for-pressure-washers','index.html');
 if(fs.existsSync(pressurePagePath)){
  const pressureHtml=fs.readFileSync(pressurePagePath,'utf8');
