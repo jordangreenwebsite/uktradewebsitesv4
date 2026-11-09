@@ -38,3 +38,6 @@ for (const file of files) {
  fs.mkdirSync(path.dirname(to), {recursive:true}); fs.copyFileSync(from, to);
 }
 console.log('Copied ' + files.length + ' retained local media assets from legacy export.');
+
+// Source the roofing before/after assets from the uploaded optimisation archive.
+await import('./inspect-case-study-archive.mjs');
