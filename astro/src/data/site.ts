@@ -7,6 +7,9 @@ export const site = {
   email: 'uktradewebsites@gmail.com',
   whatsapp: 'https://wa.me/447789545807?text=' + encodeURIComponent("Hi, I'd like a free quote for a trade website."),
   formAction: 'https://formspree.io/f/xpqjvloy',
+  // One shared login route for customers of UK Trade Websites and Prunus Media.
+  // The Prunus portal's live email-code authentication still requires activation/verification.
+  clientLoginUrl: 'https://prunusmedia.com/client-login/',
   // Customer enquiry/contact hours, UK local time including daylight-saving changes.
   contactHours: {
     label: 'Monday–Friday, 9:00am–5:30pm (UK time)',
