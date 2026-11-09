@@ -81,7 +81,7 @@ const jsonLd=JSON.stringify({'@context':'https://schema.org','@graph':graphs}).r
     <link href="https://fonts.googleapis.com/css2?family=Alice&family=Caveat:wght@400;600&family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
     <script type="application/ld+json" set:html={jsonLd}/>
   </head>
-  <body class={path==='/'?'home-page':(['/about-us/','/our-process/','/contact-us/','/privacy-policy/','/thank-you/','/pricing/'].includes(path)||path.startsWith('/websites-for-')||path.startsWith('/our-work/'))?'marketing-page':undefined}>
+  <body class={path==='/'?'home-page':(['/about-us/','/our-process/','/contact-us/','/privacy-policy/','/thank-you/','/pricing/'].includes(path)||path.startsWith('/websites-for-')||path.startsWith('/our-work/')||path.startsWith('/blog/'))?'marketing-page':undefined}>
     <a class="skip-link" href="#main-content">Skip to content</a>
     <Header path={path}/>
     <main id="main-content"><slot/></main>
