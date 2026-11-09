@@ -112,7 +112,7 @@ const demoPath=path.join(root,'demos','jemoba','index.html');
 if(!fs.existsSync(demoPath))errors.push('JEMOBA concept demo page missing');
 else{
  const demo=fs.readFileSync(demoPath,'utf8');
- if((demo.match(/images\\.pexels\\.com\\/photos/g)||[]).length<8)errors.push('JEMOBA concept photos missing');
+ if(demo.split('images.pexels.com/photos/').length-1<8)errors.push('JEMOBA concept photos missing');
  if(!demo.includes('noindex,nofollow'))errors.push('JEMOBA demo must remain noindex');
  if(!demo.includes('illustrative Pexels photographs'))errors.push('JEMOBA stock photo disclosure missing');
 }
