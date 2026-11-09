@@ -18,7 +18,7 @@ const {path='/'}=Astro.props;
       </details>
       {nav.filter(item=>item.href!=='/').map(({href,label})=><a href={href} aria-current={path===href?'page':undefined}>{label}</a>)}
     </nav>
-    <a class="header-signin" href={site.clientLoginUrl} aria-label="Client sign in via Prunus Media">Sign In <span aria-hidden="true">↗</span></a>
+    <a class="header-signin" href={site.clientLoginUrl} aria-label="Client sign in via Prunus Media">Sign In <span aria-hidden="true">→</span></a>
     <a class="btn btn-accent header-cta" href={site.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
     <a class="btn home-mobile-wa" href={site.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
     <details class="mobile-menu">
@@ -33,7 +33,7 @@ const {path='/'}=Astro.props;
           </div>
         </details>
         {nav.filter(item=>item.href!=='/').map(({href,label})=><a href={href} aria-current={path===href?'page':undefined}>{label}</a>)}
-        <a class="mobile-client-signin" href={site.clientLoginUrl}>Sign In <span aria-hidden="true">↗</span></a>
+        <a class="mobile-client-signin" href={site.clientLoginUrl}>Sign In <span aria-hidden="true">→</span></a>
         <a class="mobile-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
       </nav>
     </details>
