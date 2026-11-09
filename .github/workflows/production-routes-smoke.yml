@@ -10,13 +10,12 @@ jobs:
   production-urls:
     runs-on: ubuntu-latest
     steps:
-      - name: Check published routes after Cloudflare Pages deployment settles
+      - name: Wait for deployment and check published URLs
         shell: bash
         run: |
           set -euo pipefail
-          # The Cloudflare Pages deployment runs independently from GitHub Actions.
-          sleep 40
-          errors=0
+          # Cloudflare Pages builds independently of GitHub Actions and may take
+          # longer than a fixed 40s delay. Poll real public URLs and new content.
           urls=(
             "https://uktradewebsites.co.uk/"
             "https://uktradewebsites.co.uk/blog/"
@@ -25,37 +24,38 @@ jobs:
             "https://uktradewebsites.co.uk/websites-for-pressure-washers/"
             "https://uktradewebsites.co.uk/websites-for-driveway-cleaners/"
           )
-          for url in "${urls[@]}"; do
-            echo "::group::Checking ${url}"
-            temp=$(mktemp)
-            # Avoid guessing from a green build; check Cloudflare's actual response.
-            status=$(curl -sSL --max-time 18 --retry 2 \
-              --header "Cache-Control: no-cache" \
-              --output "$temp" --write-out "%{http_code}" \
-              "${url}?ci-route-check=${GITHUB_SHA:0:8}") || status="000"
-            title=$(grep -oim1 '<title>[^<]*</title>' "$temp" | head -1 || true)
-            printf 'HTTP %s | %s\n' "$status" "${title:-No title returned}"
-            if [[ "$status" != "200" ]]; then
-              echo "::error::Published route returned HTTP $status: $url"
-              errors=$((errors+1))
+          for attempt in {1..10}; do
+            echo "Checking Cloudflare production (attempt $attempt/10)"
+            errors=0
+            for url in "${urls[@]}"; do
+              temp=$(mktemp)
+              status=$(curl -sSL --max-time 18 --retry 1 \
+                --header "Cache-Control: no-cache" \
+                --output "$temp" --write-out "%{http_code}" \
+                "${url}?ci-route-check=${GITHUB_SHA:0:8}&attempt=$attempt") || status="000"
+              title=$(grep -oim1 '<title>[^<]*</title>' "$temp" | head -1 || true)
+              printf 'HTTP %s | %s | %s\n' "$status" "${title:-No title}" "$url"
+              [[ "$status" == "200" ]] || errors=$((errors+1))
+              case "$url" in
+                "https://uktradewebsites.co.uk/blog/" | "https://uktradewebsites.co.uk/blog/index.html")
+                  grep -q "The UK Trade Websites Blog" "$temp" || errors=$((errors+1))
+                  grep -q 'data-blog-search' "$temp" || errors=$((errors+1))
+                  ;;
+                "https://uktradewebsites.co.uk/blog/what-should-a-trade-business-website-include/")
+                  grep -q "What Should a Trade Business Website Include" "$temp" || errors=$((errors+1))
+                  grep -q 'blog-read-next-band' "$temp" || errors=$((errors+1))
+                  ;;
+              esac
+              rm -f "$temp"
+            done
+            if (( errors == 0 )); then
+              echo "SUCCESS: Public Cloudflare URLs and the current blog features verified."
+              exit 0
             fi
-            if [[ "$url" == *"/blog/" && "$url" != *"index.html" ]]; then
-              if ! grep -q "The UK Trade Websites Blog" "$temp"; then
-                echo "::error::Blog landing missing from published HTML: $url"
-                errors=$((errors+1))
-              fi
+            if (( attempt < 10 )); then
+              echo "Deployment not fully live ($errors checks pending); checking again shortly."
+              sleep 20
             fi
-            if [[ "$url" == *"/blog/what-should-"* ]]; then
-              if ! grep -q "What Should a Trade Business Website Include" "$temp"; then
-                echo "::error::Blog article not present on production: $url"
-                errors=$((errors+1))
-              fi
-            fi
-            rm -f "$temp"
-            echo "::endgroup::"
           done
-          if (( errors > 0 )); then
-            echo "::error::Cloudflare is not serving $errors expected route/content checks; inspect Cloudflare Pages production deployment assets and build settings."
-            exit 1
-          fi
-          echo "Live Cloudflare URLs and blog content verified."
+          echo "::error::Cloudflare is not serving the expected production routes or latest features after repeated checks; inspect the Pages production deployment and cache."
+          exit 1
