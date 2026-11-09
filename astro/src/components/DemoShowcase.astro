@@ -1,0 +1,81 @@
+---
+/**
+ * Reusable, light-weight preview for industry concept websites.
+ * This is a visual mock-up of a real example, rather than an embedded iframe.
+ * Avoids double-loading a whole website in the homepage hero.
+ */
+interface Props {
+  variant?: 'hero' | 'trade';
+  business?: string;
+  strapline?: string;
+  headline?: string;
+  industry?: string;
+  destination?: string;
+  image?: string;
+}
+const {
+  variant='hero',
+  business='JEMOBA',
+  strapline='Pressure Washing Services',
+  headline="Gloucestershire’s outdoor cleaning specialists.",
+  industry='Pressure washing & exterior cleaning',
+  destination='/demos/jemoba/',
+  image='https://images.pexels.com/photos/20296972/pexels-photo-20296972.jpeg?auto=compress&cs=tinysrgb&w=780',
+}=Astro.props;
+---
+<aside class:list={['demo-feature', 'demo-feature--'+variant]} aria-label={industry+' website design example'}>
+  <div class="demo-browser" aria-hidden="true">
+    <div class="demo-browser-chrome"><span class="demo-dots"><i></i><i></i><i></i></span><span class="demo-browser-address">uktradewebsites.co.uk/demos/jemoba/</span></div>
+    <div class="demo-website">
+      <div class="demo-site-header"><span class="demo-site-logo"><b>{business}</b><small>{strapline}</small></span><span class="demo-nav-items">Services　Gallery　Contact</span><span class="demo-site-quote">Get a quote</span></div>
+      <div class="demo-site-hero">
+        <div class="demo-site-copy">
+          <span class="demo-site-kicker">GLOUCESTERSHIRE · FOREST OF DEAN</span>
+          <strong>{headline}</strong>
+          <span class="demo-site-description">Driveway, patio &amp; exterior cleaning</span>
+          <span class="demo-site-button">Request a free quote</span>
+        </div>
+        <div class="demo-site-image"><img src={image} width="780" height="550" loading="lazy" decoding="async" alt="" referrerpolicy="no-referrer"/></div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-feature-details">
+    <span class="demo-feature-label">FEATURED DESIGN CONCEPT</span>
+    <span class="demo-feature-heading">See what a professional trade website can look like.</span>
+    <span class="demo-feature-description">A one-page {industry.toLowerCase()} demonstration. The photography is illustrative; this is not an official JEMOBA website.</span>
+    <div class="demo-feature-links">
+      <a href={destination} class="demo-feature-action" target="_blank" rel="noopener noreferrer">Explore the website demo <span aria-hidden="true">→</span></a>
+      <a href="/contact-us/" class="demo-feature-secondary">Build one for my business</a>
+    </div>
+  </div>
+</aside>
+<style>
+  .demo-feature{width:100%;max-width:570px;margin-inline:auto;background:#fff;padding:15px;border:1px solid #d4e1e9;border-radius:18px;box-shadow:0 22px 52px rgba(12,38,66,.16);color:#183d55;min-width:0}
+  .demo-browser{border:1px solid #c8dbe5;border-radius:10px;overflow:hidden;background:#e9f5f9}
+  .demo-browser-chrome{height:27px;display:flex;align-items:center;gap:12px;background:#ebeff3;border-bottom:1px solid #d4dee7;padding:0 13px}
+  .demo-dots{display:flex;gap:5px;flex:none}.demo-dots i{display:block;width:7px;height:7px;border-radius:50%;background:#adbac4}.demo-dots i:first-child{background:#ed9b91}.demo-dots i:nth-child(2){background:#ebcb80}.demo-dots i:nth-child(3){background:#96c8ae}
+  .demo-browser-address{display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;color:#617783;font-size:10px;letter-spacing:.02em}
+  .demo-site-header{min-height:52px;background:#fff;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 17px;color:#133d58}
+  .demo-site-logo{display:flex;flex-direction:column;line-height:1.05}.demo-site-logo b{font:800 21px/1.05 'Montserrat',Arial,sans-serif;letter-spacing:-.05em}.demo-site-logo small{font:700 7px/1.5 'Open Sans',sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#0b83ad}
+  .demo-nav-items{font:600 9px 'Open Sans',sans-serif;white-space:nowrap}.demo-site-quote{background:#1086ad;color:white;border-radius:4px;padding:8px 9px;white-space:nowrap;font:700 9px 'Open Sans',sans-serif}
+  .demo-site-hero{display:grid;grid-template-columns:1fr .88fr;gap:12px;align-items:center;min-height:215px;padding:21px 16px;background:linear-gradient(130deg,#eef8fb,#dfedf3)}
+  .demo-site-copy{display:flex;flex-direction:column;align-items:flex-start;gap:11px;min-width:0}
+  .demo-site-kicker{font-size:8px;font-weight:800;letter-spacing:.08em;color:#1887ad}
+  .demo-site-copy strong{font:800 clamp(17px,2.5vw,27px)/1.14 'Montserrat',Arial,sans-serif;letter-spacing:-.045em;color:#123c55}
+  .demo-site-description{font-size:10px;color:#476d80;line-height:1.5}
+  .demo-site-button{background:#1687af;border-radius:4px;color:#fff;font:700 9px 'Open Sans',sans-serif;padding:9px 11px}
+  .demo-site-image{align-self:stretch;min-width:0;min-height:183px;border-radius:8px;overflow:hidden;background:linear-gradient(135deg,#b3c9d4,#476d7e)}
+  .demo-site-image img{height:100%;width:100%;object-fit:cover;object-position:center;display:block}
+  .demo-feature-details{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:20px 10px 8px}
+  .demo-feature-label{font:800 11px/1.3 'Open Sans',sans-serif;letter-spacing:.09em;color:#ab4b11}
+  .demo-feature-heading{font:700 clamp(19px,2.2vw,25px)/1.25 'Montserrat',Arial,sans-serif;color:#193e61}
+  .demo-feature-description{font:400 13px/1.5 'Open Sans',Arial,sans-serif;color:#50677b}
+  .demo-feature-links{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-top:3px}
+  .demo-feature-action{display:inline-flex;align-items:center;gap:10px;background:#1e3a5f;color:#fff;text-decoration:none;border-radius:6px;padding:12px 16px;font:700 12px/1.2 'Open Sans',Arial,sans-serif}
+  .demo-feature-action:hover{background:#335a89;color:white}
+  .demo-feature-secondary{color:#1e3a5f;text-decoration:underline;text-underline-offset:3px;font:700 12px/1.3 'Open Sans',Arial,sans-serif;padding:8px 0}
+  .demo-feature :focus-visible{outline:3px solid #ed853c;outline-offset:3px}
+  .demo-feature--trade{max-width:540px}
+  @media(max-width:1050px){.demo-nav-items{display:none}.demo-site-copy strong{font-size:22px}}
+  @media(max-width:550px){.demo-feature{padding:10px;border-radius:12px}.demo-site-hero{min-height:192px;padding:14px 11px;gap:9px}.demo-site-image{min-height:165px}.demo-site-copy strong{font-size:clamp(17px,4.5vw,23px)}.demo-site-kicker{font-size:7px}.demo-feature-details{padding:16px 8px 8px}.demo-feature-heading{font-size:21px}.demo-feature-links{align-items:stretch;flex-direction:column;width:100%}.demo-feature-action{justify-content:center;text-align:center}.demo-feature-secondary{text-align:center}}
+</style>
