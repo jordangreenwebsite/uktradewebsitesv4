@@ -146,3 +146,12 @@ The portfolio includes real clients and demo concepts. Don't represent demo site
 7. Do not switch the production domain until preview accepted. Keep legacy checkout / deployment settings as fallback.
 
 This specification is a reference; it does not certify that visual and functional acceptance testing has passed.
+
+
+## Real before/after proof: Residential Roofing & Fascias (9 November 2026)
+
+- Real optimised screenshots are retained in the user-uploaded `wp-content/tinified.zip`: `Before, full.JPG`, `After full.JPG`, `After - menu.PNG`. Prebuild runs `astro/scripts/sync-case-study.mjs` to extract only those three files to `public/case-studies/roofing/`. Keep the ZIP in the repository so Cloudflare can rebuild deterministically.
+- `astro/src/components/RoofingCaseStudy.astro` is reusable: homepage, `/our-work/`, and `/our-work/residential-roofing-and-fascias/`. Before and after screenshots have separate, keyboard-focusable vertical scroll regions; the new menu screenshot sits below.
+- Project story: original website newly launched, little search visibility and hard to maintain; preserve its established colour/design character while professionally rebuilding as a 17-page Astro site with 15 additional dedicated service and local-area pages, clearer navigation, technical SEO and ongoing SEO.
+- Describe service/area pages as supporting discoverability *over time*, not producing immediate or guaranteed rankings. No invented metrics, reviews or lead claims.
+- Sister agency Prunus Media has a deliberately separate cream-and-sage styled version; do not copy UK Trade styles into Prunus. Prunus changes are staged in its own review PR under its design lock.
