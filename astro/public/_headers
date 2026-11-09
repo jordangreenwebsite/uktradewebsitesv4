@@ -11,3 +11,7 @@
 /robots.txt
   Content-Type: text/plain; charset=utf-8
   Cache-Control: public, max-age=300
+
+# Concept pages change during prospect review; avoid keeping stale attribution HTML.
+/demos/jemoba/*
+  Cache-Control: no-cache, max-age=0, must-revalidate
