@@ -24,8 +24,6 @@ export const nav = [
   { label: 'Home', href: '/' },
   { label: 'Our Work', href: '/our-work/' },
   { label: 'Our Process', href: '/our-process/' },
-  { label: 'About Us', href: '/about-us/' },
-  { label: 'Contact Us', href: '/contact-us/' },
 ] as const;
 export const packages = [
   {
