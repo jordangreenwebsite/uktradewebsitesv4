@@ -87,7 +87,7 @@ if(!privacyHtml.includes('<!--email_off-->')||!privacyHtml.includes('<!--/email_
 
 const ourWorkHtml=fs.readFileSync(path.join(root,'our-work','index.html'),'utf8');
 if(!ourWorkHtml.includes('role="tablist"'))errors.push('Our Work project tabs missing');
-if((ourWorkHtml.match(/role="tab"/g)||[]).length!==22)errors.push('Our Work must contain 22 project tabs');
+if((ourWorkHtml.match(/<button\b[^>]*role="tab"/g)||[]).length!==22)errors.push('Our Work must contain 22 project tabs');
 for(const name of ['J Piper Cleaning Services','Residential Roofing &amp; Fascias','PP Power Detailing','Caring Companions Pet Care','Katie’s Flower Hut','Prunus Certificates','My Sweet Pea Flowers','Hush Bake']){
  if(!ourWorkHtml.includes(name))errors.push('Our Work project missing: '+name);
 }
