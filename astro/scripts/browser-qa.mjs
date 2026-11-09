@@ -177,7 +177,7 @@ try{
         visiblePanels:[...document.querySelectorAll('[data-project-tabs] [role="tabpanel"]')].filter(node=>!node.hasAttribute('hidden')).length,
         firstProject:document.querySelector('[data-project-tabs] [role="tabpanel"]:not([hidden]) h3')?.textContent?.trim()
       }));
-      if(portfolioFacts.tabs!==22||portfolioFacts.panels!==22)errors.push('Our Work should have 22 matched project tabs and panels');
+      if(portfolioFacts.tabs!==23||portfolioFacts.panels!==23)errors.push('Our Work should have 23 matched project tabs and panels');
       if(portfolioFacts.activeTabs!==1||portfolioFacts.visiblePanels!==1)errors.push('Our Work should show one selected project at a time');
       if(portfolioFacts.firstProject!=='J Piper Cleaning Services')errors.push('Our Work first portfolio project mismatch');
       const secondTab=page.locator('[data-project-tabs] [role="tab"]').nth(1);
