@@ -32,7 +32,7 @@ Astro tokens are in `astro/src/styles/global.css`. Do not introduce different br
 ## Core site navigation
 
 - `/` Home
-- `/example-websites/` Existing client websites and clearly labelled demo concepts
+- `/our-work/` Accessible project tabs: all 17 verified Prunus Media work records plus 5 unique existing UK Trade Websites examples, with accurate live/concept/archived/in-house labels. The retired `/example-websites/` returns a 301 redirect here.
 - `/our-process/`
 - `/about-us/`
 - `/contact-us/`
@@ -62,7 +62,8 @@ Homepage structure: hero and dark contact form; supported trades and features; t
 - `Header.astro`, `Footer.astro`: consistent menus, brand and CTAs.
 - `ContactForm.astro`: one maintained form.
 - `Pricing.astro`: data-driven package cards.
-- `PortfolioCard.astro`: images and concept/client labels.
+- `PortfolioCard.astro`: homepage preview cards.
+- `src/data/work.ts` and `/our-work/`: consolidated portfolio data, accessible project tabs and original case-study links. Source project descriptions and statuses were checked against `jordangreenwebsite/prunusmedia-site/src/content/work` on 2026-11-09. Do not edit the Prunus source while implementing UK Trade Websites.
 - `TradeLanding.astro`: trade-specific SEO layout with a single shared visual design.
 - `src/data/trades.ts`: unique trade names, services and descriptions for the ten new pages.
 - `src/data/trade-seo.ts`: per-trade primary search intent, unique title/meta description and useful supplementary copy.
@@ -73,6 +74,14 @@ Homepage structure: hero and dark contact form; supported trades and features; t
 - Keep the explanation short: no-upfront website build repayments of £26/month still apply for the first 12 months.
 - Portfolio CTAs and other site arrows use plain text arrows (such as → and ↓), not emoji-style ↗ or ⬇. Use the `text-arrow` CSS class to force typographic rendering.
 - The general pricing small print is concise, while retaining clear exclusions for ongoing SEO, domain renewals, unlimited edits, and paid tools.
+
+## Portfolio consolidation — 9 November 2026
+
+- One authoritative portfolio page: `/our-work/`, replacing `/example-websites/` and keeping its old URL as a 301 redirect.
+- The 17 Prunus Media project records (live, archived, concept and in-house) are brought into UK Trade Websites as verified references, plus five previous UK Trade Websites-only examples.
+- Do not mislabel concepts or owned tools as customer websites. Use actual Prunus Media case-study links when available.
+- Maintain UK Trade Websites styling, nav and forms independently of the Prunus Media implementation.
+- Portfolio tabs must be operable by click and left/right keyboard controls; one panel displayed at a time with a no-JavaScript fallback.
 
 ## SEO audit remediation, November 6
 
