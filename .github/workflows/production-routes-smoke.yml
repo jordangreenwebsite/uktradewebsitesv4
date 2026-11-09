@@ -1,0 +1,61 @@
+name: Verify public Cloudflare routes
+on:
+  push:
+    branches: [main]
+    paths:
+      - "astro/**"
+      - ".github/workflows/production-routes-smoke.yml"
+  workflow_dispatch:
+jobs:
+  production-urls:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check published routes after Cloudflare Pages deployment settles
+        shell: bash
+        run: |
+          set -euo pipefail
+          # The Cloudflare Pages deployment runs independently from GitHub Actions.
+          sleep 40
+          errors=0
+          urls=(
+            "https://uktradewebsites.co.uk/"
+            "https://uktradewebsites.co.uk/blog/"
+            "https://uktradewebsites.co.uk/blog/index.html"
+            "https://uktradewebsites.co.uk/blog/what-should-a-trade-business-website-include/"
+            "https://uktradewebsites.co.uk/websites-for-pressure-washers/"
+            "https://uktradewebsites.co.uk/websites-for-driveway-cleaners/"
+          )
+          for url in "${urls[@]}"; do
+            echo "::group::Checking ${url}"
+            temp=$(mktemp)
+            # Avoid guessing from a green build; check Cloudflare's actual response.
+            status=$(curl -sSL --max-time 18 --retry 2 \
+              --header "Cache-Control: no-cache" \
+              --output "$temp" --write-out "%{http_code}" \
+              "${url}?ci-route-check=${GITHUB_SHA:0:8}") || status="000"
+            title=$(grep -oim1 '<title>[^<]*</title>' "$temp" | head -1 || true)
+            printf 'HTTP %s | %s\n' "$status" "${title:-No title returned}"
+            if [[ "$status" != "200" ]]; then
+              echo "::error::Published route returned HTTP $status: $url"
+              errors=$((errors+1))
+            fi
+            if [[ "$url" == *"/blog/" && "$url" != *"index.html" ]]; then
+              if ! grep -q "The UK Trade Websites Blog" "$temp"; then
+                echo "::error::Blog landing missing from published HTML: $url"
+                errors=$((errors+1))
+              fi
+            fi
+            if [[ "$url" == *"/blog/what-should-"* ]]; then
+              if ! grep -q "What Should a Trade Business Website Include" "$temp"; then
+                echo "::error::Blog article not present on production: $url"
+                errors=$((errors+1))
+              fi
+            fi
+            rm -f "$temp"
+            echo "::endgroup::"
+          done
+          if (( errors > 0 )); then
+            echo "::error::Cloudflare is not serving $errors expected route/content checks; inspect Cloudflare Pages production deployment assets and build settings."
+            exit 1
+          fi
+          echo "Live Cloudflare URLs and blog content verified."
