@@ -4,7 +4,8 @@ const paths=['/','/about-us/','/contact-us/','/our-work/','/our-work/residential
  '/pricing/','/privacy-policy/','/thank-you/','/websites-for-plumbers/','/websites-for-electricians/',
  '/websites-for-window-cleaners/','/websites-for-painters/','/websites-for-floor-cleaners/',
  '/websites-for-roofers/','/websites-for-builders/','/websites-for-landscapers/',
- '/websites-for-plasterers/','/websites-for-driveway-cleaners/','/websites-for-pressure-washers/'];
+ '/websites-for-plasterers/','/websites-for-driveway-cleaners/','/websites-for-pressure-washers/',
+ '/blog/','/blog/what-should-a-trade-business-website-include/','/blog/service-pages-vs-area-pages-for-trades/','/blog/website-visitors-but-no-enquiries/'];
 const server=spawn('python3',['-m','http.server','4321','--bind','127.0.0.1','--directory','dist'],{stdio:'ignore'});
 let browser;
 const errors=[];
@@ -25,7 +26,7 @@ try{
     const response=await page.goto('http://127.0.0.1:4321'+path,{waitUntil:'domcontentloaded',timeout:30000});
     if(!response||response.status()!==200){errors.push(path+' HTTP '+response?.status());continue;}
     // Our Work and its project pages must inherit the same header as About Us.
-    if(path==='/about-us/'||path==='/our-work/'||path==='/our-work/residential-roofing-and-fascias/'){
+    if(path==='/about-us/'||path==='/our-work/'||path==='/our-work/residential-roofing-and-fascias/'||path.startsWith('/blog/')){
       const headerStyle=await page.evaluate(()=>{
         const header=document.querySelector('.site-header');
         const inner=document.querySelector('.header-inner');
@@ -135,6 +136,23 @@ try{
       if(badLinks)errors.push('Pricing navigation still uses duplicate query URLs');
     }
     if(facts.desktopTrades!==12||facts.mobileTrades!==12)errors.push(path+' trade navigation incomplete');
+    const aboutMenuLinks=await page.evaluate(()=>({
+      desktop:[...document.querySelectorAll('.desktop-info-menu .info-dropdown a')].map(a=>a.getAttribute('href')),
+      mobile:[...document.querySelectorAll('.mobile-info-menu .mobile-info-list a')].map(a=>a.getAttribute('href'))
+    }));
+    for(const links of [aboutMenuLinks.desktop,aboutMenuLinks.mobile]){
+      if(JSON.stringify(links)!==JSON.stringify(['/about-us/','/contact-us/','/blog/']))
+        errors.push(path+' combined About dropdown must contain About Us, Contact Us, Blog');
+    }
+    if(path.startsWith('/blog/')){
+      if(path==='/blog/'){
+        if((await page.locator('.blog-card').count())!==3)errors.push('Blog index must show three useful starter articles');
+        if(!facts.schemaTypes.includes('Blog'))errors.push('Blog landing missing Blog schema');
+      }else{
+        if(!(await page.locator('.blog-prose h2').count()))errors.push(path+' blog article missing readable subheadings');
+        if(!facts.schemaTypes.includes('BlogPosting'))errors.push(path+' missing BlogPosting schema');
+      }
+    }
     if(path.startsWith('/websites-for-')){
      for(const type of ['Service','BreadcrumbList'])if(!facts.schemaTypes.includes(type))errors.push(path+' missing '+type+' schema');
      if(await page.locator('.legacy-trade-hero nav.breadcrumbs').count())errors.push(path+' still has visible breadcrumb trail');
@@ -168,6 +186,19 @@ try{
           if(formInfo[key]!==contactFormReference[key])errors.push(path+' shared form style differs from contact page: '+key);
         }
       }
+    }
+    if(path==='/'&&width===1440){
+      const menu=page.locator('details.desktop-info-menu');
+      await menu.locator('summary').click();
+      if(!(await menu.evaluate(el=>el.open)))errors.push('Desktop About dropdown did not open');
+      if(!(await menu.locator('a[href="/blog/"]').isVisible()))errors.push('Desktop About dropdown blog link not visible');
+      const menuBounds=await menu.evaluate(el=>{
+        const b=el.querySelector('.info-dropdown')?.getBoundingClientRect();
+        return {left:b?.left??-1,right:b?.right??9999,viewport:window.innerWidth};
+      });
+      if(menuBounds.left<0||menuBounds.right>menuBounds.viewport)errors.push('Desktop About dropdown overflows viewport');
+      await menu.locator('summary').click();
+      if(await menu.evaluate(el=>el.open))errors.push('Desktop About dropdown did not close');
     }
     if(path==='/'){
       if(await page.locator('.hero .demo-feature').count())errors.push('Homepage must not contain the JEMOBA concept');
@@ -295,6 +326,13 @@ try{
    if(menuBounds.overflow>2)errors.push('Opening mobile menu causes horizontal overflow: '+menuBounds.overflow);
    const links=await menu.locator('nav a').count();
    if(links<15)errors.push('Mobile navigation links missing');
+   const aboutSubmenu=menu.locator('details.mobile-info-menu');
+   await aboutSubmenu.locator('summary').click();
+   if(!(await aboutSubmenu.evaluate(el=>el.open)))errors.push('Mobile About dropdown did not open');
+   if((await aboutSubmenu.locator('a').count())!==3)errors.push('Mobile About dropdown must have three links');
+   if(!(await aboutSubmenu.locator('a[href="/blog/"]').count()))errors.push('Blog link missing from mobile About dropdown');
+   await aboutSubmenu.locator('summary').click();
+   if(await aboutSubmenu.evaluate(el=>el.open))errors.push('Mobile About dropdown did not close');
    const tradeSubmenu=menu.locator('details.mobile-trades-menu');
    await tradeSubmenu.locator('summary').click();
    if(!(await tradeSubmenu.evaluate(el=>el.open)))errors.push('Mobile trade submenu did not open');
