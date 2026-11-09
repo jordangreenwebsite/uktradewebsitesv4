@@ -4,7 +4,7 @@ const root=path.resolve(process.cwd(),'dist');
 const pages=['','about-us','contact-us','our-work','our-work/residential-roofing-and-fascias','our-process','pricing','privacy-policy','thank-you',
  'websites-for-plumbers','websites-for-electricians','websites-for-window-cleaners','websites-for-painters',
  'websites-for-floor-cleaners','websites-for-roofers','websites-for-builders','websites-for-landscapers',
- 'websites-for-plasterers','websites-for-driveway-cleaners'];
+ 'websites-for-plasterers','websites-for-driveway-cleaners','websites-for-pressure-washers'];
 const errors=[];
 const titles=new Map();
 const descriptions=new Map();
@@ -108,6 +108,15 @@ if(!ourWorkHtml.includes('https://prunusmedia.com/our-work/'))errors.push('Portf
 if(indexHtml.includes('href="/example-websites/"'))errors.push('Homepage still links to retired examples page');
 if(!indexHtml.includes('href="/our-work/"'))errors.push('Homepage does not link to Our Work');
 if(!redirects.includes('/example-websites/ /our-work/ 301'))errors.push('Old Example Websites URL must redirect to Our Work');
+const pressurePagePath=path.join(root,'websites-for-pressure-washers','index.html');
+if(fs.existsSync(pressurePagePath)){
+ const pressureHtml=fs.readFileSync(pressurePagePath,'utf8');
+ if(!pressureHtml.includes('JEMOBA'))errors.push('Pressure washing page missing demo showcase');
+ if(!pressureHtml.includes('FAQPage'))errors.push('Pressure washing page missing FAQ schema');
+ if(!pressureHtml.includes('/websites-for-driveway-cleaners/'))errors.push('Pressure washing page missing driveway-cleaning internal link');
+}
+if(!indexHtml.includes('Explore the website demo'))errors.push('Homepage JEMOBA hero showcase missing');
+if(!indexHtml.includes('id="get-a-website"'))errors.push('Homepage enquiry section missing after featured demo');
 const demoPath=path.join(root,'demos','jemoba','index.html');
 if(!fs.existsSync(demoPath))errors.push('JEMOBA concept demo page missing');
 else{
@@ -115,6 +124,7 @@ else{
  if(demo.split('images.pexels.com/photos/').length-1<8)errors.push('JEMOBA concept photos missing');
  if(!demo.includes('noindex,nofollow'))errors.push('JEMOBA demo must remain noindex');
  if(!demo.includes('illustrative Pexels photographs'))errors.push('JEMOBA stock photo disclosure missing');
+ if(!demo.includes('Prepared by UK Trades &amp; Prunus Media'))errors.push('Demo attribution must credit both brands');
 }
 const pricingHtml=fs.readFileSync(path.join(root,'pricing','index.html'),'utf8');
 for(const expected of ['Starter Website','Trade Growth Website','No Upfront Website','£<strong>65','£39','<strong>£149','<strong>£249','1–5 pages','5–9 pages']){
