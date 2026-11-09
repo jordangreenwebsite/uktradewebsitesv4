@@ -1,0 +1,65 @@
+---
+import Layout from '../../layouts/BaseLayout.astro';
+import {getCollection} from 'astro:content';
+import {site} from '../../data/site';
+const posts=(await getCollection('blog')).sort((a,b)=>b.data.date.getTime()-a.data.date.getTime()||a.data.title.localeCompare(b.data.title));
+const blogUrl=site.url+'/blog/';
+const schema=[
+ {'@type':'Blog','@id':blogUrl+'#blog',url:blogUrl,name:'UK Trade Websites Blog',description:'Practical website design, local SEO and enquiry advice for UK tradespeople.',publisher:{'@id':site.url+'/#organization'},inLanguage:'en-GB',
+  blogPost:posts.map(post=>({'@id':blogUrl+post.id+'/#article'}))},
+ {'@type':'BreadcrumbList',itemListElement:[
+  {'@type':'ListItem',position:1,name:'Home',item:site.url+'/'},
+  {'@type':'ListItem',position:2,name:'Blog',item:blogUrl}
+ ]}
+];
+const displayDate=(date:Date)=>date.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'});
+---
+<Layout title="Trade Website Tips & Local SEO Advice | UK Trade Websites Blog"
+ description="Practical articles for UK tradespeople on website design, local SEO, service pages and turning website visitors into quote enquiries. No jargon or inflated promises."
+ path="/blog/" schema={schema}>
+ <section class="blog-hero" aria-labelledby="blog-title">
+   <svg class="blog-wave" viewBox="0 0 1440 700" preserveAspectRatio="none" aria-hidden="true"><path fill="#FF8C42" d="M0 0H1440V340C1200 495 1020 155 820 190C600 235 480 470 260 480C170 484 80 525 0 570Z"/></svg>
+   <div class="container blog-hero-inner">
+     <p class="eyebrow">Useful advice for UK tradespeople</p>
+     <h1 id="blog-title">The UK Trade Websites Blog</h1>
+     <p class="lead">Straightforward guides to help plumbers, roofers, cleaners, electricians and other trades make their websites easier to find, understand and use.</p>
+     <a href="/contact-us/" class="btn btn-primary">Ask us about your website</a>
+   </div>
+ </section>
+ <section class="section blog-section" aria-labelledby="latest-blog-heading">
+   <div class="container">
+     <div class="section-heading">
+       <p class="eyebrow">Website design, local SEO &amp; enquiries</p>
+       <h2 id="latest-blog-heading">Latest articles</h2>
+       <p>Advice you can put into practice, whether you are starting a new website or improving an existing one.</p>
+     </div>
+     <div class="blog-card-grid">
+       {posts.map(post=><article class="blog-card">
+         <div class="blog-card-meta"><span class="blog-card-category">{post.data.category}</span><time datetime={post.data.date.toISOString().slice(0,10)}>{displayDate(post.data.date)}</time></div>
+         <h2>{post.data.title}</h2>
+         <p>{post.data.summary}</p>
+         <a href={'/blog/'+post.id+'/'} aria-label={'Read article: '+post.data.title}>Read article <span aria-hidden="true">→</span></a>
+       </article>)}
+     </div>
+   </div>
+ </section>
+ <section class="section section-light">
+   <div class="container split-grid">
+     <div>
+       <p class="eyebrow">Your website should work for you</p>
+       <h2>Need help with your trade website?</h2>
+       <p>We build practical, mobile-friendly sites designed around the services you offer and the places you work. Start with a design that makes it easy for customers to contact you.</p>
+       <a href="/pricing/" class="btn btn-primary">See website packages</a>
+     </div>
+     <div class="feature-panel">
+       <h2>Explore more</h2>
+       <ul class="check-list">
+         <li><a href="/our-work/">See website projects and concepts</a></li>
+         <li><a href="/our-process/">How our website build process works</a></li>
+         <li><a href="/websites-for-pressure-washers/">Websites for pressure washers</a></li>
+         <li><a href="/websites-for-driveway-cleaners/">Websites for driveway cleaners</a></li>
+       </ul>
+     </div>
+   </div>
+ </section>
+</Layout>
