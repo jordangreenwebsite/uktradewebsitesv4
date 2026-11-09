@@ -19,10 +19,44 @@ try{
  for(const width of [390,768,1101,1440]){
   const page=await browser.newPage({viewport:{width,height:900},deviceScaleFactor:1});
   let contactFormReference=null;
+  let marketingHeaderReference=null;
   for(const path of paths){
    try{
     const response=await page.goto('http://127.0.0.1:4321'+path,{waitUntil:'domcontentloaded',timeout:30000});
     if(!response||response.status()!==200){errors.push(path+' HTTP '+response?.status());continue;}
+    // Our Work and its project pages must inherit the same header as About Us.
+    if(path==='/about-us/'||path==='/our-work/'||path==='/our-work/residential-roofing-and-fascias/'){
+      const headerStyle=await page.evaluate(()=>{
+        const header=document.querySelector('.site-header');
+        const inner=document.querySelector('.header-inner');
+        const logo=document.querySelector('.site-header .brand img');
+        const link=document.querySelector('.desktop-nav>a');
+        const dropdown=document.querySelector('.desktop-trades-menu>summary');
+        const mobile=document.querySelector('.mobile-menu');
+        const cta=document.querySelector('.header-cta');
+        return {
+          marketing:document.body.classList.contains('marketing-page'),
+          position:getComputedStyle(header).position,
+          background:getComputedStyle(header).backgroundColor,
+          innerHeight:getComputedStyle(inner).minHeight,
+          innerDisplay:getComputedStyle(inner).display,
+          logoWidth:getComputedStyle(logo).width,
+          navFont:getComputedStyle(link).fontSize,
+          navWeight:getComputedStyle(link).fontWeight,
+          dropdownWeight:getComputedStyle(dropdown).fontWeight,
+          mobileDisplay:getComputedStyle(mobile).display,
+          ctaDisplay:getComputedStyle(cta).display
+        };
+      });
+      if(!headerStyle.marketing)errors.push(path+' '+width+'px missing marketing header layout');
+      if(path==='/about-us/')marketingHeaderReference=headerStyle;
+      else if(marketingHeaderReference){
+        for(const key of Object.keys(marketingHeaderReference)){
+          if(headerStyle[key]!==marketingHeaderReference[key])
+            errors.push(path+' '+width+'px header differs from About Us: '+key);
+        }
+      }
+    }
     const facts=await page.evaluate(()=>{
      const h1s=document.querySelectorAll('main h1');
      let jsonLdValid=true;
