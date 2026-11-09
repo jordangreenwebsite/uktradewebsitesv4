@@ -70,6 +70,13 @@ export const tradeSeo:Record<string,TradeSEO>={
     heading:'Plastering websites that show the quality of your finish',
     copy:'Customers need to know whether you handle skimming, plasterboarding, rendering and repair work. Show your best genuine finish photographs alongside the plastering services you provide and the areas where you accept new jobs.'
   },
+  'websites-for-pressure-washers':{
+    title:'Pressure Washing Website Design UK | Jet Washing Sites',
+    description:'Professional website design for UK pressure washing and jet washing businesses. Showcase real exterior cleaning results, service areas and easy quote forms.',
+    focusPhrase:'pressure washing website design',
+    heading:'Website design for pressure washing and jet washing businesses',
+    copy:'Pressure washing customers want to compare genuine work, check which surfaces you clean and know if you cover their postcode. A purpose-built website can lead with real before-and-after photographs, separate domestic and commercial services, and provide a straightforward way to request a quote. If you offer specialist treatments, roof cleaning or sealing, we describe those accurately rather than implying every pressure washer provides the same services.'
+  },
   'websites-for-driveway-cleaners':{
     title:'Driveway Cleaning Website Design | UK Trades',
     description:'Websites for driveway and patio cleaning businesses in the UK. Show before-and-after cleaning, paving, re-sanding and sealing with clear quote options.',
