@@ -115,8 +115,18 @@ if(fs.existsSync(pressurePagePath)){
  if(!pressureHtml.includes('FAQPage'))errors.push('Pressure washing page missing FAQ schema');
  if(!pressureHtml.includes('/websites-for-driveway-cleaners/'))errors.push('Pressure washing page missing driveway-cleaning internal link');
 }
-if(!indexHtml.includes('Explore the website demo'))errors.push('Homepage JEMOBA hero showcase missing');
-if(!indexHtml.includes('id="get-a-website"'))errors.push('Homepage enquiry section missing after featured demo');
+const homeHero=indexHtml.match(/<section class="hero">([\s\S]*?)<\/section>/)?.[1]||'';
+if(!homeHero.includes('Grow Your Business'))errors.push('Original homepage enquiry hero must be restored');
+if(homeHero.includes('demo-feature'))errors.push('Industry demo must not appear in homepage hero');
+if(indexHtml.includes('id="get-a-website"'))errors.push('Unexpected extra enquiry section on homepage');
+const drivewayPagePath=path.join(root,'websites-for-driveway-cleaners','index.html');
+if(fs.existsSync(drivewayPagePath)){
+ const drivewayHtml=fs.readFileSync(drivewayPagePath,'utf8');
+ if(!drivewayHtml.includes('JEMOBA'))errors.push('Driveway cleaning hero must show JEMOBA concept');
+ if(!drivewayHtml.includes('FAQPage'))errors.push('Driveway cleaning FAQs must be in structured data');
+ if(!drivewayHtml.includes('What makes a good driveway cleaning website?'))errors.push('Missing original driveway cleaning advice section');
+ if(!drivewayHtml.includes('/websites-for-pressure-washers/'))errors.push('Driveway page must link to pressure washers');
+}
 const demoPath=path.join(root,'demos','jemoba','index.html');
 if(!fs.existsSync(demoPath))errors.push('JEMOBA concept demo page missing');
 else{
