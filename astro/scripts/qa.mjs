@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 const root=path.resolve(process.cwd(),'dist');
-const pages=['','about-us','contact-us','our-work','our-process','pricing','privacy-policy','thank-you',
+const pages=['','about-us','contact-us','our-work','our-work/residential-roofing-and-fascias','our-process','pricing','privacy-policy','thank-you',
  'websites-for-plumbers','websites-for-electricians','websites-for-window-cleaners','websites-for-painters',
  'websites-for-floor-cleaners','websites-for-roofers','websites-for-builders','websites-for-landscapers',
  'websites-for-plasterers','websites-for-driveway-cleaners'];
@@ -65,6 +65,19 @@ for(const page of pages){
   const local=path.join(root,link);
   if(!fs.existsSync(local)&&!fs.existsSync(path.join(local,'index.html')))errors.push('Broken internal reference on '+page+': '+link);
  }
+}
+// Roofing case study uses actual images extracted from the user-uploaded ZIP.
+for(const asset of ['before.jpg','after.jpg','after-menu.png']){
+ const assetPath=path.join(root,'case-studies','roofing',asset);
+ if(!fs.existsSync(assetPath)||fs.statSync(assetPath).size<1000)errors.push('Missing real roofing case study image: '+asset);
+}
+for(const page of ['','our-work','our-work/residential-roofing-and-fascias']){
+ const html=fs.readFileSync(path.join(root,page,'index.html'),'utf8');
+ for(const asset of ['/case-studies/roofing/before.jpg','/case-studies/roofing/after.jpg','/case-studies/roofing/after-menu.png']){
+  if(!html.includes(asset))errors.push('Roofing comparison missing '+asset+' on '+page);
+ }
+ if(!html.includes('roofing-screenshot-scroll'))errors.push('Independent scrollable roofing screenshots missing on '+page);
+ if(!html.includes('15</strong>'))errors.push('15 additional roofing pages must be clearly described on '+page);
 }
 const robotsPath=path.join(root,'robots.txt');
 if(fs.existsSync(robotsPath)){
