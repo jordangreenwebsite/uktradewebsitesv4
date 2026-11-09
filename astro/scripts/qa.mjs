@@ -100,7 +100,7 @@ if(!privacyHtml.includes('<!--email_off-->')||!privacyHtml.includes('<!--/email_
 
 const ourWorkHtml=fs.readFileSync(path.join(root,'our-work','index.html'),'utf8');
 if(!ourWorkHtml.includes('role="tablist"'))errors.push('Our Work project tabs missing');
-if((ourWorkHtml.match(/<button\b[^>]*role="tab"/g)||[]).length!==22)errors.push('Our Work must contain 22 project tabs');
+if((ourWorkHtml.match(/<button\b[^>]*role="tab"/g)||[]).length!==23)errors.push('Our Work must contain 23 project tabs');
 for(const name of ['J Piper Cleaning Services','Residential Roofing &amp; Fascias','PP Power Detailing','Caring Companions Pet Care','Katie’s Flower Hut','Prunus Certificates','My Sweet Pea Flowers','Hush Bake']){
  if(!ourWorkHtml.includes(name))errors.push('Our Work project missing: '+name);
 }
@@ -108,6 +108,14 @@ if(!ourWorkHtml.includes('https://prunusmedia.com/our-work/'))errors.push('Portf
 if(indexHtml.includes('href="/example-websites/"'))errors.push('Homepage still links to retired examples page');
 if(!indexHtml.includes('href="/our-work/"'))errors.push('Homepage does not link to Our Work');
 if(!redirects.includes('/example-websites/ /our-work/ 301'))errors.push('Old Example Websites URL must redirect to Our Work');
+const demoPath=path.join(root,'demos','jemoba','index.html');
+if(!fs.existsSync(demoPath))errors.push('JEMOBA concept demo page missing');
+else{
+ const demo=fs.readFileSync(demoPath,'utf8');
+ if((demo.match(/images\\.pexels\\.com\\/photos/g)||[]).length<8)errors.push('JEMOBA concept photos missing');
+ if(!demo.includes('noindex,nofollow'))errors.push('JEMOBA demo must remain noindex');
+ if(!demo.includes('illustrative Pexels photographs'))errors.push('JEMOBA stock photo disclosure missing');
+}
 const pricingHtml=fs.readFileSync(path.join(root,'pricing','index.html'),'utf8');
 for(const expected of ['Starter Website','Trade Growth Website','No Upfront Website','£<strong>65','£39','<strong>£149','<strong>£249','1–5 pages','5–9 pages']){
  if(!pricingHtml.includes(expected))errors.push('Pricing page missing: '+expected);
