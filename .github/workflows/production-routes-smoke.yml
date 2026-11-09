@@ -21,6 +21,8 @@ jobs:
             "https://uktradewebsites.co.uk/blog/"
             "https://uktradewebsites.co.uk/blog/index.html"
             "https://uktradewebsites.co.uk/blog/what-should-a-trade-business-website-include/"
+            "https://uktradewebsites.co.uk/blog/service-pages-vs-area-pages-for-trades/"
+            "https://uktradewebsites.co.uk/blog/website-visitors-but-no-enquiries/"
             "https://uktradewebsites.co.uk/websites-for-pressure-washers/"
             "https://uktradewebsites.co.uk/websites-for-driveway-cleaners/"
           )
@@ -29,24 +31,35 @@ jobs:
             errors=0
             for url in "${urls[@]}"; do
               temp=$(mktemp)
-              status=$(curl -sSL --max-time 18 --retry 1 \
+              headers=$(mktemp)
+              status=$(curl -sSL --max-time 18 --retry 1 --dump-header "$headers" \
                 --header "Cache-Control: no-cache" \
                 --output "$temp" --write-out "%{http_code}" \
                 "${url}?ci-route-check=${GITHUB_SHA:0:8}&attempt=$attempt") || status="000"
               title=$(grep -oim1 '<title>[^<]*</title>' "$temp" | head -1 || true)
               printf 'HTTP %s | %s | %s\n' "$status" "${title:-No title}" "$url"
+              grep -iE '^(cf-cache-status|age|cache-control|cf-ray):' "$headers" | tail -n 7 || true
               [[ "$status" == "200" ]] || errors=$((errors+1))
               case "$url" in
+                "https://uktradewebsites.co.uk/")
+                  grep -q 'desktop-info-menu' "$temp" || errors=$((errors+1))
+                  grep -q 'Grow Your Business' "$temp" || errors=$((errors+1))
+                  if grep -q 'class="demo-feature' "$temp"; then
+                    echo "::error::Old homepage design (JEMOBA hero) is still being served"
+                    errors=$((errors+1))
+                  fi
+                  ;;
                 "https://uktradewebsites.co.uk/blog/" | "https://uktradewebsites.co.uk/blog/index.html")
+                  grep -q 'desktop-info-menu' "$temp" || errors=$((errors+1))
                   grep -q "The UK Trade Websites Blog" "$temp" || errors=$((errors+1))
                   grep -q 'data-blog-search' "$temp" || errors=$((errors+1))
                   ;;
-                "https://uktradewebsites.co.uk/blog/what-should-a-trade-business-website-include/")
-                  grep -q "What Should a Trade Business Website Include" "$temp" || errors=$((errors+1))
+                "https://uktradewebsites.co.uk/blog/what-should-a-trade-business-website-include/" | "https://uktradewebsites.co.uk/blog/service-pages-vs-area-pages-for-trades/" | "https://uktradewebsites.co.uk/blog/website-visitors-but-no-enquiries/")
+                  grep -q 'desktop-info-menu' "$temp" || errors=$((errors+1))
                   grep -q 'blog-read-next-band' "$temp" || errors=$((errors+1))
                   ;;
               esac
-              rm -f "$temp"
+              rm -f "$temp" "$headers"
             done
             if (( errors == 0 )); then
               echo "SUCCESS: Public Cloudflare URLs and the current blog features verified."
