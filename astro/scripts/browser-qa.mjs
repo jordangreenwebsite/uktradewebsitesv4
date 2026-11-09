@@ -141,7 +141,7 @@ try{
       if(visualFacts.missing===0)errors.push('Our Work should exercise at least one status gradient card');
       if(visualFacts.bad>0)errors.push('Our Work has '+visualFacts.bad+' incomplete gradient preview cards');
       if(visualFacts.legacyText)errors.push('Our Work still displays the old no-image placeholder wording');
-      if(!(await secondTab.locator('.work-project-noimage--live').count()))errors.push('Roofing project should show the live-work gradient card');
+      if(!(await page.locator('[data-project-tabs] [role="tabpanel"]').nth(1).locator('.work-project-noimage--live').count()))errors.push('Roofing project should show the live-work gradient card');
 
     }
     if(path==='/pricing/'){
