@@ -1,0 +1,65 @@
+---
+/** Shared real-world redesign comparison for home, Our Work and project details. */
+interface Props {compact?:boolean;id?:string;}
+const {compact=false,id='roofing-rebuild'}=Astro.props;
+const assets={
+ before:'/case-studies/roofing/before.jpg',
+ after:'/case-studies/roofing/after.jpg',
+ menu:'/case-studies/roofing/after-menu.png'
+};
+---
+<section id={id} class:list={['roofing-story',{'roofing-story--compact':compact}]} aria-labelledby={id+'-heading'}>
+  <div class="container">
+    <div class="roofing-story-intro">
+      <p class="eyebrow">A real website transformation</p>
+      <h2 id={id+'-heading'}>The same roofing business. A much stronger website.</h2>
+      <p>Residential Roofing &amp; Fascias had a newly launched website that wasn't giving the business the visibility or straightforward editing experience it needed. The owner liked the existing look and feel, but wanted it rebuilt professionally, made easier to manage and structured properly for local customers.</p>
+      <p>We preserved the familiar colours and character while rebuilding the website as a fast, maintainable Astro site, with clearer services, navigation and enquiry routes.</p>
+    </div>
+    <div class="roofing-comparison" aria-label="Before and after website comparison">
+      <figure class="roofing-screenshot">
+        <figcaption><span class="roofing-stage roofing-stage--before">Before</span><strong>Original website</strong></figcaption>
+        <div class="roofing-screenshot-scroll" role="region" tabindex="0" aria-label="Original roofing website screenshot; scroll inside to see the entire page">
+          <img src={assets.before} loading="lazy" decoding="async" alt="Full-page capture of the original Residential Roofing and Fascias website before its redesign"/>
+        </div>
+      </figure>
+      <figure class="roofing-screenshot">
+        <figcaption><span class="roofing-stage roofing-stage--after">After</span><strong>Professionally rebuilt</strong></figcaption>
+        <div class="roofing-screenshot-scroll" role="region" tabindex="0" aria-label="Rebuilt roofing website screenshot; scroll inside to see the entire page">
+          <img src={assets.after} loading="lazy" decoding="async" alt="Full-page capture of the redesigned Residential Roofing and Fascias Astro website"/>
+        </div>
+      </figure>
+    </div>
+    <p class="roofing-scroll-hint">Scroll independently inside either screenshot to explore the whole page.</p>
+    <div class="roofing-story-outcome">
+      <span class="roofing-page-count"><strong>15</strong><span>additional pages</span></span>
+      <div>
+        <h3>More useful pages, built around the areas customers actually search.</h3>
+        <p>The rebuild grew into a 17-page website, including 15 additional pages focused on roofing and fascia services and relevant locations such as Swindon, Cirencester, Gloucestershire and Wiltshire. These pages help visitors find the right service and give search engines clearer, more specific information to index.</p>
+        <p>Strong internal links, metadata and structured data support local search visibility over time. New pages are a foundation for SEO, not a promise of immediate Google rankings.</p>
+      </div>
+    </div>
+    <div class="roofing-menu-feature">
+      <div class="roofing-menu-feature-copy">
+        <p class="eyebrow">Built around real customer journeys</p>
+        <h3>A clearer menu for services and locations</h3>
+        <p>Instead of making visitors hunt for what they need, the new navigation gives the main services and local coverage room to stand out. Clearer routes to relevant pages mean fewer dead ends and more opportunities to request a quote.</p>
+        <ul class="check-list">
+          <li>Full website redesign while retaining the original character</li>
+          <li>17-page fast static Astro build</li>
+          <li>Service and location pages, schema and SEO metadata</li>
+          <li>Mobile-friendly navigation and straightforward enquiries</li>
+          <li>Ongoing local SEO work after launch</li>
+        </ul>
+      </div>
+      <figure class="roofing-menu-shot">
+        <img src={assets.menu} loading="lazy" decoding="async" alt="Screenshot of the new Residential Roofing and Fascias navigation menu showing service and location links"/>
+        <figcaption>The redesigned menu makes service and area pages easier to find.</figcaption>
+      </figure>
+    </div>
+    <div class="roofing-story-actions">
+      <a href="https://residentialroofingandfascias.co.uk/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Visit the roofing website</a>
+      <a href="/our-work/residential-roofing-and-fascias/" class="btn btn-outline">Full project details</a>
+    </div>
+  </div>
+</section>
