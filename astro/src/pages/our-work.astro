@@ -1,24 +1,13 @@
 ---
 import Layout from '../layouts/BaseLayout.astro';
 import ContactForm from '../components/ContactForm.astro';
-import {site,portfolio} from '../data/site';
-const existing=portfolio.map(item=>({...item,url:'url' in item?item.url:'',image:item.image}));
-const agencyFeatured={
- name:'Pet Care Website',
- business:'Caring Companions Pet Care',
- description:'A warm, reassuring website designed to explain the services available and help pet owners understand their care options.',
- image:'',
- url:'',
- type:'client' as const,
- note:'Featured by the same team on Prunus Media. A direct website link and project screenshot are not available here yet.'
-};
-const projects=[
- ...existing.filter(item=>item.type==='client'),
- agencyFeatured,
- ...existing.filter(item=>item.type==='concept')
-];
-const liveCount=projects.filter(item=>item.type==='client').length;
-const conceptCount=projects.filter(item=>item.type==='concept').length;
+import {site} from '../data/site';
+import {workProjects,workStatusLabels} from '../data/work';
+const projects=workProjects;
+const liveCount=projects.filter(item=>item.status==='live').length;
+const conceptCount=projects.filter(item=>item.status==='concept').length;
+const archivedCount=projects.filter(item=>item.status==='archived').length;
+const ownedCount=projects.filter(item=>item.status==='owned').length;
 const pageUrl=site.url+'/our-work/';
 const breadcrumbSchema={
  '@type':'BreadcrumbList',
@@ -50,8 +39,10 @@ const breadcrumbSchema={
         <p>Choose a website tab to see its design and visit the site where a working link is available. Demo concepts are labelled clearly and aren't presented as paid client work.</p>
       </div>
       <div class="work-stats" aria-label="Project types">
-        <span><strong>{liveCount}</strong> live and featured website projects</span>
+        <span><strong>{liveCount}</strong> live client websites</span>
         <span><strong>{conceptCount}</strong> design concepts</span>
+        <span><strong>{archivedCount}</strong> archived projects</span>
+        <span><strong>{ownedCount}</strong> in-house projects</span>
       </div>
       <div class="work-browser" data-project-tabs>
         <div class="work-tabbar" role="tablist" aria-label="Choose a website project">
@@ -62,28 +53,28 @@ const breadcrumbSchema={
             aria-controls={'project-panel-'+i}
             aria-selected={i===0?'true':'false'}
             tabindex={i===0?0:-1}
-            class:list={['work-tab',{'work-tab-concept':project.type==='concept'}]}>
-            <span class="work-tab-label">{project.business}</span>
-            <small>{project.type==='concept'?'Concept':'Website'}</small>
+            class:list={['work-tab',{'work-tab-concept':project.status==='concept'}]}>
+            <span class="work-tab-label">{project.title}</span>
+            <small>{workStatusLabels[project.status]}</small>
           </button>)}
         </div>
         <div class="work-panels">
           {projects.map((project,i)=><article class="work-project-panel" id={'project-panel-'+i} role="tabpanel" aria-labelledby={'project-tab-'+i} data-project-panel tabindex="0">
             <div class="work-project-preview">
               {project.image
-                ? <img src={project.image} width="1024" height="560" loading="lazy" decoding="async" alt={'Website design preview for '+project.business}/>
-                : <div class="work-project-noimage" aria-label="Screenshot not yet available"><span>Project preview<br/>being prepared</span></div>}
+                ? <img src={project.image} width="1024" height="560" loading="lazy" decoding="async" alt={'Website design preview for '+project.title}/>
+                : <div class="work-project-noimage" aria-label="Screenshot not yet available"><span>Project information<br/>and website link</span></div>}
             </div>
             <div class="work-project-details">
-              <p class="eyebrow">{project.type==='concept'?'Design concept · not a client project':'A project by our team'}</p>
-              <h3>{project.business}</h3>
-              <p class="work-project-type">{project.name}</p>
+              <p class="eyebrow">{workStatusLabels[project.status]}</p>
+              <h3>{project.title}</h3>
+              <p class="work-project-type">{project.category}</p>
               <p>{project.description}</p>
-              {'note' in project&&project.note&&<p class="work-project-note">{project.note}</p>}
               <div class="work-project-actions">
-                {project.url
-                  ? <a href={project.url} class="btn btn-primary" target="_blank" rel="noopener noreferrer">{project.type==='concept'?'Open concept design':'Visit website'} <span class="text-arrow" aria-hidden="true">→</span></a>
+                {project.website
+                  ? <a href={project.website} class="btn btn-primary" target="_blank" rel="noopener noreferrer">{project.status==='concept'?'Open concept design':project.status==='archived'?'View archived website':'Visit website'} <span class="text-arrow" aria-hidden="true">→</span></a>
                   : <a href="/contact-us/" class="btn btn-outline">Ask about this design</a>}
+                {project.projectDetails&&<a href={project.projectDetails} class="work-price-link" target="_blank" rel="noopener noreferrer">Read project details <span class="text-arrow" aria-hidden="true">→</span></a>}
                 <a href="/pricing/" class="work-price-link">View website packages <span class="text-arrow" aria-hidden="true">→</span></a>
               </div>
             </div>
