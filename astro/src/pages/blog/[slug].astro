@@ -4,11 +4,20 @@ import {getCollection,render,type CollectionEntry} from 'astro:content';
 import {site} from '../../data/site';
 
 export async function getStaticPaths(){
-  const posts=await getCollection('blog');
-  return posts.map(post=>({params:{slug:post.id},props:{post}}));
+  // Newest first; move forward through the articles, then wrap to the newest.
+  // The title is a stable tie-breaker if multiple posts share a date.
+  const posts=(await getCollection('blog')).sort((a,b)=>
+    b.data.date.getTime()-a.data.date.getTime()||a.data.title.localeCompare(b.data.title)
+  );
+  return posts.map((post,index)=>({
+    params:{slug:post.id},
+    props:{post,nextPost:posts.length>1?posts[(index+1)%posts.length]:null}
+  }));
 }
-interface Props {post:CollectionEntry<'blog'>;}
-const {post}=Astro.props;
+interface Props {post:CollectionEntry<'blog'>;nextPost:CollectionEntry<'blog'>|null;}
+const {post,nextPost}=Astro.props;
+const nextUrl=nextPost?'/blog/'+nextPost.id+'/':'/blog/';
+const nextDisplayDate=nextPost?.data.date.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'});
 const {Content}=await render(post);
 const url=site.url+'/blog/'+post.id+'/';
 const published=post.data.date.toISOString().slice(0,10);
@@ -28,6 +37,20 @@ const schema=[
 ---
 <Layout title={post.data.title+' | UK Trade Websites'} description={post.data.description}
  path={'/blog/'+post.id+'/'} schema={schema}>
+ <div class="blog-read-next-top">
+   <aside class="blog-read-next-band" aria-label="Recommended next article">
+     <div class="container blog-read-next-inner">
+       <div class="blog-read-next-copy">
+         <p class="blog-read-next-eyebrow">Read next <span aria-hidden="true">↗</span></p>
+         <h2>{nextPost?nextPost.data.title:'Explore more trade website advice'}</h2>
+         <p class="blog-read-next-meta">{nextPost?nextPost.data.category:'UK Trade Websites Blog'}{nextPost&&<> <span aria-hidden="true">·</span> <time datetime={nextPost.data.date.toISOString().slice(0,10)}>{nextDisplayDate}</time></>}</p>
+       </div>
+       <a class="blog-read-next-action" href={nextUrl} aria-label={nextPost?'Read next: '+nextPost.data.title:'Explore all blog articles'}>
+         {nextPost?'Read next article':'All blog articles'} <span aria-hidden="true">→</span>
+       </a>
+     </div>
+   </aside>
+ </div>
  <header class="blog-post-header">
    <div class="container blog-post-header-inner">
      <nav class="blog-breadcrumbs" aria-label="Breadcrumbs">
