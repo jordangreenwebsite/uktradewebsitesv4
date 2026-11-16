@@ -1,0 +1,10 @@
+# Bark & Sparkle | Newport concept design
+Inspired by https://townhouseclinic.com/ (layout and editorial sophistication only). Original dog grooming design.
+Status: noindexed sales concept for UK Trade Websites, not a live booking website.
+Confirmed facts: Bark & Sparkle; Newport area; groomer Level 2 and Level 3 certified; full grooms, handstripping, canine teeth cleaning.
+Visuals: boutique clinic-style clean header, full-viewport photographic hero, elegant serif editorial titles, warm cream, pale blush, plum/charcoal accents, generous white space, softly rounded image cards. The exact colour values and logo from user screenshots require original image files for faithful extraction; no invented claim that the temporary typography is their official logo. Real business photography not supplied; concept uses externally hosted illustrative dog photos, not represented as client work.
+Responsive: image-led desktop, mobile-first cropped photos, 48px touch targets, accessible hamburger with backdrop and Escape/outside-click dismissal; JS only for menu. Keyboard focus clearly visible.
+Content: verified qualifications and Newport area; no unverified neighbourhood coverage, opening hours, pricing, ratings, customer quotes, address or awards. Vet referral caveat for canine oral care. No medical claims.
+SEO: document title, meta description, semantic headings and naturally placed Newport dog grooming phrases; noindex,nofollow; no sitemap inclusion by any changes to production config. Every clickable business link points only to https://uktradewebsites.co.uk/. Page is directly served from Astro public static assets.
+Motion: subtle hero entrance and card hover, no scroll-jacking; reduced-motion override; content remains visible without JS.
+QA: verify rendered HTML, all CTAs, mobile layout and Cloudflare response following deployment.
