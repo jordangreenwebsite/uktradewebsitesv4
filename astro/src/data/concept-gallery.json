@@ -103,5 +103,40 @@
     "category": "Electrical",
     "description": "Rewiring, inspections, lighting and EV charging.",
     "colour": "#233f59"
+  },
+  {
+    "id": "cross-brand-dog-grooming",
+    "title": "Dog grooming",
+    "category": "Pet care",
+    "description": "Grooming services and a welcoming customer journey.",
+    "colour": "#7c5d46"
+  },
+  {
+    "id": "cross-brand-mobile-foot-health",
+    "title": "Mobile foot health",
+    "category": "Health & wellbeing",
+    "description": "Specialist foot care and a clear treatment journey.",
+    "colour": "#526b64"
+  },
+  {
+    "id": "cross-brand-pet-equine-care",
+    "title": "Pet & equine care",
+    "category": "Pet care",
+    "description": "Dog walking, horse care and pet sitting.",
+    "colour": "#7c5d46"
+  },
+  {
+    "id": "cross-brand-tattoo-beauty-studio",
+    "title": "Tattoo & beauty studio",
+    "category": "Beauty",
+    "description": "A multi-service studio with an expressive visual identity.",
+    "colour": "#785b69"
+  },
+  {
+    "id": "cross-brand-lashes-brows-fine-line-tattoos",
+    "title": "Lashes, brows & fine-line tattoos",
+    "category": "Beauty",
+    "description": "Beauty treatments, tattoo services and training.",
+    "colour": "#785b69"
   }
 ]
