@@ -1,0 +1,53 @@
+name: Verify all live concept purchase links
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'astro/public/concept-websites/**'
+      - 'astro/public/demos/jemoba/**'
+      - '.github/workflows/verify-live-concept-links.yml'
+  workflow_dispatch:
+jobs:
+  verify-live-concepts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify all 24 production concept routes and personalised purchase links
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import pathlib, urllib.request, urllib.error, re, time, sys
+          root=pathlib.Path("astro/public")
+          files=sorted((root/"concept-websites").glob("*/index.html"))+[root/"demos/jemoba/index.html"]
+          assert len(files)==24, f"Expected 24 concept pages, found {len(files)}"
+          failures=[]
+          for f in files:
+              slug=f.parent.name
+              route="/"+f.parent.relative_to(root).as_posix()+"/"
+              url="https://uktradewebsites.co.uk"+route
+              expected="https://prunusmedia.com/buy-now/?concept="+slug
+              local=f.read_text(encoding="utf-8")
+              if expected not in local: failures.append(f"{route}: missing local personalised link")
+              for attempt in range(3):
+                  try:
+                      req=urllib.request.Request(url,headers={"User-Agent":"Mozilla/5.0 (compatible; PrunusConceptProductionVerifier/1.0)"})
+                      with urllib.request.urlopen(req,timeout=25) as response:
+                          status=response.status
+                          html=response.read().decode("utf-8","replace")
+                      break
+                  except Exception as e:
+                      if attempt==2: failures.append(f"{route}: HTTP fetch failed: {type(e).__name__}: {e}");html="";status=0
+                      else: time.sleep(5)
+              checks={
+                "HTTP 200":status==200,
+                "personalised Buy Now link":expected in html,
+                "noindex":bool(re.search(r'<meta[^>]+name=["\\\']robots["\\\'][^>]+content=["\\\'][^"\\\']*noindex',html,re.I)),
+                "mobile navigation toggle":bool(re.search(r'(menu-toggle|nav-toggle|hamburger|aria-controls=["\\\'][^"\\\']*nav)',html,re.I)),
+              }
+              for key,ok in checks.items():
+                  if not ok: failures.append(f"{route}: {key} failed")
+              print(f"{'PASS' if all(checks.values()) else 'FAIL'} {url} "+", ".join(k for k,v in checks.items() if not v))
+          print(f"Verified {len(files)} routes; failures: {len(failures)}")
+          for failure in failures: print("ERROR:",failure)
+          if failures: sys.exit(1)
+          PY
