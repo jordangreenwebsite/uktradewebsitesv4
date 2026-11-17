@@ -104,7 +104,17 @@ if(!ourWorkHtml.includes('role="tablist"'))errors.push('Our Work project tabs mi
 if((ourWorkHtml.match(/<button\b[^>]*role="tab"/g)||[]).length!==24)errors.push('Our Work must contain 24 project tabs');
 if(!ourWorkHtml.includes('Route 8 Barbers')||!ourWorkHtml.includes('href="/our-work/concepts/"'))errors.push('Route 8 feature or concept gallery link missing');
 const galleryHtml=fs.readFileSync(path.join(root,'our-work','concepts','index.html'),'utf8');
-if(!galleryHtml.includes('Design concept')||!galleryHtml.includes('Ask to see this concept'))errors.push('Concept gallery content missing');
+if(!galleryHtml.includes('Design concept')||!galleryHtml.includes('See concept build'))errors.push('Concept gallery content missing');
+const conceptLinks=[...galleryHtml.matchAll(/href="https:\/\/uktradewebsites\.co\.uk\/concept-websites\/([a-z0-9-]+)\/"/g)].map(hit=>hit[1]);
+if(!conceptLinks.length)errors.push('Concept gallery has no direct preview links');
+if(new Set(conceptLinks).size!==conceptLinks.length)errors.push('Duplicate concept preview links');
+for(const slug of conceptLinks){
+ const target=path.join(root,'concept-websites',slug,'index.html');
+ if(!fs.existsSync(target)){errors.push('Missing concept preview: '+slug);continue;}
+ const html=fs.readFileSync(target,'utf8');
+ if(!/<meta\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex[^"']*nofollow/i.test(html))errors.push('Concept preview missing noindex/nofollow: '+slug);
+}
+
 for(const name of ['J Piper Cleaning Services','Residential Roofing &amp; Fascias','PP Power Detailing','Caring Companions Pet Care','Katie’s Flower Hut','Prunus Certificates','My Sweet Pea Flowers','Hush Bake']){
  if(!ourWorkHtml.includes(name))errors.push('Our Work project missing: '+name);
 }

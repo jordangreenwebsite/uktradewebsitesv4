@@ -22,7 +22,7 @@ const concepts:Concept[]=data;
       <div class="section-heading">
         <p class="eyebrow">Find inspiration for your website</p>
         <h2 id="concept-heading">Explore our concept builds</h2>
-        <p>Discover designs across different industries. Open a preview where available, or get in touch to see a particular concept.</p>
+        <p>Discover designs across different industries. Open any available concept to explore the complete preview in a new tab.</p>
       </div>
       <div class="concept-grid">
         {concepts.map(item=><article class="concept-card">
@@ -40,7 +40,7 @@ const concepts:Concept[]=data;
             <p class="eyebrow">Design concept</p>
             <h3>{item.title}</h3>
             <p>{item.description}</p>
-            {item.previewUrl ? <a class="btn btn-primary" href={item.previewUrl} rel="nofollow noopener noreferrer" target="_blank">View concept website</a> : <a class="btn btn-outline" href="/contact-us/">Ask to see this concept</a>}
+            {item.previewUrl ? <a class="btn btn-primary" href={item.previewUrl} rel="nofollow noopener noreferrer" target="_blank">See concept build</a> : <span class="btn btn-outline" aria-disabled="true">Preview coming soon</span>}
           </div>
         </article>)}
       </div>

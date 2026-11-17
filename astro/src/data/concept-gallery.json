@@ -4,139 +4,175 @@
     "title": "Garden & property maintenance",
     "category": "Outdoor services",
     "description": "Garden care, pressure washing and property upkeep.",
-    "colour": "#354b38"
+    "colour": "#354b38",
+    "previewUrl": "https://uktradewebsites.co.uk/concept-websites/all-round-garden-property-maintenance/"
   },
   {
     "id": "design-27-2",
     "title": "Electrical services",
     "category": "Electrical",
     "description": "Electrical installations, upgrades and callouts.",
-    "colour": "#233f59"
+    "colour": "#233f59",
+    "previewUrl": "https://uktradewebsites.co.uk/concept-websites/breeze-electrical-solutions/"
   },
   {
     "id": "design-12-3",
     "title": "Cleaning services",
     "category": "Cleaning",
     "description": "Carpet cleaning, end-of-tenancy cleaning and clearance.",
-    "colour": "#3e6570"
+    "colour": "#3e6570",
+    "previewUrl": "https://uktradewebsites.co.uk/concept-websites/drop-the-mop/"
   },
   {
     "id": "design-24-4",
     "title": "Interior painting & decorating",
     "category": "Interiors",
     "description": "Decorative finishes, wallpaper and interior improvements.",
-    "colour": "#655042"
+    "colour": "#655042",
+    "previewUrl": "https://uktradewebsites.co.uk/concept-websites/emjay-interior-creations/"
   },
   {
     "id": "design-11-5",
     "title": "Building & renovation",
     "category": "Construction",
     "description": "Extensions, kitchens and home refurbishments.",
-    "colour": "#454a4e"
+    "colour": "#454a4e",
+    "previewUrl": "https://uktradewebsites.co.uk/concept-websites/evans-build/"
   },
   {
     "id": "design-21-6",
     "title": "Window & exterior cleaning",
     "category": "Cleaning",
     "description": "Window cleaning, solar panels and exterior care.",
-    "colour": "#3e6570"
+    "colour": "#3e6570",
+    "previewUrl": "https://uktradewebsites.co.uk/concept-websites/flash-window-cleaning/"
   },
   {
     "id": "design-24-7",
     "title": "Landscaping & home improvements",
     "category": "Outdoor services",
     "description": "Fencing, patios and property maintenance.",
-    "colour": "#354b38"
+    "colour": "#354b38",
+    "previewUrl": "https://uktradewebsites.co.uk/concept-websites/nailed-it-home-solutions/"
   },
   {
     "id": "design-6-8",
     "title": "Bespoke carpentry & landscaping",
     "category": "Interiors",
     "description": "Custom carpentry and garden projects.",
-    "colour": "#655042"
+    "colour": "#655042",
+    "previewUrl": "https://uktradewebsites.co.uk/concept-websites/rennco/"
   },
   {
     "id": "design-24-9",
     "title": "Plumbing & heating",
     "category": "Plumbing",
     "description": "Boiler care, emergency plumbing and bathrooms.",
-    "colour": "#34556a"
+    "colour": "#34556a",
+    "previewUrl": "https://uktradewebsites.co.uk/concept-websites/rgd-plumbing-and-heating/"
   },
   {
     "id": "design-20-10",
     "title": "Chimney sweeping",
     "category": "Home services",
     "description": "Chimney, fireplace and flue care.",
-    "colour": "#594e44"
+    "colour": "#594e44",
+    "previewUrl": "https://uktradewebsites.co.uk/concept-websites/samson-chimney-sweep/"
   },
   {
     "id": "design-12-11",
     "title": "Architectural timber & doors",
     "category": "Interiors",
     "description": "Timber doors and architectural oak beams.",
-    "colour": "#655042"
+    "colour": "#655042",
+    "previewUrl": "https://uktradewebsites.co.uk/concept-websites/timber-doors/"
   },
   {
     "id": "design-25-12",
     "title": "Tree surgery & outdoor care",
     "category": "Outdoor services",
     "description": "Tree work, hedges and garden maintenance.",
-    "colour": "#354b38"
+    "colour": "#354b38",
+    "previewUrl": "https://uktradewebsites.co.uk/concept-websites/tree-and-outdoor-services/"
   },
   {
     "id": "design-30-13",
     "title": "Roofing services",
     "category": "Construction",
     "description": "New roofs, repairs and flat roofing.",
-    "colour": "#454a4e"
+    "colour": "#454a4e",
+    "previewUrl": "https://uktradewebsites.co.uk/concept-websites/weathershield-roofing-services/"
   },
   {
     "id": "design-18-14",
     "title": "Premium car detailing",
     "category": "Automotive",
     "description": "Vehicle detailing, interior care and paint enhancement.",
-    "colour": "#31363b"
+    "colour": "#31363b",
+    "previewUrl": "https://uktradewebsites.co.uk/concept-websites/williams-detailing/"
   },
   {
     "id": "design-20-15",
     "title": "Domestic electrical services",
     "category": "Electrical",
     "description": "Rewiring, inspections, lighting and EV charging.",
-    "colour": "#233f59"
+    "colour": "#233f59",
+    "previewUrl": "https://uktradewebsites.co.uk/concept-websites/winchcomb-electrical/"
   },
   {
     "id": "cross-brand-dog-grooming",
     "title": "Dog grooming",
     "category": "Pet care",
     "description": "Grooming services and a welcoming customer journey.",
-    "colour": "#7c5d46"
+    "colour": "#7c5d46",
+    "previewUrl": "https://uktradewebsites.co.uk/concept-websites/bark-and-sparkle/"
   },
   {
     "id": "cross-brand-mobile-foot-health",
     "title": "Mobile foot health",
     "category": "Health & wellbeing",
     "description": "Specialist foot care and a clear treatment journey.",
-    "colour": "#526b64"
+    "colour": "#526b64",
+    "previewUrl": "https://uktradewebsites.co.uk/concept-websites/foot-health-by-emma/"
   },
   {
     "id": "cross-brand-pet-equine-care",
     "title": "Pet & equine care",
     "category": "Pet care",
     "description": "Dog walking, horse care and pet sitting.",
-    "colour": "#7c5d46"
+    "colour": "#7c5d46",
+    "previewUrl": "https://uktradewebsites.co.uk/concept-websites/hooves-paws-helping-hands/"
   },
   {
     "id": "cross-brand-tattoo-beauty-studio",
     "title": "Tattoo & beauty studio",
     "category": "Beauty",
     "description": "A multi-service studio with an expressive visual identity.",
-    "colour": "#785b69"
+    "colour": "#785b69",
+    "previewUrl": "https://uktradewebsites.co.uk/concept-websites/studio-3/"
   },
   {
     "id": "cross-brand-lashes-brows-fine-line-tattoos",
     "title": "Lashes, brows & fine-line tattoos",
     "category": "Beauty",
     "description": "Beauty treatments, tattoo services and training.",
-    "colour": "#785b69"
+    "colour": "#785b69",
+    "previewUrl": "https://uktradewebsites.co.uk/concept-websites/studio-mabbs/"
+  },
+  {
+    "id": "eco-plumbing-north-east",
+    "title": "Plumbing, heating & gas services",
+    "category": "Plumbing",
+    "description": "Plumbing, central heating and gas services.",
+    "colour": "#34556a",
+    "previewUrl": "https://uktradewebsites.co.uk/concept-websites/eco-plumbing-north-east/"
+  },
+  {
+    "id": "s-burnell-accountancy-bookkeeping",
+    "title": "Accountancy & bookkeeping",
+    "category": "Professional services",
+    "description": "Bookkeeping, VAT, payroll and tax support.",
+    "colour": "#334d65",
+    "previewUrl": "https://uktradewebsites.co.uk/concept-websites/s-burnell-accountancy-bookkeeping/"
   }
 ]
