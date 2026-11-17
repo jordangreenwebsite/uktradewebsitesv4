@@ -42,7 +42,7 @@ jobs:
                 "HTTP 200":status==200,
                 "personalised Buy Now link":expected in html,
                 "noindex":bool(re.search(r'<meta[^>]+name=["\\\']robots["\\\'][^>]+content=["\\\'][^"\\\']*noindex',html,re.I)),
-                "mobile navigation toggle":bool(re.search(r'<button\\b[^>]*aria-controls=["\\\'][^"\\\']+["\\\']',html,re.I) or re.search(r'<details\\b[^>]*class=["\\\'][^"\\\']*menu[^"\\\']*["\\\'][^>]*>\\s*<summary\\b',html,re.I) or re.search(r'(menu-toggle|nav-toggle|hamburger)',html,re.I)),
+                "mobile navigation toggle":bool(re.search(r'<button\b[^>]*aria-controls=["\\\'][^"\\\']+["\\\']',html,re.I) or re.search(r'<details\b[^>]*class=["\\\'][^"\\\']*menu[^"\\\']*["\\\'][^>]*>\s*<summary\b',html,re.I) or re.search(r'(menu-toggle|nav-toggle|hamburger)',html,re.I)),
               }
               for key,ok in checks.items():
                   if not ok: failures.append(f"{route}: {key} failed")
