@@ -1,6 +1,6 @@
 import {spawn} from 'node:child_process';
 import {chromium} from 'playwright';
-const paths=['/','/about-us/','/contact-us/','/our-work/','/our-work/residential-roofing-and-fascias/','/our-process/',
+const paths=['/','/about-us/','/contact-us/','/our-work/','/our-work/concepts/','/our-work/residential-roofing-and-fascias/','/our-process/',
  '/pricing/','/privacy-policy/','/thank-you/','/websites-for-plumbers/','/websites-for-electricians/',
  '/websites-for-window-cleaners/','/websites-for-painters/','/websites-for-floor-cleaners/',
  '/websites-for-roofers/','/websites-for-builders/','/websites-for-landscapers/',
@@ -26,7 +26,7 @@ try{
     const response=await page.goto('http://127.0.0.1:4321'+path,{waitUntil:'domcontentloaded',timeout:30000});
     if(!response||response.status()!==200){errors.push(path+' HTTP '+response?.status());continue;}
     // Our Work and its project pages must inherit the same header as About Us.
-    if(path==='/about-us/'||path==='/our-work/'||path==='/our-work/residential-roofing-and-fascias/'||path.startsWith('/blog/')){
+    if(path==='/about-us/'||path.startsWith('/our-work/')||path.startsWith('/blog/')){
       const headerStyle=await page.evaluate(()=>{
         const header=document.querySelector('.site-header');
         const inner=document.querySelector('.header-inner');
@@ -107,7 +107,7 @@ try{
     if(facts.canonical!=='https://uktradewebsites.co.uk'+path)errors.push(path+' canonical: '+facts.canonical);
     if(facts.overflow>2)errors.push(path+' '+width+'px has '+facts.overflow+'px horizontal overflow');
     if(!facts.jsonLdValid)errors.push(path+' invalid JSON-LD');
-    if(path==='/'||path==='/contact-us/'||path==='/pricing/'||path.startsWith('/websites-for-')){
+    if(path==='/'||path==='/contact-us/'||path==='/pricing/'||path==='/our-work/concepts/'||path.startsWith('/websites-for-')){
       const overlaps=await page.evaluate(()=>{
         const header=document.getElementById('site-header');
         const hero=document.querySelector('.hero, .legacy-hero');
@@ -118,6 +118,25 @@ try{
         return {headerBottom,contentTop,overlap:contentTop<headerBottom-10};
       });
       if(overlaps.overlap)errors.push(path+' '+width+'px hero content overlaps header ('+overlaps.contentTop+' vs '+overlaps.headerBottom+')');
+    }
+    if(path==='/our-work/concepts/'){
+      const gallery=await page.evaluate(()=>{
+        const header=document.querySelector('.site-header .header-inner')?.getBoundingClientRect();
+        const eyebrow=document.querySelector('.concept-hero .eyebrow')?.getBoundingClientRect();
+        const h1=document.querySelector('.concept-hero h1')?.getBoundingClientRect();
+        const cards=[...document.querySelectorAll('.concept-card')];
+        return {
+          clear:!!header&&!!eyebrow&&!!h1&&eyebrow.top>=header.bottom-2&&h1.top>=header.bottom,
+          hero:!!document.querySelector('.concept-hero.our-work-hero .legacy-wave'),
+          cards:cards.length,
+          invalid:cards.filter(card=>!card.querySelector('h3')||!card.querySelector('.concept-preview')||!card.querySelector('.btn[href]')).length,
+          columns:getComputedStyle(document.querySelector('.concept-grid')).gridTemplateColumns.split(' ').length
+        };
+      });
+      if(!gallery.clear)errors.push(path+' '+width+'px concept heading or eyebrow overlaps header');
+      if(!gallery.hero||!gallery.cards||gallery.invalid)errors.push(path+' concept gallery missing branded hero or valid cards');
+      const columns=width<=550?1:width<=900?2:3;
+      if(gallery.columns!==columns)errors.push(path+' '+width+'px wrong concept gallery columns');
     }
     if(path==='/'&&width===1440){
       const navFacts=await page.evaluate(()=>{

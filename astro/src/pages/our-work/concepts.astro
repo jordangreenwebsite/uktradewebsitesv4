@@ -5,24 +5,77 @@ type Concept={title:string;category:string;description:string;colour:string;imag
 const concepts:Concept[]=data;
 ---
 <Layout title="Website Design Concepts for UK Trades | UK Trade Websites" description="Explore our trade website design concepts, from electricians and builders to detailing and home improvements." path="/our-work/concepts/">
-<section class="section concept-section"><div class="container"><p class="eyebrow">Independent design work</p><h1>Website design concepts for trades</h1><p class="lead">Explore independent design concepts created by our team. These are illustrative website proposals rather than commissioned client projects. Preview links and screenshots are added only when cleared for public sharing and checked.</p><a href="/our-work/" class="btn btn-outline">Back to our example websites</a><div class="concept-grid">
- {concepts.map(item=><article class="concept-card">
-  {item.image ? <img src={item.image} alt={item.imageAlt || item.title+' website screenshot'} width="900" height="520" loading="lazy" decoding="async"/> : <div class="concept-art" style={'--concept-tone:'+item.colour}><small>Design concept</small><strong>{item.category}</strong></div>}
-  <div class="concept-copy"><h2>{item.title}</h2><p>{item.description}</p>{item.previewUrl ? <a href={item.previewUrl} rel="nofollow noopener noreferrer" target="_blank">View concept website</a> : <a href="/contact-us/">Ask to see this concept</a>}</div>
- </article>)}
-</div></div></section>
+  <section class="legacy-hero our-work-hero concept-hero">
+    <svg class="legacy-wave" aria-hidden="true" viewBox="0 0 1440 590" preserveAspectRatio="none"><path fill="#FF8C42" d="M0,0 H1440 V350 C1230,410 1010,195 800,200 C620,208 460,390 255,450 C140,490 62,485 0,505 Z"/></svg>
+    <div class="container our-work-hero-inner">
+      <p class="eyebrow">Independent design work</p>
+      <h1>Website design concepts for trades</h1>
+      <p class="lead">Explore the website designs our team has created for different trades and service businesses. Each is a concept, showing what we could build for a business like yours, rather than a commissioned client website.</p>
+      <div class="hero-cta-row">
+        <a class="btn legacy-pill" href="#concepts">Explore the concepts</a>
+        <a class="btn legacy-orange-pill" href="/our-work/">Back to our work</a>
+      </div>
+    </div>
+  </section>
+  <section class="section our-work-section concept-section" id="concepts" aria-labelledby="concept-heading">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Find inspiration for your website</p>
+        <h2 id="concept-heading">Explore our concept builds</h2>
+        <p>Discover designs across different industries. Open a preview where available, or get in touch to see a particular concept.</p>
+      </div>
+      <div class="concept-grid">
+        {concepts.map(item=><article class="concept-card">
+          <div class="concept-preview">
+            {item.image ? <img src={item.image} alt={item.imageAlt || item.title+' website screenshot'} width="900" height="520" loading="lazy" decoding="async"/> :
+              <div class="work-project-noimage work-project-noimage--concept" aria-hidden="true">
+                <div class="work-project-art">
+                  <div class="work-project-browser-top"><span class="work-project-browser-dots"><i></i><i></i><i></i></span><span class="work-project-browser-address"></span></div>
+                  <div class="work-project-art-body"><span class="work-project-art-status">Design concept</span><span class="concept-art-category">{item.category}</span></div>
+                  <div class="work-project-art-footer"><span></span><span></span><span></span></div>
+                </div>
+              </div>}
+          </div>
+          <div class="concept-copy">
+            <p class="eyebrow">Design concept</p>
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+            {item.previewUrl ? <a class="btn btn-primary" href={item.previewUrl} rel="nofollow noopener noreferrer" target="_blank">View concept website</a> : <a class="btn btn-outline" href="/contact-us/">Ask to see this concept</a>}
+          </div>
+        </article>)}
+      </div>
+    </div>
+  </section>
+  <section class="section section-blue concept-cta">
+    <div class="container text-center">
+      <h2>Like what you see?</h2>
+      <p>We'll design a website around your business, your services and the customers you want to reach.</p>
+      <a class="btn btn-accent" href="/contact-us/">Ask for a website quote</a>
+    </div>
+  </section>
 </Layout>
 <style>
-.concept-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin:32px 0 55px}
-.concept-card{background:#fffdfa;border:1px solid #d8d6d0;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;color:#242829}
-.concept-art{min-height:155px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;background:var(--concept-tone);color:white}
-.concept-art small{color:white;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase}
-.concept-art strong{font-size:clamp(1.35rem,2vw,1.8rem);line-height:1.15;font-weight:600;color:white}
-.concept-copy{padding:22px;flex:1;display:flex;flex-direction:column;align-items:flex-start}
-.concept-copy h2{font-size:1.25rem;margin:0 0 9px;color:#242829}
-.concept-copy p{font-size:1rem;line-height:1.55;margin:0 0 16px;color:#454949}
-.concept-copy a{margin-top:auto;text-decoration:underline;text-underline-offset:3px;color:#263b36;font-weight:600}
-.concept-section{padding:60px 0}
-@media(max-width:850px){.concept-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:520px){.concept-grid{grid-template-columns:1fr}}
+.concept-hero h1{max-width:900px}
+.concept-section{scroll-margin-top:25px}
+.concept-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.concept-card{min-width:0;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+.concept-preview{padding:15px;background:#eaf0f6;border-bottom:1px solid var(--line);aspect-ratio:16/10;display:flex;align-items:stretch}
+.concept-preview>img{width:100%;height:100%;display:block;object-fit:contain;border-radius:7px;background:#fff}
+.concept-preview .work-project-noimage{min-height:0;padding:11px}
+.concept-preview .work-project-art{min-height:0}
+.concept-preview .work-project-browser-top{min-height:30px;padding:6px 10px}
+.concept-preview .work-project-art-body{padding:14px 16px;justify-content:center}
+.concept-preview .work-project-art-status{margin-bottom:10px;font-size:.64rem;padding:5px 9px}
+.concept-art-category{font:700 clamp(19px,2.2vw,27px)/1.15 'Montserrat',sans-serif;color:var(--work-art-ink);overflow-wrap:anywhere}
+.concept-preview .work-project-art-footer{padding:0 16px 13px}
+.concept-copy{padding:23px;display:flex;flex:1;flex-direction:column;align-items:flex-start}
+.concept-copy .eyebrow{font-size:.73rem;color:var(--blue);margin-bottom:8px}
+.concept-copy h3{color:var(--navy);font-size:1.25rem;margin:0 0 12px;overflow-wrap:anywhere}
+.concept-copy>p:not(.eyebrow){font-size:1rem;line-height:1.6;margin:0 0 22px}
+.concept-copy .btn{margin-top:auto;border-radius:999px;max-width:100%}
+.concept-cta h2{margin-bottom:14px}
+.concept-cta p{max-width:680px;margin:0 auto 26px}
+.concept-cta .btn{border-radius:999px}
+@media(max-width:900px){.concept-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:550px){.concept-grid{grid-template-columns:1fr;gap:20px}.concept-copy{padding:20px}.concept-copy .btn{width:100%}.concept-preview{aspect-ratio:16/9}.concept-section{padding:60px 0}.concept-cta{padding:55px 0}}
 </style>
