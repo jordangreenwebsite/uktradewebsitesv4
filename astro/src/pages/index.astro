@@ -57,7 +57,8 @@ import {trades} from '../data/trades';
     <div class="container">
       <div class="section-heading"><h2 id="examples-heading">Our Work</h2><p>See how a professional site can look for different businesses and services.</p></div>
       <div class="portfolio-grid">{portfolio.slice(0,3).map(item=><PortfolioCard {...item}/>)}</div>
-      <div class="text-center" style="margin-top:35px"><a href="/our-work/" class="btn btn-primary">View Our Work</a></div>
+      <div class="text-center" style="margin-top:35px;display:flex;flex-wrap:wrap;justify-content:center;gap:12px"><a href="/our-work/" class="btn btn-primary">View Our Work</a><a href="/our-work/concepts/" class="btn btn-outline">See our concept builds</a></div>
+      <div class="feature-panel" style="margin-top:28px"><p class="eyebrow">Full website concept</p><h3>Route 8 Barbers</h3><p>A premium multi-page design proposal with shop locations, barbering services and community pages. Not the official website.</p><a href="/our-work/" class="btn btn-outline">Explore our work</a></div>
     </div>
   </section>
   <RoofingCaseStudy id="featured-roofing-rebuild" compact={true}/>

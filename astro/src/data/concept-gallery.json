@@ -1,0 +1,107 @@
+[
+  {
+    "id": "design-37-1",
+    "title": "Garden & property maintenance",
+    "category": "Outdoor services",
+    "description": "Garden care, pressure washing and property upkeep.",
+    "colour": "#354b38"
+  },
+  {
+    "id": "design-27-2",
+    "title": "Electrical services",
+    "category": "Electrical",
+    "description": "Electrical installations, upgrades and callouts.",
+    "colour": "#233f59"
+  },
+  {
+    "id": "design-12-3",
+    "title": "Cleaning services",
+    "category": "Cleaning",
+    "description": "Carpet cleaning, end-of-tenancy cleaning and clearance.",
+    "colour": "#3e6570"
+  },
+  {
+    "id": "design-24-4",
+    "title": "Interior painting & decorating",
+    "category": "Interiors",
+    "description": "Decorative finishes, wallpaper and interior improvements.",
+    "colour": "#655042"
+  },
+  {
+    "id": "design-11-5",
+    "title": "Building & renovation",
+    "category": "Construction",
+    "description": "Extensions, kitchens and home refurbishments.",
+    "colour": "#454a4e"
+  },
+  {
+    "id": "design-21-6",
+    "title": "Window & exterior cleaning",
+    "category": "Cleaning",
+    "description": "Window cleaning, solar panels and exterior care.",
+    "colour": "#3e6570"
+  },
+  {
+    "id": "design-24-7",
+    "title": "Landscaping & home improvements",
+    "category": "Outdoor services",
+    "description": "Fencing, patios and property maintenance.",
+    "colour": "#354b38"
+  },
+  {
+    "id": "design-6-8",
+    "title": "Bespoke carpentry & landscaping",
+    "category": "Interiors",
+    "description": "Custom carpentry and garden projects.",
+    "colour": "#655042"
+  },
+  {
+    "id": "design-24-9",
+    "title": "Plumbing & heating",
+    "category": "Plumbing",
+    "description": "Boiler care, emergency plumbing and bathrooms.",
+    "colour": "#34556a"
+  },
+  {
+    "id": "design-20-10",
+    "title": "Chimney sweeping",
+    "category": "Home services",
+    "description": "Chimney, fireplace and flue care.",
+    "colour": "#594e44"
+  },
+  {
+    "id": "design-12-11",
+    "title": "Architectural timber & doors",
+    "category": "Interiors",
+    "description": "Timber doors and architectural oak beams.",
+    "colour": "#655042"
+  },
+  {
+    "id": "design-25-12",
+    "title": "Tree surgery & outdoor care",
+    "category": "Outdoor services",
+    "description": "Tree work, hedges and garden maintenance.",
+    "colour": "#354b38"
+  },
+  {
+    "id": "design-30-13",
+    "title": "Roofing services",
+    "category": "Construction",
+    "description": "New roofs, repairs and flat roofing.",
+    "colour": "#454a4e"
+  },
+  {
+    "id": "design-18-14",
+    "title": "Premium car detailing",
+    "category": "Automotive",
+    "description": "Vehicle detailing, interior care and paint enhancement.",
+    "colour": "#31363b"
+  },
+  {
+    "id": "design-20-15",
+    "title": "Domestic electrical services",
+    "category": "Electrical",
+    "description": "Rewiring, inspections, lighting and EV charging.",
+    "colour": "#233f59"
+  }
+]
