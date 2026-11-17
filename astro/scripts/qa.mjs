@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 const root=path.resolve(process.cwd(),'dist');
-const pages=['','about-us','contact-us','our-work','our-work/residential-roofing-and-fascias','our-process','pricing','privacy-policy','thank-you',
+const pages=['','about-us','contact-us','our-work','our-work/concepts','our-work/residential-roofing-and-fascias','our-process','pricing','privacy-policy','thank-you',
  'websites-for-plumbers','websites-for-electricians','websites-for-window-cleaners','websites-for-painters',
  'websites-for-floor-cleaners','websites-for-roofers','websites-for-builders','websites-for-landscapers',
  'websites-for-plasterers','websites-for-driveway-cleaners','websites-for-pressure-washers',
@@ -101,7 +101,10 @@ if(!privacyHtml.includes('<!--email_off-->')||!privacyHtml.includes('<!--/email_
 
 const ourWorkHtml=fs.readFileSync(path.join(root,'our-work','index.html'),'utf8');
 if(!ourWorkHtml.includes('role="tablist"'))errors.push('Our Work project tabs missing');
-if((ourWorkHtml.match(/<button\b[^>]*role="tab"/g)||[]).length!==23)errors.push('Our Work must contain 23 project tabs');
+if((ourWorkHtml.match(/<button\b[^>]*role="tab"/g)||[]).length!==24)errors.push('Our Work must contain 24 project tabs');
+if(!ourWorkHtml.includes('Route 8 Barbers')||!ourWorkHtml.includes('href="/our-work/concepts/"'))errors.push('Route 8 feature or concept gallery link missing');
+const galleryHtml=fs.readFileSync(path.join(root,'our-work','concepts','index.html'),'utf8');
+if(!galleryHtml.includes('Design concept')||!galleryHtml.includes('Ask to see this concept'))errors.push('Concept gallery content missing');
 for(const name of ['J Piper Cleaning Services','Residential Roofing &amp; Fascias','PP Power Detailing','Caring Companions Pet Care','Katie’s Flower Hut','Prunus Certificates','My Sweet Pea Flowers','Hush Bake']){
  if(!ourWorkHtml.includes(name))errors.push('Our Work project missing: '+name);
 }
