@@ -45,7 +45,7 @@ export const monthlyOnly = {
 export const seoHosting = {
   monthlySeo:195,
   standardHosting:39,
-  heading:'Sign up for ongoing SEO for £195 a month and get hosting for free.',
+  heading:'Get a full website of up to 15 pages, ongoing SEO and hosting for £195 a month.',
   financedNote:'Standard hosting is included while SEO is active. No-upfront builds still have a £26/month build payment for the first 12 months.'
 } as const;
 const media = '/wp-content/uploads/2026/';
