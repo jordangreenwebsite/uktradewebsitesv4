@@ -1,5 +1,5 @@
 ---
-import {packages, monthlyOnly, seoHosting} from '../data/site';
+import {site, packages, monthlyOnly, seoHosting} from '../data/site';
 interface Props {fullPage?:boolean;}
 const {fullPage=false}=Astro.props;
 ---
@@ -23,7 +23,7 @@ const {fullPage=false}=Astro.props;
         <p class="contract">12-month minimum term</p>
         <p class="price-description">{plan.description}</p>
         <ul class="tick-list">{plan.items.map(item=><li>{item}</li>)}</ul>
-        <a class="btn btn-primary" href={'/contact-us/#package='+encodeURIComponent(plan.name)}>Enquire about {plan.name}</a>
+        <a class="btn btn-primary" href={site.buyNowUrl+'&plan='+(plan.featured?'growth':'starter')}>Choose package</a>
       </article>
     )}
    <article class="price-card no-upfront-card">
@@ -36,7 +36,7 @@ const {fullPage=false}=Astro.props;
      <p class="contract">12-month minimum term</p>
      <p class="price-description">{monthlyOnly.description}</p>
      <ul class="tick-list">{monthlyOnly.items.map(item=><li>{item}</li>)}</ul>
-     <a class="btn btn-primary" href={'/contact-us/#package='+encodeURIComponent(monthlyOnly.name)}>Enquire about no-upfront</a>
+     <a class="btn btn-primary" href={site.buyNowUrl+'&plan=uk-financed'}>Choose package</a>
    </article>
    </div>
    <aside class="prunus-referral" aria-labelledby="prunus-referral-title">
@@ -61,7 +61,7 @@ const {fullPage=false}=Astro.props;
        <div class="prunus-referral-body">
          <div>
            <h3 id="prunus-referral-title">Need a bigger website?</h3>
-           <p>For bespoke websites outside our packages or advanced features, our wider agency Prunus Media can help you grow beyond a standard trade website.</p>
+           <p>For larger initial builds (typically 10 pages or more) or bespoke features, our wider agency Prunus Media can help. SEO-led growth on an existing UK Trade Websites plan does not change your agreed hosting rate.</p>
          </div>
          <a href="https://prunusmedia.com/" rel="noopener noreferrer" class="btn btn-primary">Visit Prunus Media <span class="text-arrow" aria-hidden="true">→</span></a>
        </div>
@@ -75,9 +75,9 @@ const {fullPage=false}=Astro.props;
          <span class="seo-hosting-now">Free hosting</span>
        </div>
        <h3 id="seo-hosting-title">{seoHosting.heading}</h3>
-       <p>No upfront build fee. Six-month minimum, then continue SEO at £195/month or switch to hosting at £39/month.</p><p class="seo-hosting-small">{seoHosting.financedNote}</p>
+       <p>No upfront build fee. Six-month minimum, then continue SEO at £195/month or switch to your agreed hosting rate (normally £39/month). Two researched blogs a week, five agreed target keywords researched and tracked, monthly website improvements and reports, and new service and location pages where appropriate. Additional keyword tracking available by arrangement.</p><p class="seo-hosting-small">{seoHosting.financedNote}</p>
      </div>
-     <a class="btn btn-accent" href="/contact-us/#package=Ongoing%20SEO%20with%20hosting">Ask about SEO <span class="text-arrow" aria-hidden="true">→</span></a>
+     <a class="btn btn-accent" href={site.buyNowUrl+'&plan=seo'}>Choose website + SEO</a>
    </aside>
    <p class="pricing-smallprint">Monthly hosting covers SSL and basic upkeep, not ongoing SEO, domain renewals, unlimited edits or paid tools. We confirm your project scope and any extras in writing.</p>
    {!fullPage&&<p class="text-center pricing-page-cta"><a class="btn btn-outline" href="/pricing/">Compare pricing, terms and FAQs</a></p>}

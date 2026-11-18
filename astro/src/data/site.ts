@@ -9,6 +9,7 @@ export const site = {
   formAction: 'https://formspree.io/f/xpqjvloy',
   // One shared login route for customers of UK Trade Websites and Prunus Media.
   // The Prunus portal's live email-code authentication still requires activation/verification.
+  buyNowUrl: 'https://prunusmedia.com/buy-now/?brand=uk-trades',
   clientLoginUrl: 'https://prunusmedia.com/client-login/',
   // Customer enquiry/contact hours, UK local time including daylight-saving changes.
   contactHours: {
@@ -45,7 +46,7 @@ export const monthlyOnly = {
 export const seoHosting = {
   monthlySeo:195,
   standardHosting:39,
-  heading:'Get a full website of up to 15 pages, ongoing SEO and hosting for £195 a month.',
+  heading:'Get your initial trade website of up to 9 pages, ongoing SEO and hosting for £195 a month.',
   financedNote:'Standard hosting is included while SEO is active. No-upfront builds still have a £26/month build payment for the first 12 months.'
 } as const;
 const media = '/wp-content/uploads/2026/';

@@ -27,7 +27,7 @@ const {path='/'}=Astro.props;
       </details>
     </nav>
     <a class="header-signin" href={site.clientLoginUrl} aria-label="Client sign in via Prunus Media">Sign In <span aria-hidden="true">→</span></a>
-    <a class="btn btn-accent header-cta" href={site.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
+    <a class="btn btn-accent header-cta" href={site.buyNowUrl}>Buy Now</a>
     <a class="btn home-mobile-wa" href={site.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
     <details class="mobile-menu">
       <summary aria-label="Open navigation"><span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span><span>Menu</span></summary>
@@ -50,6 +50,7 @@ const {path='/'}=Astro.props;
           </div>
         </details>
         <a class="mobile-client-signin" href={site.clientLoginUrl}>Sign In <span aria-hidden="true">→</span></a>
+        <a href={site.buyNowUrl}>Buy Now</a>
         <a class="mobile-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
       </nav>
     </details>
