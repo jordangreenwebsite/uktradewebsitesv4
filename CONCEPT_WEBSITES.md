@@ -24,14 +24,14 @@ Each concept must be independent and self-contained:
 
 ## Sales and brand standard
 
-For now these are **UK Trade Websites** trade-business concepts only. A future Prunus Media concept phase may use the same isolated area **after Jordan authorises it**, without modifying the Prunus production repository.
+Both authorised brands may use this isolated concept area. The registered prospect brand selects the appropriate default catalogue.
 
 Each concept:
 1. Is an outstanding, polished, mobile-first homepage based on the specific prospect and their real services. Use accurate UK English, one specific, useful SEO H1, fast-loading imagery, clear service value and visible contact/purchase calls to action.
 2. Has a top disclosure: **Prepared by UK Trades & Prunus Media** and **Website concept only — not the business's official website**.
 3. Uses authentic prospect-approved photos if available. Otherwise use licensed illustrative imagery and identify it as illustrative. Never invent jobs, reviews, awards, credentials or business contact details.
 4. Includes `<meta name="robots" content="noindex,nofollow,noarchive">` inside `<head>`. The site also provides scoped `X-Robots-Tag` headers for `/concept-websites/*`; do not remove either control. Do not put concept URLs in navigation, XML sitemaps, or public portfolio listings without Jordan's approval.
-5. Sends **every CTA/button** (buy, quote, contact, book, claim this site, call) toward purchasing the concept from UK Trade Websites, not the prospect's actual business. The default destination is the UK Trade Websites WhatsApp number with a *URL-encoded, prospect-specific* message explicitly asking to buy the concept: `https://wa.me/447789545807?text=<encoded message>`. If Jordan specifies a verified checkout or sales form later, use that instead. No fake purchase buttons or payment checkout.
+5. Every sales CTA, logo and prospect-facing menu link MUST target the personalised shared checkout: `https://prunusmedia.com/buy-now/?concept=<exact-folder-slug>`. Example: JSE uses `https://prunusmedia.com/buy-now/?concept=jse-window-cleaning`. Never use the UK Trades homepage, WhatsApp or the prospect's actual contact links as the sales destination, even if an old copied prompt says otherwise. Preserve genuine in-page controls, internal demo navigation when specifically requested and licence attribution links. The authorised maintainer registers each exact concept URL in the shared portal, verifies the personalised quote and enabled plans, and confirms deployment before sales outreach. Mikie can build/revise within her concept folder; she does not edit the portal or Stripe.
 6. Leaves existing published UK Trade Websites homepage, styles, menus, prices, forms, SEO and all other code untouched. No direct editing of the prospect's current live website.
 7. Is tested at narrow/mobile and desktop widths; check all images, links and buttons before sharing.
 8. Is committed/updated in its own concept subfolder, followed by verified deployment. Never claim a live link solely from a GitHub commit. Jordan receives a concise handover with prospect, source, link, CTA destination, assets/licences and any missing facts.

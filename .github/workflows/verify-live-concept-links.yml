@@ -12,14 +12,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Verify all 24 production concept routes and personalised purchase links
+      - name: Verify all current production concept routes and personalised purchase links
         shell: bash
         run: |
           python3 - <<'PY'
           import pathlib, urllib.request, urllib.error, re, time, sys
           root=pathlib.Path("astro/public")
           files=sorted((root/"concept-websites").glob("*/index.html"))+[root/"demos/jemoba/index.html"]
-          assert len(files)==24, f"Expected 24 concept pages, found {len(files)}"
+          assert files, "No concept pages found"
           failures=[]
           for f in files:
               slug=f.parent.name
@@ -28,6 +28,7 @@ jobs:
               expected="https://prunusmedia.com/buy-now/?concept="+slug
               local=f.read_text(encoding="utf-8")
               if expected not in local: failures.append(f"{route}: missing local personalised link")
+              if re.search(r"""<a\b[^>]*\bhref=["'](?:https://(?:www\.)?uktradewebsites\.co\.uk/?|https://wa\.me/447789545807[^"']*)["']""",local,re.I): failures.append(f"{route}: old sales destination remains")
               for attempt in range(3):
                   try:
                       req=urllib.request.Request(url,headers={"User-Agent":"Mozilla/5.0 (compatible; PrunusConceptProductionVerifier/1.0)"})
