@@ -82,7 +82,18 @@ async function concept(dir,slug){
   const images=[...html.matchAll(/<img\b[^>]*>/gi)].map(m=>({src:attr(m[0],'src'),alt:attr(m[0],'alt'),class:attr(m[0],'class'),hero:/fetchpriority\s*=\s*["']high/i.test(m[0])}));
   const logos=images.filter(x=>/\blogo\b|wordmark/i.test(x.alt+' '+x.class+' '+x.src.slice(0,120)));
   const logoSrc=logos[0]?.src||(slug==='clean-cymru'?images[0]?.src:'');
-  const logo=await prepare(logoSrc,dir,320,132,'contain',slug==='clean-cymru');
+  let logo=await prepare(logoSrc,dir,320,132,'contain',slug==='clean-cymru');
+  if(!logo){
+   // Many concept headers contain a locally redrawn SVG brand mark rather than an img.
+   const header=html.match(/<header\b[\s\S]*?<\/header>/i)?.[0]||'';
+   const brandAnchor=[...header.matchAll(/<a\b[^>]*>[\s\S]*?<\/a>/gi)].find(m=>/\b(?:brand|logo|wordmark)\b/i.test(attr(m[0].split('>')[0],'class')))?.[0]||'';
+   const inline=brandAnchor.match(/<svg\b[\s\S]*?<\/svg>/i)?.[0];
+   // Exclude external references, script and foreign objects. No user-supplied SVG
+   // may load another resource during rendering.
+   if(inline&&!/<(?:script|foreignObject|image|use|iframe|style)\b|(?:href|src)\s*=|\bon\w+\s*=|url\s*\(/i.test(inline)){
+    try{const safe=inline.includes('xmlns=')?inline:inline.replace('<svg','<svg xmlns="http://www.w3.org/2000/svg"');logo=await sharp(Buffer.from(safe),{limitInputPixels:8_000_000}).resize(320,132,{fit:'contain',background:'#ffffff'}).png().toBuffer()}catch{}
+   }
+  }
   const hero=images.filter(x=>x.src&&x.src!==logoSrc&&!/\blogo\b|wordmark/i.test(x.alt+' '+x.class)).sort((a,b)=>Number(b.hero)-Number(a.hero));
   // CSS hero backgrounds are often used on these static concepts.
   const cssPhotos=[...html.matchAll(/url\(\s*["']?(https:\/\/images\.(?:pexels|unsplash)\.com\/[^)"'\s]+)["']?\s*\)/gi)].map(m=>decode(m[1]));
@@ -90,7 +101,7 @@ async function concept(dir,slug){
   let photo=null;
   if(candidates.length)photo=await prepare(candidates[0],dir,496,428,'cover',stockUrl(candidates[0]));
   // Keep the card legible and distinct even when no stock host is reachable.
-  const accent=colour(html),business=lines(name,20).slice(0,4),brandFont=business.length>=4?42:business.length===3?50:59,brandStep=brandFont*1.14;
+  const accent=colour(html),business=lines(name,20).slice(0,4),brandFont=Math.min(business.length>=4?42:business.length===3?50:59,Math.floor(510/(Math.max(...business.map(x=>x.length))*0.73))),brandStep=brandFont*1.14;
   const yStart=logo?238:180;
   const heading=business.map((l,i)=>'<text x="64" y="'+(yStart+i*brandStep)+'" font-size="'+brandFont+'" font-family="DejaVu Sans,Arial,sans-serif" font-weight="700" fill="#17262b">'+esc(l)+'</text>').join('');
   const teaserY=Math.max(432,yStart+(business.length-1)*brandStep+73);
