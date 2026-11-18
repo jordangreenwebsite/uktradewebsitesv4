@@ -93,7 +93,7 @@ const redirects=fs.readFileSync(path.join(root,'_redirects'),'utf8');
 if(!redirects.includes('/plumbers/ /websites-for-plumbers/ 301'))errors.push('Short trade URL redirect missing');
 const indexHtml=fs.readFileSync(path.join(root,'index.html'),'utf8');
 if(/href="\/contact-us\/\?package=/.test(indexHtml))errors.push('Pricing creates query-parameter duplicate pages');
-if(!indexHtml.includes('/contact-us/#package='))errors.push('Clean pricing links missing');
+if(!indexHtml.includes('https://prunusmedia.com/buy-now/?brand=uk-trades'))errors.push('Shared checkout package links missing');
 if(!indexHtml.includes('<!--email_off-->')||!indexHtml.includes('<!--/email_off-->'))errors.push('Footer email needs Cloudflare email_off markers to prevent broken /cdn-cgi/l/email-protection link');
 if(!indexHtml.includes('mailto:uktradewebsites@gmail.com'))errors.push('Footer needs a working mailto link');
 const privacyHtml=fs.readFileSync(path.join(root,'privacy-policy','index.html'),'utf8');
