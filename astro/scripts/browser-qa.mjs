@@ -3,12 +3,14 @@ import {readdirSync} from 'node:fs';
 const articleRoutes=readdirSync('src/content/blog').filter(file=>file.endsWith('.md')).map(file=>'/blog/'+file.slice(0,-3)+'/');
 const expectedArticleCount=articleRoutes.length;
 import {chromium} from 'playwright';
+import {readdirSync} from 'node:fs';
+const blogSlugs=readdirSync(new URL('../src/content/blog/',import.meta.url)).filter(name=>name.endsWith('.md')).map(name=>name.slice(0,-3));
 const paths=['/','/about-us/','/contact-us/','/our-work/','/our-work/concepts/','/our-work/residential-roofing-and-fascias/','/our-process/',
  '/pricing/','/privacy-policy/','/thank-you/','/websites-for-plumbers/','/websites-for-electricians/',
  '/websites-for-window-cleaners/','/websites-for-painters/','/websites-for-floor-cleaners/',
  '/websites-for-roofers/','/websites-for-builders/','/websites-for-landscapers/',
  '/websites-for-plasterers/','/websites-for-driveway-cleaners/','/websites-for-pressure-washers/',
- '/blog/','/blog/what-should-a-trade-business-website-include/','/blog/service-pages-vs-area-pages-for-trades/','/blog/website-visitors-but-no-enquiries/'];
+ '/blog/',...blogSlugs.map(slug=>'/blog/'+slug+'/')];
 for(const route of articleRoutes){if(!paths.includes(route))paths.push(route);}
 const server=spawn('python3',['-m','http.server','4321','--bind','127.0.0.1','--directory','dist'],{stdio:'ignore'});
 let browser;
