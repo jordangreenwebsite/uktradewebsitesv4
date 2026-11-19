@@ -1,7 +1,4 @@
 import {spawn} from 'node:child_process';
-import {readdirSync} from 'node:fs';
-const articleRoutes=readdirSync('src/content/blog').filter(file=>file.endsWith('.md')).map(file=>'/blog/'+file.slice(0,-3)+'/');
-const expectedArticleCount=articleRoutes.length;
 import {chromium} from 'playwright';
 import {readdirSync} from 'node:fs';
 const blogSlugs=readdirSync(new URL('../src/content/blog/',import.meta.url)).filter(name=>name.endsWith('.md')).map(name=>name.slice(0,-3));
@@ -11,7 +8,6 @@ const paths=['/','/about-us/','/contact-us/','/our-work/','/our-work/concepts/',
  '/websites-for-roofers/','/websites-for-builders/','/websites-for-landscapers/',
  '/websites-for-plasterers/','/websites-for-driveway-cleaners/','/websites-for-pressure-washers/',
  '/blog/',...blogSlugs.map(slug=>'/blog/'+slug+'/')];
-for(const route of articleRoutes){if(!paths.includes(route))paths.push(route);}
 const server=spawn('python3',['-m','http.server','4321','--bind','127.0.0.1','--directory','dist'],{stdio:'ignore'});
 let browser;
 const errors=[];
@@ -171,7 +167,7 @@ try{
     }
     if(path.startsWith('/blog/')){
       if(path==='/blog/'){
-        if((await page.locator('.blog-card').count())!==expectedArticleCount)errors.push('Blog index must show all published articles');
+        if((await page.locator('.blog-card').count())!==blogSlugs.length)errors.push('Blog index must show all published articles');
         if(!facts.schemaTypes.includes('Blog'))errors.push('Blog landing missing Blog schema');
         const search=page.locator('#blog-search-input');
         if(!(await search.count()))errors.push('Blog search field missing');
@@ -185,7 +181,7 @@ try{
           if(!(await page.locator('[data-blog-empty]').isVisible()))
             errors.push('Blog search no-results state missing at '+width+'px');
           await page.locator('[data-blog-reset]').click();
-          if((await page.locator('.blog-card:visible').count())!==expectedArticleCount)
+          if((await page.locator('.blog-card:visible').count())!==blogSlugs.length)
             errors.push('Blog search reset should restore all articles at '+width+'px');
           if((await search.inputValue())!=='')
             errors.push('Blog search reset should clear the query at '+width+'px');
