@@ -7,6 +7,7 @@ const pages=['','about-us','contact-us','our-work','our-work/concepts','our-work
  'websites-for-plasterers','websites-for-driveway-cleaners','websites-for-pressure-washers',
  'blog','blog/what-should-a-trade-business-website-include','blog/service-pages-vs-area-pages-for-trades','blog/website-visitors-but-no-enquiries'];
 const errors=[];
+for(const file of fs.readdirSync(path.resolve(process.cwd(),'src/content/blog')).filter(file=>file.endsWith('.md'))){const route='blog/'+file.slice(0,-3);if(!pages.includes(route))pages.push(route);}
 const titles=new Map();
 const descriptions=new Map();
 const tradePages=pages.filter(page=>page.startsWith('websites-for-'));
@@ -126,7 +127,7 @@ const blogHtml=fs.readFileSync(path.join(root,'blog','index.html'),'utf8');
 if(!blogHtml.includes('"@type":"Blog"'))errors.push('Blog index missing Blog schema');
 if(!blogHtml.includes('data-blog-search')||!blogHtml.includes('data-blog-card')||!blogHtml.includes('data-blog-empty'))
  errors.push('Blog index must include searchable cards and no-results state');
-const blogSlugs=['what-should-a-trade-business-website-include','service-pages-vs-area-pages-for-trades','website-visitors-but-no-enquiries'];
+const blogSlugs=[...new Set([...fs.readdirSync(path.resolve(process.cwd(),'src/content/blog')).filter(file=>file.endsWith('.md')).map(file=>file.slice(0,-3)), ...['what-should-a-trade-business-website-include','service-pages-vs-area-pages-for-trades','website-visitors-but-no-enquiries']])];
 const blogNextLinks=new Map();
 
 for(const slug of blogSlugs){
