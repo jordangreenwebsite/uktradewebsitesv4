@@ -4,6 +4,8 @@ description: "Learn when separate trade service and location pages are genuinely
 summary: "Understand the difference between service pages and local area pages, and when each deserves a place on your website."
 category: "Local SEO"
 date: 2026-11-09
+image: "/wp-content/uploads/2026/03/Winter-Window-cleaning.jpg"
+imageAlt: "A window cleaner reaching upper-storey windows on a stone building in winter"
 ---
 
 When planning a tradesperson's website, a common question is whether to build a page for every service, every town, or both.

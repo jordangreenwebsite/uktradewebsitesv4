@@ -54,6 +54,7 @@ const searchText=(post:(typeof posts)[number])=>[
      </div>
      <div class="blog-card-grid" data-blog-grid>
        {posts.map(post=><article class="blog-card" data-blog-card data-search-text={searchText(post)}>
+         {post.data.image && <img class="blog-card-cover" src={post.data.image} alt={post.data.imageAlt||""} loading="lazy" decoding="async" width="1024" height="683" style="display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:6px;margin-bottom:14px" />}
          <div class="blog-card-meta"><span class="blog-card-category">{post.data.category}</span><time datetime={post.data.date.toISOString().slice(0,10)}>{displayDate(post.data.date)}</time></div>
          <h2>{post.data.title}</h2>
          <p>{post.data.summary}</p>

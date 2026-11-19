@@ -4,6 +4,8 @@ description: "A practical guide to the pages, photos, trust signals and contact 
 summary: "A straightforward checklist of what really matters on a website for a plumber, roofer, cleaner, builder or other UK trade."
 category: "Website planning"
 date: 2026-11-09
+image: "/wp-content/uploads/2026/03/charlesdeluvio-Lks7vei-eAg-unsplash-1024x683.jpg"
+imageAlt: "Two people discussing work with laptops at a table"
 ---
 
 If someone has been recommended your business, or has found you through a local search, your website should answer a few questions quickly: **What do you do? Do you cover my area? Can I trust you? How do I ask for a quote?**

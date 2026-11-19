@@ -4,6 +4,8 @@ description: "A practical troubleshooting guide for trades whose website gets vi
 summary: "Find out why visitors may leave without calling or requesting a quote, with practical checks you can make before paying for more traffic."
 category: "More enquiries"
 date: 2026-11-09
+image: "/wp-content/uploads/2026/03/timothy-muza-6VjPmyMj5KM-unsplash-1024x683.jpg"
+imageAlt: "A finger tapping a touchscreen device"
 ---
 
 More website traffic is not always the first thing a trade business needs. If people already visit your site but rarely get in touch, check whether they can quickly understand the service and take the next step.
