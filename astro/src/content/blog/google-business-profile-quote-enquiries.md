@@ -4,8 +4,8 @@ description: "Help local customers move from your Google Business Profile to a u
 summary: "Make it easier for local customers to go from finding your trade business on Google Maps to asking for a quote."
 category: "Local SEO"
 date: 2026-11-19
-image: "/wp-content/uploads/2026/03/maxim-ilyahov-0aRycsfH57A-unsplash-1024x683.jpg"
-imageAlt: "A person using a smartphone beside an open laptop"
+image: "/images/blog/workspace-website-planning.jpg"
+imageAlt: "Team working at laptops around a shared table"
 ---
 
 A customer who finds your business on Google Maps may be comparing tradespeople, checking opening hours or trying to establish whether you cover their postcode. Your Business Profile can help them decide whether to get in touch, but only if the next step is straightforward.
