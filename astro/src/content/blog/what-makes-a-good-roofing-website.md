@@ -4,8 +4,8 @@ description: "A practical checklist for UK roofers: service pages, real roofing 
 summary: "Make it easier for homeowners to see the roofing work you undertake, judge your experience and request a useful quote."
 category: "Trade website advice"
 date: 2026-11-23
-image: "/wp-content/uploads/2026/03/maxim-ilyahov-0aRycsfH57A-unsplash-1024x683.jpg"
-imageAlt: "A person using a smartphone next to an open laptop"
+image: "/images/blog/residential-red-tiled-roof.webp"
+imageAlt: "Red tiled pitched roof on a brick residential property with a chimney and clear blue sky"
 ---
 
 A roofing website does not need to be complicated, but it must answer the right questions. A visitor with water coming through a ceiling is looking for something different from somebody planning a roof replacement next year.
